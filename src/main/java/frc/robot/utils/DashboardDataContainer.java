@@ -1,5 +1,6 @@
 package frc.robot.utils;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.OverrideCommand;
 import frc.robot.commands.command_groups.AutoShoot;
@@ -24,7 +25,7 @@ public class DashboardDataContainer {
 
     public DashboardDataContainer() {
         //dashboardController = new DashboardController();
-
+        /*
         // Mixer dashboard data:
         putNumber("Mixer/Mixer power", 0);
         putData("Mixer/Spin mixer",
@@ -52,7 +53,16 @@ public class DashboardDataContainer {
         // Command groups data
         putData("CommandGroup/Auto Shoot", new AutoShoot());
         putData("CommandGroup/Collect Cell", new CollectCell());
-        putData("CommandGroup/Collect From Feeder", new CollectFromFeeder());
+        putData("CommandGroup/Collect From Feeder", new CollectFromFeeder()); */
+
+        //added for testing:
+        putNumber("Shooter/Shooting velocity setpoint", ShooterVelocity.kDefault.getVelocity());
+        putData("Shooter/Set cheesy shooting velocity", new CheesySetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
+        putData("Shooter/Set shooting velocity", new SetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
+        putData("Shooter/Enable tuning", new StartEndCommand(shooter::enableTuning, shooter::disableTuning));
+        putNumber("Shooter/Override Power", 0);
+        putData("Shooter/Override", new OverrideCommand(shooter,
+            () -> getNumber("Shooter/Override Power", 0)));
     }
 
     public void update() {

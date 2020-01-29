@@ -31,7 +31,7 @@ public class SensorCheck extends CommandBase {
     initialSensorPosition[0] = drivetrain.getLeftTicks();
     initialSensorPosition[1] = drivetrain.getRightTicks();
     initialSensorPosition[2] = shooter.getLeftTicks();
-    initialSensorPosition[3] = shooter.getRightTicks();
+    //initialSensorPosition[3] = shooter.getRightTicks();
     initialSensorPosition[4] = loader.getTicks();
   }
 
@@ -45,7 +45,7 @@ public class SensorCheck extends CommandBase {
       checkError(0, drivetrain.getLeftTicks(), "Left drivetrain encoder disconnect");
       checkError(1, drivetrain.getRightTicks(), "Right drivetrain encoder disconnect");
       checkError(2, shooter.getLeftTicks(), "Left shooter encoder disconnect");
-      checkError(3, shooter.getRightTicks(), "Right shooter encoder disconnect");
+      //checkError(3, shooter.getRightTicks(), "Right shooter encoder disconnect");
       checkError(4, loader.getTicks(), "Loader encoder disconnect");
     }
   }

@@ -121,18 +121,21 @@ public class CheesySetShooterVelocity extends CommandBase {
     }
 
     private void holdExecute() {
-        double leftFeedforward = setpoint * leftKfSamplesSum / kfSamplesAmount;
+        double leftFeedforward = setpoint * (leftKfSamplesSum / kfSamplesAmount);
         double rightFeedforward = setpoint * rightKfSamplesSum / kfSamplesAmount;
-        shooter.setPower(leftFeedforward, rightFeedforward);
+        shooter.turnOffPID();
+        shooter.setLeftKf(leftKfSamplesSum / kfSamplesAmount);
+        //shooter.setPower(leftFeedforward, rightFeedforward);
         // The shooter might heat up after extended use so we need to make sure to update kF if the shooter too much fast.
-        if (shooter.getAverageSpeed() > setpoint)
+        if (shooter.getAverageSpeed() < setpoint)
+            System.out.println("updating Kf");
             updateKf();
         // If in auto, check how many cells were shot.
         if (isAuto) {
-            boolean isCellBeingShot = shooter.isSwitchPressed();
+            //boolean isCellBeingShot = shooter.isSwitchPressed();
             //We might want to use current in order to count the amount of shot cells instead of using limit switches
             //boolean isCellBeingShot = Math.abs(setpoint - shooter.getAverageSpeed()) < robotConstants.shooterConstants.kShootingBallZone;
-            countShotCells(isCellBeingShot);
+            //countShotCells(isCellBeingShot);
         }
     }
 
@@ -151,7 +154,7 @@ public class CheesySetShooterVelocity extends CommandBase {
 
     private void updateKf() {
         leftKfSamplesSum += Shooter.estimateKf(shooter.getLeftSpeed(), shooter.getLeftVoltage());
-        rightKfSamplesSum += Shooter.estimateKf(shooter.getRightSpeed(), shooter.getRightVoltage());
+        //rightKfSamplesSum += Shooter.estimateKf(shooter.getRightSpeed(), shooter.getRightVoltage());
         kfSamplesAmount++;
     }
 

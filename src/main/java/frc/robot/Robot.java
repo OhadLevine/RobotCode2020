@@ -40,12 +40,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotInit() {
-
+        
         // Constants:
         robotConstants = new RobotA();
         fieldConstants = new HomeField();
 
-        // Subsystems:
+        /*// Subsystems:
         drivetrain = new Drivetrain();
         intake = new Intake();
         mixer = new Mixer();
@@ -58,14 +58,14 @@ public class Robot extends TimedRobot {
         dashboardDataContainer = new DashboardDataContainer();
         limelight = new Limelight();
         oi = new OI();
-
+        
         autoChooser = new SendableChooser<>();
         // autoChooser.setDefaultOption(name, object);
         // autoChooser.addOption(name, object);
 
         // We configure the logger here since it needs the container of all the
         // subsystems
-        Logger.configureLoggingNTOnly(this, "Logging");
+        Logger.configureLoggingNTOnly(this, "Logging"); */
 
         // set up command logging
         CommandScheduler.getInstance().onCommandInitialize(
@@ -74,6 +74,12 @@ public class Robot extends TimedRobot {
                 command -> DriverStationLogger.logToDS("Interrupting " + command.getName().toLowerCase()));
         CommandScheduler.getInstance()
                 .onCommandFinish(command -> DriverStationLogger.logToDS(command.getName() + " is finished"));
+
+        // added to test:
+        shooter = new Shooter();
+        dashboardDataContainer = new DashboardDataContainer();
+
+        Logger.configureLoggingNTOnly(this, "Logging");
 
         DriverStationLogger.logToDS("Robot initialization complete");
     }
