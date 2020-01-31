@@ -55,9 +55,9 @@ public class RobotA extends RobotConstants {
         shooterConstants.kShootingBallZone = 2000;
         shooterConstants.kWaitTimeZone = 0;
         shooterConstants.kIsLeftMotorInverted = false;
-        shooterConstants.kIsRightMotorInverted = false;
+        shooterConstants.kIsRightMotorInverted = true;
         shooterConstants.kIsLeftEncoderInverted = false;
-        shooterConstants.kIsRightEncoderInverted = false;
+        shooterConstants.kIsRightEncoderInverted = true;
         shooterConstants.kStopLoadingTolerance = 10;
         controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.083, 0.0000325, 1.95, 0.04696, 2);
         controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0, 0, 0, 0, 0);
@@ -115,8 +115,8 @@ public class RobotA extends RobotConstants {
         // Loader Map
         can.kLoaderTalonSRX = 15;
         // Shooter Map
-        can.kLeftShooterTalonFX = 9;
-        can.kRightShooterTalonFX = 10;
+        can.kLeftShooterTalonFX = 4;
+        can.kRightShooterTalonFX = 3;
         dio.kSwitchShooter = 0;
         // Climb Map
         can.kHookTalonSRX = 13;

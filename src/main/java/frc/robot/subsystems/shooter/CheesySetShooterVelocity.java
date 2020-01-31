@@ -123,12 +123,9 @@ public class CheesySetShooterVelocity extends CommandBase {
     private void holdExecute() {
         double leftFeedforward = setpoint * (leftKfSamplesSum / kfSamplesAmount);
         double rightFeedforward = setpoint * rightKfSamplesSum / kfSamplesAmount;
-        shooter.turnOffPID();
-        shooter.setLeftKf(leftKfSamplesSum / kfSamplesAmount);
-        //shooter.setPower(leftFeedforward, rightFeedforward);
+        shooter.setPower(leftFeedforward, rightFeedforward);
         // The shooter might heat up after extended use so we need to make sure to update kF if the shooter too much fast.
-        if (shooter.getAverageSpeed() < setpoint)
-            System.out.println("updating Kf");
+        if (shooter.getAverageSpeed() > setpoint)
             updateKf();
         // If in auto, check how many cells were shot.
         if (isAuto) {
@@ -154,7 +151,7 @@ public class CheesySetShooterVelocity extends CommandBase {
 
     private void updateKf() {
         leftKfSamplesSum += Shooter.estimateKf(shooter.getLeftSpeed(), shooter.getLeftVoltage());
-        //rightKfSamplesSum += Shooter.estimateKf(shooter.getRightSpeed(), shooter.getRightVoltage());
+        rightKfSamplesSum += Shooter.estimateKf(shooter.getRightSpeed(), shooter.getRightVoltage());
         kfSamplesAmount++;
     }
 
@@ -173,7 +170,7 @@ public class CheesySetShooterVelocity extends CommandBase {
      * @return whether the shooter is on target velocity.
      * Tolerance is taken from {@link frc.robot.constants.RobotConstants.ControlConstants#leftShooterSettings}
      */
-    public boolean isOnTarget() {
+    public boolean isOnTarget() { // TODO: isOnTarget with ready to shoot - samples 
         return Math.abs(getError()) <
             robotConstants.controlConstants.leftShooterSettings.getTolerance();
     }
@@ -183,5 +180,4 @@ public class CheesySetShooterVelocity extends CommandBase {
             return 0;
         return shooter.getAverageSpeed() - setpoint;
     }
-
 }
