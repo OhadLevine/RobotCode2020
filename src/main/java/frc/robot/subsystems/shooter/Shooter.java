@@ -1,6 +1,5 @@
 package frc.robot.subsystems.shooter;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -46,7 +45,7 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         DriverStationLogger.logErrorToDS(rightTalonFX.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, 0),
         "Could not set right shooter encoder");
 
-        configPIDGains();
+        configPIDFGains();
         //microSwitch = new DigitalInput(robotConstants.dio.kSwitchShooter);
         resetEncoders();
         overridden = false;
@@ -63,16 +62,6 @@ public class Shooter extends OverridableSubsystem implements Loggable {
             leftTalonFX.set(leftPower);
             rightTalonFX.set(rightPower);
         }
-    }
-
-    public void setLeftKf(double kF) {
-        leftTalonFX.config_kF(0, kF);
-    }
-
-    public void turnOffPID() {
-        leftTalonFX.config_kP(0, 0);
-        leftTalonFX.config_kI(0, 0);
-        leftTalonFX.config_kD(0, 0);
     }
 
     public void setDefaultVelocity() {
@@ -143,27 +132,49 @@ public class Shooter extends OverridableSubsystem implements Loggable {
     /**
      * @return the speed of the left shooter in RPM.
      */
-    @Log(name = "Shooter/Left Speed")
-    public double getLeftSpeed() {
+    @Log(name = "Shooter/Left Velocity")
+    public double getLeftVelocity() {
         return leftTalonFX.getSelectedSensorVelocity() * 600.0
             / robotConstants.shooterConstants.kLeftUnitsPerRotation;
     }
 
     /**
-     * @return the speed of the right shooter in RPM.
+     * @return the velocity of the right shooter in RPM.
      */
-    @Log(name = "Shooter/Right Speed")
-    public double getRightSpeed() {
+    @Log(name = "Shooter/Right Velocity")
+    public double getRightVelocity() {
         return rightTalonFX.getSelectedSensorVelocity() * 600.0
             / robotConstants.shooterConstants.kRightUnitsPerRotation;
     }
 
     /**
-     * @return the speed of the shooter in RPM.
+     * @return the velocity of the shooter in RPM.
      */
-    @Log(name = "Shooter/Average Speed")
-    public double getAverageSpeed() {
-        return (getLeftSpeed() + getRightSpeed()) / 2;
+    @Log(name = "Shooter/Average Velocity")
+    public double getAverageVelocity() {
+        return (getLeftVelocity() + getRightVelocity()) / 2;
+    }
+
+    /**
+     * This calculation was taken from team 254 2017 robot code.
+     * 
+     * @return kf of the left talonFX shooter estimated by it's current rpm and voltage 
+     */
+    public double estimateLeftKf() {
+        final double speed_in_ticks_per_100ms = robotConstants.shooterConstants.kLeftUnitsPerRotation / 600.0 * getLeftVelocity();
+        final double output = 1023.0 / 12.0 * getLeftVoltage();
+        return output / speed_in_ticks_per_100ms;
+    }
+
+    /**
+     * This calculation was taken from team 254 2017 robot code.
+     * 
+     * @return kf of the right talonFX shooter estimated by it's current rpm and voltage
+     */
+    public double estimateRightKf() {
+        final double speed_in_ticks_per_100ms = robotConstants.shooterConstants.kRightUnitsPerRotation / 600.0 * getRightVelocity();
+        final double output = 1023.0 / 12.0 * getRightVoltage();
+        return output / speed_in_ticks_per_100ms;
     }
 
     public void resetEncoders() {
@@ -171,12 +182,7 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         rightTalonFX.setSelectedSensorPosition(0);
     }
 
-    @Override
-    public void periodic() {
-        if (isTuning) configPIDGains();
-    }
-
-    private void configPIDGains() {
+    public void configPIDFGains() {
         leftTalonFX.config_kP(0, robotConstants.controlConstants.leftShooterSettings.getKP());
         leftTalonFX.config_kI(0, robotConstants.controlConstants.leftShooterSettings.getKI());
         leftTalonFX.config_kD(0, robotConstants.controlConstants.leftShooterSettings.getKD());
@@ -188,16 +194,32 @@ public class Shooter extends OverridableSubsystem implements Loggable {
     }
 
     /**
-     * This calculation was taken from team 254 2017 robot code.
-     *
-     * @param rpm     current velocity in rotations per minute
-     * @param voltage the current voltage
-     * @return kf estimated by to be used with talonFX
+     * set the feedforward Gains of the shooter
+     * 
+     * @param leftKf left feedforward gain
+     * @param rightKf right feedforward gain
      */
-    public static double estimateKf(double rpm, double voltage) { //TODO: set magic nums to constants 
-        final double speed_in_ticks_per_100ms = 2048.0 / 600.0 * rpm;
-        final double output = 1023.0 / 12.0 * voltage; // TODO: change calculation
-        return output / speed_in_ticks_per_100ms;
+    public void configFeedforwardGains(double leftKf, double rightKf) {
+        leftTalonFX.config_kF(0, leftKf);
+        rightTalonFX.config_kF(0, rightKf);
+    }
+
+    /** set PID gains of the two sides of the shooter to zero.
+     * This method is used for open loop control,
+     * when we want only kF to affect the shooter velocity. 
+     */
+    public void zeroPIDGains() {
+        leftTalonFX.config_kP(0, 0);
+        leftTalonFX.config_kI(0, 0);
+        leftTalonFX.config_kD(0, 0);
+        rightTalonFX.config_kP(0, 0);
+        rightTalonFX.config_kI(0, 0);
+        rightTalonFX.config_kD(0, 0);
+    }
+
+    @Override
+    public void periodic() {
+        if (isTuning) configPIDFGains();
     }
 
     /**

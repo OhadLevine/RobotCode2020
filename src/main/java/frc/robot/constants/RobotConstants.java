@@ -71,6 +71,7 @@ public abstract class RobotConstants extends RobotMap {
         public double kShootingBallZone;
         public double kWaitTimeZone;
         public double kStopLoadingTolerance;
+        public double kVelocityTolerance;
         public boolean kIsLeftMotorInverted;
         public boolean kIsRightMotorInverted;
         public boolean kIsLeftEncoderInverted;

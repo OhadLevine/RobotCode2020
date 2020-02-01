@@ -1,7 +1,6 @@
 package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import java.util.function.DoubleSupplier;
 
@@ -138,6 +137,6 @@ public class SetShooterVelocity extends CommandBase {
     public double getError() {
         if(shooter.isOverridden())
             return 0;
-        return shooter.getAverageSpeed() - setpoint;
+        return shooter.getAverageVelocity() - setpoint;
     }
 }

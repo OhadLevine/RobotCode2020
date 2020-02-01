@@ -2,11 +2,12 @@ package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import io.github.oblarg.oblog.annotations.Log;
+
 import java.util.function.DoubleSupplier;
 
 import static frc.robot.Robot.robotConstants;
 import static frc.robot.Robot.shooter;
-
 
 /**
  * This command spins the wheel in the desired velocity in order to shoot the power cells.
@@ -16,6 +17,7 @@ public class CheesySetShooterVelocity extends CommandBase {
     private static final int kLoadedCellsInAuto = 3;
     private static final int kMinimumKfSamples = 20;
     private DoubleSupplier velocitySetpoint;
+    private CheesyShooterState currentShooterState;
     private boolean isAuto;
     private double setpoint;
     private double kfSamplesAmount;
@@ -88,6 +90,7 @@ public class CheesySetShooterVelocity extends CommandBase {
     @Override
     public void initialize() {
         setpoint = velocitySetpoint.getAsDouble();
+        currentShooterState = CheesyShooterState.SpinUp;
         kfSamplesAmount = 0;
         leftKfSamplesSum = 0;
         rightKfSamplesSum = 0;
@@ -99,18 +102,19 @@ public class CheesySetShooterVelocity extends CommandBase {
 
     @Override
     public void execute() {
-        if (kfSamplesAmount < kMinimumKfSamples)
-            // reach target velocity in closed loop and calculate kF
+        if (currentShooterState == CheesyShooterState.SpinUp)
+            // reach target velocity in close loop control and calculate kF
             spinUpExecute();
+        else if(currentShooterState == CheesyShooterState.HoldWhenReady)
+            // set avarage calculated kF to both shooter sides and set kP, kI and kD values to 0; 
+            setShooterToHoldMode();
         else
-            // switch to open loop with calculated kF
+            // switch to open loop with calculated kF    
             holdExecute();
     }
 
     private void spinUpExecute() {
-        shooter.setVelocity(setpoint);
-        // very important - we use left shooter settings tolerance
-        if (isOnTarget())
+        if (Math.abs(getError()) < robotConstants.shooterConstants.kVelocityTolerance)
             updateKf();
         else {
             // reset kF since we are to far
@@ -118,15 +122,25 @@ public class CheesySetShooterVelocity extends CommandBase {
             leftKfSamplesSum = 0;
             rightKfSamplesSum = 0;
         }
+        if (kMinimumKfSamples <= kfSamplesAmount) {
+            currentShooterState = CheesyShooterState.HoldWhenReady;
+        }
+    }
+
+    private void setShooterToHoldMode() {
+        // set PID gains of the two sides of the shooter to zero  
+        shooter.zeroPIDGains();
+        // set feedforward gains of the two sides of the shooter to the calculated gains from SpinUp mode 
+        shooter.configFeedforwardGains(leftKfSamplesSum / kfSamplesAmount, rightKfSamplesSum / kfSamplesAmount);
+        currentShooterState = CheesyShooterState.Hold;
     }
 
     private void holdExecute() {
-        double leftFeedforward = setpoint * (leftKfSamplesSum / kfSamplesAmount);
-        double rightFeedforward = setpoint * rightKfSamplesSum / kfSamplesAmount;
-        shooter.setPower(leftFeedforward, rightFeedforward);
         // The shooter might heat up after extended use so we need to make sure to update kF if the shooter too much fast.
-        if (shooter.getAverageSpeed() > setpoint)
+        if (shooter.getAverageVelocity() > setpoint) {
             updateKf();
+            shooter.configFeedforwardGains(leftKfSamplesSum / kfSamplesAmount, rightKfSamplesSum / kfSamplesAmount);
+        }
         // If in auto, check how many cells were shot.
         if (isAuto) {
             //boolean isCellBeingShot = shooter.isSwitchPressed();
@@ -150,8 +164,8 @@ public class CheesySetShooterVelocity extends CommandBase {
     }
 
     private void updateKf() {
-        leftKfSamplesSum += Shooter.estimateKf(shooter.getLeftSpeed(), shooter.getLeftVoltage());
-        rightKfSamplesSum += Shooter.estimateKf(shooter.getRightSpeed(), shooter.getRightVoltage());
+        leftKfSamplesSum += shooter.estimateLeftKf();
+        rightKfSamplesSum += shooter.estimateRightKf();
         kfSamplesAmount++;
     }
 
@@ -164,20 +178,35 @@ public class CheesySetShooterVelocity extends CommandBase {
     public void end(boolean interrupted) {
         if (!interrupted)
             shooter.stopMove();
+        shooter.configPIDFGains();
     }
 
     /**
-     * @return whether the shooter is on target velocity.
-     * Tolerance is taken from {@link frc.robot.constants.RobotConstants.ControlConstants#leftShooterSettings}
+     * @return whether the shooter is ready to shoot cells.
+     * Shooter must be in Hold mode (open loop shooting contorl) and on target velocity.
+     * The velocity tolerance is taken from {@link frc.robot.constants.RobotConstants.ShooterConstants#kVelocityTolerance}
      */
-    public boolean isOnTarget() { // TODO: isOnTarget with ready to shoot - samples 
+    public boolean readyToShoot() { 
         return Math.abs(getError()) <
-            robotConstants.controlConstants.leftShooterSettings.getTolerance();
+            robotConstants.controlConstants.leftShooterSettings.getTolerance() 
+            && currentShooterState == CheesyShooterState.Hold;
     }
 
     public double getError() {
         if (shooter.isOverridden())
             return 0;
-        return shooter.getAverageSpeed() - setpoint;
+        return shooter.getAverageVelocity() - setpoint;
+    }
+
+    @Log (name = "Shooter/Current Cheesy Shooter State")
+    private String logCurrentShooterState() {
+        return currentShooterState.toString();
+    }
+
+    private enum CheesyShooterState {
+        SpinUp, // PIDF to desired RPM
+        HoldWhenReady, // calculate average kF
+        Hold, // switch to pure kF control
     }
 }
+
