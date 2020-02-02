@@ -1,9 +1,8 @@
 package frc.robot.subsystems.shooter;
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import io.github.oblarg.oblog.annotations.Log;
-
 import java.util.function.DoubleSupplier;
 
 import static frc.robot.Robot.robotConstants;
@@ -102,12 +101,13 @@ public class CheesySetShooterVelocity extends CommandBase {
 
     @Override
     public void execute() {
+        SmartDashboard.putString("Shooter/Current Cheesy shooter state", currentShooterState.toString());
         if (currentShooterState == CheesyShooterState.SpinUp)
             // reach target velocity in close loop control and calculate kF
             spinUpExecute();
         else if(currentShooterState == CheesyShooterState.HoldWhenReady)
             // set avarage calculated kF to both shooter sides and set kP, kI and kD values to 0; 
-            setShooterToHoldMode();
+            prepareShooterToHoldState();
         else
             // switch to open loop with calculated kF    
             holdExecute();
@@ -122,15 +122,14 @@ public class CheesySetShooterVelocity extends CommandBase {
             leftKfSamplesSum = 0;
             rightKfSamplesSum = 0;
         }
-        if (kMinimumKfSamples <= kfSamplesAmount) {
+        if (kMinimumKfSamples <= kfSamplesAmount) 
             currentShooterState = CheesyShooterState.HoldWhenReady;
-        }
     }
 
-    private void setShooterToHoldMode() {
+    private void prepareShooterToHoldState() {
         // set PID gains of the two sides of the shooter to zero  
         shooter.zeroPIDGains();
-        // set feedforward gains of the two sides of the shooter to the calculated gains from SpinUp mode 
+        // set feedforward gains of the two sides of the shooter to the calculated gains from SpinUp state 
         shooter.configFeedforwardGains(leftKfSamplesSum / kfSamplesAmount, rightKfSamplesSum / kfSamplesAmount);
         currentShooterState = CheesyShooterState.Hold;
     }
@@ -179,11 +178,12 @@ public class CheesySetShooterVelocity extends CommandBase {
         if (!interrupted)
             shooter.stopMove();
         shooter.configPIDFGains();
+        SmartDashboard.putString("Shooter/Current Cheesy shooter state", "No state"); 
     }
 
     /**
      * @return whether the shooter is ready to shoot cells.
-     * Shooter must be in Hold mode (open loop shooting contorl) and on target velocity.
+     * Shooter must be in Hold state (open loop shooting contorl) and on target velocity.
      * The velocity tolerance is taken from {@link frc.robot.constants.RobotConstants.ShooterConstants#kVelocityTolerance}
      */
     public boolean readyToShoot() { 
@@ -198,15 +198,9 @@ public class CheesySetShooterVelocity extends CommandBase {
         return shooter.getAverageVelocity() - setpoint;
     }
 
-    @Log (name = "Shooter/Current Cheesy Shooter State")
-    private String logCurrentShooterState() {
-        return currentShooterState.toString();
-    }
-
     private enum CheesyShooterState {
         SpinUp, // PIDF to desired RPM
         HoldWhenReady, // calculate average kF
         Hold, // switch to pure kF control
     }
 }
-

@@ -103,7 +103,7 @@ public class Robot extends TimedRobot {
         DriverStationLogger.logToDS("Autonomous starting");
         //led.stopEmergencyLED();
 
-        autoCommand = autoChooser.getSelected();
+        //autoCommand = autoChooser.getSelected();
         if (autoCommand != null) {
             autoCommand.schedule();
         }
