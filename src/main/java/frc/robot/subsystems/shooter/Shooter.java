@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Units;
 import frc.robot.subsystems.OverridableSubsystem;
@@ -20,8 +19,8 @@ import static frc.robot.Robot.robotConstants;
 public class Shooter extends OverridableSubsystem implements Loggable {
     private WPI_TalonFX leftTalonFX;
     private WPI_TalonFX rightTalonFX;
-    private DigitalInput microSwitch;
     private boolean isTuning;
+    //private DigitalInput microSwitch;
 
     public Shooter() {
         //setting up the talon fx
@@ -46,9 +45,8 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         "Could not set right shooter encoder");
 
         configPIDFGains();
-        //microSwitch = new DigitalInput(robotConstants.dio.kSwitchShooter);
         resetEncoders();
-        overridden = false;
+        //microSwitch = new DigitalInput(robotConstants.dio.kSwitchShooter);
     }
 
     @Override
@@ -62,10 +60,6 @@ public class Shooter extends OverridableSubsystem implements Loggable {
             leftTalonFX.set(leftPower);
             rightTalonFX.set(rightPower);
         }
-    }
-
-    public void setDefaultVelocity() {
-        setVelocity(ShooterVelocity.kDefault.getVelocity());
     }
 
     /**
@@ -93,19 +87,6 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         rightTalonFX.set(TalonFXControlMode.Velocity, rightVelocityInTalonUnits);
     }
 
-    public double getLeftVoltage() {
-        return leftTalonFX.getMotorOutputVoltage();
-    }
-
-    public double getRightVoltage() {
-        return rightTalonFX.getMotorOutputVoltage();
-    }
-
-    // @Log(name = "Shooter/Is Switch Pressed")
-    // public boolean isSwitchPressed() {
-    //     return microSwitch.get();
-    // }
-
     public void enableTuning() {
         DriverStationLogger.logToDS("Shooter tuning enabled");
         isTuning = true;
@@ -117,16 +98,6 @@ public class Shooter extends OverridableSubsystem implements Loggable {
 
     public void disableTuning() {
         isTuning = false;
-    }
-
-    @Log(name = "Shooter/Left Ticks")
-    public int getLeftTicks() {
-        return leftTalonFX.getSelectedSensorPosition();
-    }
-
-    @Log(name = "Shooter/Right Ticks")
-    public int getRightTicks() {
-        return rightTalonFX.getSelectedSensorPosition();
     }
 
     /**
@@ -161,9 +132,8 @@ public class Shooter extends OverridableSubsystem implements Loggable {
      * @return kf of the left talonFX shooter estimated by it's current rpm and voltage 
      */
     public double estimateLeftKf() {
-        final double speed_in_ticks_per_100ms = robotConstants.shooterConstants.kLeftUnitsPerRotation / 600.0 * getLeftVelocity();
-        final double output = 1023.0 / 12.0 * getLeftVoltage();
-        return output / speed_in_ticks_per_100ms;
+        final double output = 1023.0 * leftTalonFX.getMotorOutputPercent();
+        return output / leftTalonFX.getSelectedSensorVelocity();
     }
 
     /**
@@ -172,9 +142,8 @@ public class Shooter extends OverridableSubsystem implements Loggable {
      * @return kf of the right talonFX shooter estimated by it's current rpm and voltage
      */
     public double estimateRightKf() {
-        final double speed_in_ticks_per_100ms = robotConstants.shooterConstants.kRightUnitsPerRotation / 600.0 * getRightVelocity();
-        final double output = 1023.0 / 12.0 * getRightVoltage();
-        return output / speed_in_ticks_per_100ms;
+        final double output = 1023.0 * rightTalonFX.getMotorOutputPercent();
+        return output / rightTalonFX.getSelectedSensorVelocity();
     }
 
     public void resetEncoders() {
@@ -216,6 +185,11 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         rightTalonFX.config_kI(0, 0);
         rightTalonFX.config_kD(0, 0);
     }
+
+    /* @Log(name = "Shooter/Is Switch Pressed")
+    public boolean isSwitchPressed() {
+        return microSwitch.get();
+    } */
 
     @Override
     public void periodic() {

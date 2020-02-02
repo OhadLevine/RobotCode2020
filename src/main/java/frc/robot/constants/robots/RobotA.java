@@ -48,7 +48,7 @@ public class RobotA extends RobotConstants {
         climbConstants.kClimbCurrentLimit = 0;
 
         // Shooter Constants
-        shooterConstants.kRampTime = 0.25;
+        shooterConstants.kRampTime = 0.5;
         shooterConstants.kWheelRadius = 1;
         shooterConstants.kLeftUnitsPerRotation = 2048;
         shooterConstants.kRightUnitsPerRotation = 2048;
@@ -57,11 +57,11 @@ public class RobotA extends RobotConstants {
         shooterConstants.kIsLeftMotorInverted = false;
         shooterConstants.kIsRightMotorInverted = true;
         shooterConstants.kIsLeftEncoderInverted = false;
-        shooterConstants.kIsRightEncoderInverted = true;
+        shooterConstants.kIsRightEncoderInverted = false;
         shooterConstants.kStopLoadingTolerance = 10;
-        shooterConstants.kVelocityTolerance = 2;
-        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.083, 0.0000325, 1.95, 0.04696, 2);
-        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0, 0, 0, 0, 0);
+        shooterConstants.kVelocityTolerance = 100;
+        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.086, 0.000000001, 2.5, 0.05416, 2);
+        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.1, 0.00000075, 2.6, 0.05020, 2);
 
         // Loader Constants
         loaderConstants.kRampRate = 0;
