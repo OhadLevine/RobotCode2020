@@ -121,7 +121,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
 
     // Gyro functions
     @Log(name = "Drivetrain/Angle")
-    double getAngle() {
+    public double getAngle() {
         return Math.IEEEremainder(gyro.getAngle(), 360);
     }
 
@@ -144,7 +144,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
         return leftEncoder.getSelectedSensorPosition();
     }
 
-    @Log(name = "Drivetrain/Left Ticks")
+    @Log(name = "Drivetrain/Right Ticks")
     public int getRightTicks() {
         return rightEncoder.getSelectedSensorPosition();
     }

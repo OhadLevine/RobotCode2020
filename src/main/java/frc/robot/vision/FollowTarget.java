@@ -25,7 +25,7 @@ public class FollowTarget extends CommandBase {
         addRequirements(Robot.drivetrain);
         this.target = target;
         distancePIDController = new TrigonPIDController(robotConstants.controlConstants.visionDistanceSettings,
-            target.getDistance());
+                target.getDistance());
         rotationPIDController = new TrigonPIDController(robotConstants.controlConstants.visionRotationSettings, 0);
     }
 
@@ -37,8 +37,8 @@ public class FollowTarget extends CommandBase {
     public FollowTarget(Target target, String dashboardKey) {
         addRequirements(Robot.drivetrain);
         this.target = target;
-        distancePIDController = new TrigonPIDController(dashboardKey, target.getDistance());
-        rotationPIDController = new TrigonPIDController(dashboardKey, 0);
+        distancePIDController = new TrigonPIDController(dashboardKey + " - distance", target.getDistance());
+        rotationPIDController = new TrigonPIDController(dashboardKey + " - rotation", 0);
     }
 
     @Override
@@ -64,8 +64,9 @@ public class FollowTarget extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return ((Timer.getFPGATimestamp() - lastTimeSeenTarget) > robotConstants.visionConstants.kTargetNotFoundWaitTime)
-            || (rotationPIDController.atSetpoint() && distancePIDController.atSetpoint());
+        return ((Timer.getFPGATimestamp()
+                - lastTimeSeenTarget) > robotConstants.visionConstants.kTargetNotFoundWaitTime)
+                || (rotationPIDController.atSetpoint() && distancePIDController.atSetpoint());
     }
 
     @Override

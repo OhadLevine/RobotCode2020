@@ -25,8 +25,8 @@ public class Robot extends TimedRobot {
     private Command autoCommand;
     private SendableChooser<Command> autoChooser;
     private DashboardDataContainer dashboardDataContainer;
-    private OI oi;
 
+    public static OI oi;
     public static Drivetrain drivetrain;
     public static Intake intake;
     public static Mixer mixer;
@@ -47,12 +47,12 @@ public class Robot extends TimedRobot {
 
         // Subsystems:
         drivetrain = new Drivetrain();
-        intake = new Intake();
+      /*  intake = new Intake();
         mixer = new Mixer();
         loader = new Loader();
         shooter = new Shooter();
         climb = new Climb();
-        led = new LED();
+        led = new LED(); */
 
         // Utils:
         limelight = new Limelight();
