@@ -100,6 +100,14 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         isTuning = false;
     }
 
+    public int getLeftTicks() {
+        return leftTalonFX.getSelectedSensorPosition();
+    }
+
+    public int getRightTicks() {
+        return rightTalonFX.getSelectedSensorPosition();
+    }
+
     /**
      * @return the speed of the left shooter in RPM.
      */
