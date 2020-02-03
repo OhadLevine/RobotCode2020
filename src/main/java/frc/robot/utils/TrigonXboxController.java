@@ -100,10 +100,15 @@ public class TrigonXboxController extends XboxController {
         return getTriggerAxis(Hand.kRight) - getTriggerAxis(Hand.kLeft);
     }
 
+    @Override
+    public double getY(Hand hand) {
+        return -super.getY(hand);
+    }
+
     /**
      * Set the rumble output for the HID. this method affects both motors.
      *
-     * @param value The normalized value (0 to 1) to set the rumble to
+     * @param power The normalized value (0 to 1) to set the rumble to
      */
     public void setRumble(double power) {
         setRumble(RumbleType.kLeftRumble, power);

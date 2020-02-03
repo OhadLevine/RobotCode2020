@@ -3,7 +3,7 @@ package frc.robot.vision;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.utils.Logger;
-import java.util.function.Supplier;
+import java.util.function.BooleanSupplier;
 
 import static frc.robot.Robot.drivetrain;
 
@@ -12,7 +12,7 @@ public class CalibrateVisionDistance extends CommandBase {
     private static final int kDefaultAmountOfLogs = 12;
     private double currentDistance = 0;
     private boolean isPressed;
-    private Supplier<Boolean> logButton;
+    private BooleanSupplier logButton;
     private double deltaDistance;
     private int amountOfLogs;
     private Logger logger;
@@ -20,15 +20,14 @@ public class CalibrateVisionDistance extends CommandBase {
     /**
      * @param logButton whenever the supplier toggles to true - log the values.
      */
-    public CalibrateVisionDistance(Supplier<Boolean> logButton) {
+    public CalibrateVisionDistance(BooleanSupplier logButton) {
         this(logButton, kDefaultDeltaDistance);
     }
-
     /**
      * @param logButton     whenever the supplier toggles to true - log the values.
      * @param deltaDistance the distance between each log.
      */
-    public CalibrateVisionDistance(Supplier<Boolean> logButton, double deltaDistance) {
+    public CalibrateVisionDistance(BooleanSupplier logButton, double deltaDistance) {
         this(logButton, deltaDistance, kDefaultAmountOfLogs);
     }
 
@@ -37,7 +36,7 @@ public class CalibrateVisionDistance extends CommandBase {
      * @param deltaDistance the distance between each log.
      * @param amountOfLogs  how much times the command will log the data before it ends.
      */
-    public CalibrateVisionDistance(Supplier<Boolean> logButton, double deltaDistance, int amountOfLogs) {
+    public CalibrateVisionDistance(BooleanSupplier logButton, double deltaDistance, int amountOfLogs) {
         addRequirements(drivetrain);
         this.logButton = logButton;
         this.deltaDistance = deltaDistance;
@@ -46,7 +45,7 @@ public class CalibrateVisionDistance extends CommandBase {
 
     @Override
     public void initialize() {
-        logger = new Logger("distance calibration.csv", "height", "distance", "measured distance");
+        logger = new Logger("distance calibration.csv", "height", "distance");
         drivetrain.resetEncoders();
         isPressed = false;
     }
@@ -54,10 +53,10 @@ public class CalibrateVisionDistance extends CommandBase {
 
     @Override
     public void execute() {
-        if (logButton.get()) {
+        if (logButton.getAsBoolean()) {
             if (!isPressed) {
                 isPressed = true;
-                logger.log(Robot.limelight.getTy(), currentDistance, drivetrain.getAverageDistance());
+                logger.log(Robot.limelight.getTy(), currentDistance);
                 currentDistance += deltaDistance;
             }
         } else

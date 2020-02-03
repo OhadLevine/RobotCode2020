@@ -2,24 +2,21 @@ package frc.robot.subsystems.drivetrain;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.components.Pigeon;
 import frc.robot.subsystems.MovableSubsystem;
 import io.github.oblarg.oblog.Loggable;
-import io.github.oblarg.oblog.annotations.Log;
-import frc.robot.utils.DriverStationLogger;
 
 import static frc.robot.Robot.robotConstants;
+
+//import io.github.oblarg.oblog.annotations.Log;
 
 public class Drivetrain extends SubsystemBase implements MovableSubsystem, Loggable {
     private WPI_TalonFX leftRear;
@@ -36,7 +33,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     private Pigeon gyro;
 
     private DifferentialDriveKinematics kinematics;
-    private DifferentialDriveOdometry odometry;
+    //private DifferentialDriveOdometry odometry;
 
     /**
      * This is the subsystem of the drivetrain
@@ -58,23 +55,24 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
 
         drivetrain = new TrigonDrive(leftFront, rightFront);
         drivetrain.setDeadband(0);
+        tuneTrigonDrive();
 
         // TODO: set correct talons for encoders.
-        leftEncoder = new WPI_TalonSRX(robotConstants.can.kTemporaryTalonForLeftDrivetrainEncoder);
-        rightEncoder = new WPI_TalonSRX(robotConstants.can.kTemporaryTalonForRightDrivetrainEncoder);
+        //leftEncoder = new WPI_TalonSRX(robotConstants.can.kTemporaryTalonForLeftDrivetrainEncoder);
+        //rightEncoder = new WPI_TalonSRX(robotConstants.can.kTemporaryTalonForRightDrivetrainEncoder);
 
-        DriverStationLogger.logErrorToDS(leftEncoder.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 0),
-            "Could not set left drivetrain encoder");
-        DriverStationLogger.logErrorToDS(rightEncoder.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 0),
-            "Could not set right drivetrain encoder");
+        //DriverStationLogger.logErrorToDS(leftEncoder.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 0),
+        //    "Could not set left drivetrain encoder");
+        //DriverStationLogger.logErrorToDS(rightEncoder.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 0),
+        //    "Could not set right drivetrain encoder");
 
         // TODO: set correct port for pigeon gyro.
-        gyro = new Pigeon(robotConstants.can.kDrivetrainLeftRearTalonFX);
-        DriverStationLogger.logErrorToDS(gyro.resetGyroWithErrorCode(),
-            "Could not reset pigeon gyro");
+        //gyro = new Pigeon(robotConstants.can.kDrivetrainLeftRearTalonFX);
+        //DriverStationLogger.logErrorToDS(gyro.resetGyroWithErrorCode(),
+        //    "Could not reset pigeon gyro");
 
         kinematics = new DifferentialDriveKinematics(robotConstants.drivetrainConstants.kWheelBaseWidth);
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
+        //odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
     }
 
     // Drive functions
@@ -120,7 +118,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     // Gyro functions
-    @Log(name = "Drivetrain/Angle")
+    //@Log(name = "Drivetrain/Angle")
     public double getAngle() {
         return Math.IEEEremainder(gyro.getAngle(), 360);
     }
@@ -139,15 +137,15 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     // Encoders functions
-    @Log(name = "Drivetrain/Left Ticks")
-    public int getLeftTicks() {
-        return leftEncoder.getSelectedSensorPosition();
-    }
+   //@Log(name = "Drivetrain/Left Ticks")
+   //public int getLeftTicks() {
+   //    return leftEncoder.getSelectedSensorPosition();
+   //}
 
-    @Log(name = "Drivetrain/Right Ticks")
-    public int getRightTicks() {
-        return rightEncoder.getSelectedSensorPosition();
-    }
+   //@Log(name = "Drivetrain/Right Ticks")
+   //public int getRightTicks() {
+   //    return rightEncoder.getSelectedSensorPosition();
+   //}
 
     public void resetEncoders() {
         leftEncoder.setSelectedSensorPosition(0);
@@ -157,84 +155,84 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     /**
      * @return meters
      */
-    @Log(name = "Drivetrain/Left Distance")
-    public double getLeftDistance() {
-        return getLeftTicks() / robotConstants.drivetrainConstants.kLeftEncoderTicksPerMeter;
-    }
-
+    //@Log(name = "Drivetrain/Left Distance")
+    //public double getLeftDistance() {
+    //    return getLeftTicks() / robotConstants.drivetrainConstants.kLeftEncoderTicksPerMeter;
+    //}
+//
     /**
      * @return meters
      */
-    @Log(name = "Drivetrain/Right Distance")
-    public double getRightDistance() {
-        return getRightTicks() / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
-    }
+   //@Log(name = "Drivetrain/Right Distance")
+   //public double getRightDistance() {
+   //    return getRightTicks() / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
+   //}
 
-    @Log(name = "Drivetrain/Average Distance")
-    public double getAverageDistance() {
-        return (getLeftDistance() + getRightDistance()) / 2;
-    }
+   //@Log(name = "Drivetrain/Average Distance")
+   //public double getAverageDistance() {
+   //    return (getLeftDistance() + getRightDistance()) / 2;
+   //}
+
+   ///**
+   // * @return meters per second
+   // */
+   //@Log(name = "Drivetrain/Right Velocity")
+   //public double getRightVelocity() {
+   //    return rightEncoder.getSelectedSensorVelocity() * 10
+   //            / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
+   //}
 
     /**
      * @return meters per second
      */
-    @Log(name = "Drivetrain/Right Velocity")
-    public double getRightVelocity() {
-        return rightEncoder.getSelectedSensorVelocity() * 10
-                / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
-    }
-
-    /**
-     * @return meters per second
-     */
-    @Log(name = "Drivetrain/Left Velocity")
-    public double getLeftVelocity() {
-        return leftEncoder.getSelectedSensorVelocity() * 10
-                / robotConstants.drivetrainConstants.kLeftEncoderTicksPerMeter;
-    }
-
-    @Log(name = "Drivetrain/Average Velocity")
-    public double getAverageVelocity() {
-        return (getLeftVelocity() + getRightVelocity()) / 2;
-    }
+    //@Log(name = "Drivetrain/Left Velocity")
+    //public double getLeftVelocity() {
+    //    return leftEncoder.getSelectedSensorVelocity() * 10
+    //            / robotConstants.drivetrainConstants.kLeftEncoderTicksPerMeter;
+    //}
+//
+    //@Log(name = "Drivetrain/Average Velocity")
+    //public double getAverageVelocity() {
+    //    return (getLeftVelocity() + getRightVelocity()) / 2;
+    //}
 
     // Motion Profiling functions
     public DifferentialDriveKinematics getKinematics() {
         return kinematics;
     }
 
-    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-        return new DifferentialDriveWheelSpeeds(getLeftVelocity(), getRightVelocity());
-    }
+    //public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+    //    return new DifferentialDriveWheelSpeeds(getLeftVelocity(), getRightVelocity());
+    //}
 
     public void resetOdometry(Pose2d pose) {
         resetEncoders();
         Rotation2d angle = Rotation2d.fromDegrees(getAngle());
-        odometry.resetPosition(pose, angle);
+       // odometry.resetPosition(pose, angle);
     }
 
-    public void resetOdometry() {
-        resetOdometry(new Pose2d(0, 0, Rotation2d.fromDegrees(0)));
-    }
+//    public void resetOdometry() {
+//        resetOdometry(new Pose2d(0, 0, Rotation2d.fromDegrees(0)));
+//    }
 
-    public Pose2d getPose() {
-        return odometry.getPoseMeters();
-    }
+    //public Pose2d getPose() {
+    //    return odometry.getPoseMeters();
+    //}
+//
+    //@Log(name = "Drivetrain/X Position")
+    //public double getXPosition() {
+    //    return getPose().getTranslation().getX();
+    //}
 
-    @Log(name = "Drivetrain/X Position")
-    public double getXPosition() {
-        return getPose().getTranslation().getX();
-    }
+   //@Log(name = "Drivetrain/Y Position")
+   //public double getYPosition() {
+   //    return getPose().getTranslation().getY();
+   //}
 
-    @Log(name = "Drivetrain/Y Position")
-    public double getYPosition() {
-        return getPose().getTranslation().getY();
-    }
-
-    @Log(name = "Drivetrain/Odometry angle")
-    public double getOdometryAngle() {
-        return getPose().getRotation().getRadians();
-    }
+   //@Log(name = "Drivetrain/Odometry angle")
+   //public double getOdometryAngle() {
+   //    return getPose().getRotation().getRadians();
+   //}
 
     public double getLeftMotorOutputVoltage() {
         return leftFront.getMotorOutputVoltage();
@@ -266,16 +264,16 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     public void periodic() {
-        odometry.update(Rotation2d.fromDegrees(getAngle()), getLeftDistance(), getRightDistance());
+        //odometry.update(Rotation2d.fromDegrees(getAngle()), getLeftDistance(), getRightDistance());
     }
 
     private void configTalonFX(WPI_TalonFX motor, WPI_TalonFX master) {
         if (motor != master)
             motor.follow(master);
         motor.setNeutralMode(NeutralMode.Coast);
-        motor.configClosedloopRamp(robotConstants.drivetrainConstants.kRampRate);
+        motor.configOpenloopRamp(robotConstants.drivetrainConstants.kRampRate);
         motor.configStatorCurrentLimit(
-                new StatorCurrentLimitConfiguration(true, robotConstants.drivetrainConstants.kCurrentLimit,
+                new StatorCurrentLimitConfiguration(false, robotConstants.drivetrainConstants.kCurrentLimit,
                         robotConstants.drivetrainConstants.kTriggerThresholdCurrent,
                         robotConstants.drivetrainConstants.kTriggerThresholdTime));
     }

@@ -1,25 +1,15 @@
 package frc.robot.utils;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import frc.robot.Robot;
-import frc.robot.commands.OverrideCommand;
-import frc.robot.commands.command_groups.AutoShoot;
-import frc.robot.commands.command_groups.CollectCell;
-import frc.robot.commands.command_groups.CollectFromFeeder;
-import frc.robot.subsystems.drivetrain.DriveWithXbox;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
-import frc.robot.subsystems.mixer.SpinMixer;
-import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
-import frc.robot.subsystems.shooter.SetShooterVelocity;
-import frc.robot.subsystems.shooter.ShooterVelocity;
+import frc.robot.vision.CalibrateVisionDistance;
 import frc.robot.vision.FollowTarget;
 import frc.robot.vision.Target;
 import frc.robot.vision.TurnToTarget;
 import io.github.oblarg.oblog.Logger;
 
-import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
-import static frc.robot.Robot.*;
+import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putData;
+import static frc.robot.Robot.drivetrain;
+import static frc.robot.Robot.oi;
 
 /**
  * DashboardDataContainer contains all the data to be viewed or put in the
@@ -67,11 +57,10 @@ public class DashboardDataContainer {
 
         // added for testing drivetrain
 
-        putData("Drivetrain/Drive with xbox", new DriveWithXbox(() -> oi.getDriverXboxController().getX(Hand.kLeft),
-                oi.getDriverXboxController()::getDeltaTriggers, true));
         putData("Drivetrain/Rotate drivetrain", new RotateDrivetrain());
         putData("Drivetrain/Go to feeder", new FollowTarget(Target.Feeder, "Go to feeder"));
         putData("Drivetrain/Turn to port", new TurnToTarget(Target.PowerPort, drivetrain, "Turn to port"));
+        putData("Drivetrain/Calibrate distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get()));
     }
 
     public void update() {

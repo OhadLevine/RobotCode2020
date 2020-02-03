@@ -20,7 +20,7 @@ public class RobotA extends RobotConstants {
         drivetrainConstants.kRobotWidth = 0;
         drivetrainConstants.kLeftEncoderTicksPerMeter = 1;
         drivetrainConstants.kRightEncoderTicksPerMeter = 1;
-        drivetrainConstants.kRampRate = 0.05;
+        drivetrainConstants.kRampRate = 0.1;
         drivetrainConstants.kCurrentLimit = 1;
         drivetrainConstants.kTriggerThresholdCurrent = 1;
         drivetrainConstants.kTriggerThresholdTime = 1;
@@ -99,9 +99,9 @@ public class RobotA extends RobotConstants {
 
         /* Robot Map */
         // Drivetrain Map
-        can.kDrivetrainLeftFrontTalonFX = 1;
+        can.kDrivetrainLeftFrontTalonFX = 3;
         can.kDrivetrainLeftMiddleTalonFX = 2;
-        can.kDrivetrainLeftRearTalonFX = 3;
+        can.kDrivetrainLeftRearTalonFX = 1;
         can.kDrivetrainRightFrontTalonFX = 4;
         can.kDrivetrainRightMiddleTalonFX = 5;
         can.kDrivetrainRightRearTalonFX = 6;

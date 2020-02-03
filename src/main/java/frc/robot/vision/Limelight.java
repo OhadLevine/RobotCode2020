@@ -3,7 +3,6 @@ package frc.robot.vision;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.drive.Vector2d;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
@@ -71,10 +70,10 @@ public class Limelight implements Loggable {
     }
 
     /**
-     * @return The distance between the target and the limelight
+     * @return The distance between the target and the middle of the robot
      */
-    @Log(name = "Limelight/Distance From Limelight")
-    public double getDistanceFromLimelight() {
+    @Log(name = "Limelight/Vision Distance")
+    public double getDistance() {
         if (getTarget() == Target.PowerPort)
             return getDistanceFromPowerPort();
         return getDistanceFromFeeder();
@@ -100,14 +99,6 @@ public class Limelight implements Loggable {
             robotConstants.visionConstants.kDistanceFromPortBCoefficient * x;
     }
 
-    /**
-     * @return The distance between the target and the middle of the robot
-     */
-    @Log(name = "Limelight/Vision Distance")
-    public double getDistance() {
-        return calculateVector().magnitude();
-    }
-
     @Log(name = "Limelight/Desired Shooter Velocity")
     public double getDesiredShooterVelocity() {
         // TODO: find and replace with real function based on a table.
@@ -117,10 +108,8 @@ public class Limelight implements Loggable {
     /**
      * @return the angle from the middle of the robot to the target
      */
-    @Log(name = "Limelight/Vision Angle")
     public double getAngle() {
-        Vector2d vector = calculateVector();
-        return Math.toDegrees(Math.atan(vector.y / vector.x));
+        return getTx();
     }
 
     /**
@@ -191,7 +180,7 @@ public class Limelight implements Loggable {
 
     /**
      * This method is used for logging.
-     * 
+     *
      * @return a String representing the current target which limelight searches.
      */
     @Log(name = "Limelight/Vision Target")
@@ -236,16 +225,5 @@ public class Limelight implements Loggable {
     public void stopVision() {
         setCamMode(CamMode.Driver);
         setLedMode(LedMode.Off);
-    }
-
-    /**
-     * @return the vector between the middle of the robot and the target.
-     */
-    private Vector2d calculateVector() {
-        //This is the vector from the limelight to the target.
-        Vector2d limelightToTarget = new Vector2d(getDistanceFromLimelight(), 0);
-        limelightToTarget.rotate(getTx() + robotConstants.visionConstants.kLimelightAngleOffset);
-        // The offset is subtracted from the limelightToTarget vector in order to get the final vector.
-        return new Vector2d(limelightToTarget.x - robotConstants.visionConstants.kLimelightOffsetX, limelightToTarget.y - robotConstants.visionConstants.kLimelightOffsetY);
     }
 }
