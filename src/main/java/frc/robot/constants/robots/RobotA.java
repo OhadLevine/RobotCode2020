@@ -20,7 +20,7 @@ public class RobotA extends RobotConstants {
         drivetrainConstants.kRobotWidth = 0;
         drivetrainConstants.kLeftEncoderTicksPerMeter = 1;
         drivetrainConstants.kRightEncoderTicksPerMeter = 1;
-        drivetrainConstants.kRampRate = 1;
+        drivetrainConstants.kRampRate = 0.05;
         drivetrainConstants.kCurrentLimit = 1;
         drivetrainConstants.kTriggerThresholdCurrent = 1;
         drivetrainConstants.kTriggerThresholdTime = 1;
