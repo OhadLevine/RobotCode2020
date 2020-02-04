@@ -73,7 +73,7 @@ public class AutoShoot extends SequentialCommandGroup {
                 turnToTarget,
                 sequence(
                     new WaitUntilCommand(() ->
-                        setShooterVelocity.isOnTarget() && turnToTarget.isOnTarget()),
+                        setShooterVelocity.readyToShoot() && turnToTarget.isOnTarget()),
                     /*new RunTwoCommands(SetLoaderVelocity.defaultSetLoaderVelocityCommand(),
                         new MoveMovableSubsystem(loader, () -> robotConstants.loaderConstants.kDefaultBackwardsPower),
                         () -> Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance))*/
