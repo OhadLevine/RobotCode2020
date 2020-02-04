@@ -55,10 +55,10 @@ public class Robot extends TimedRobot {
         led = new LED();
 
         // Utils:
-        dashboardDataContainer = new DashboardDataContainer();
-        limelight = new Limelight();*/
+        limelight = new Limelight();
         oi = new OI();
-        /*
+        dashboardDataContainer = new DashboardDataContainer();
+
         autoChooser = new SendableChooser<>();
         // autoChooser.setDefaultOption(name, object);
         // autoChooser.addOption(name, object);
@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
                 .onCommandFinish(command -> DriverStationLogger.logToDS(command.getName() + " is finished"));
 
         // added to test:
+        oi = new OI();
         shooter = new Shooter();
         dashboardDataContainer = new DashboardDataContainer();
 

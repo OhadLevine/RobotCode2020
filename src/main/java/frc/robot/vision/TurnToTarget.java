@@ -53,7 +53,7 @@ public class TurnToTarget extends CommandBase {
 
     @Override
     public void execute() {
-        if (limelight.getTv()) 
+        if (limelight.getTv())
             subsystem.move(rotationPIDController.calculate(limelight.getAngle()));
         else
             // The target wasn't found
