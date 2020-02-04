@@ -21,8 +21,6 @@ import io.github.oblarg.oblog.annotations.Log;
 
 import static frc.robot.Robot.robotConstants;
 
-//import io.github.oblarg.oblog.annotations.Log;
-
 public class Drivetrain extends SubsystemBase implements MovableSubsystem, Loggable {
     private WPI_TalonFX leftRear;
     private WPI_TalonFX leftMiddle;
@@ -77,7 +75,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
             "Could not reset pigeon gyro");
 
         kinematics = new DifferentialDriveKinematics(robotConstants.drivetrainConstants.kWheelBaseWidth);
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
     }
 
     // Drive functions
@@ -168,24 +166,24 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     /**
      * @return meters
      */
-   @Log(name = "Drivetrain/Right Distance")
-   public double getRightDistance() {
-       return getRightTicks() / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
-   }
+    @Log(name = "Drivetrain/Right Distance")
+    public double getRightDistance() {
+        return getRightTicks() / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
+    }
 
-   @Log(name = "Drivetrain/Average Distance")
-   public double getAverageDistance() {
-       return (getLeftDistance() + getRightDistance()) / 2;
-   }
+    @Log(name = "Drivetrain/Average Distance")
+    public double getAverageDistance() {
+        return (getLeftDistance() + getRightDistance()) / 2;
+    }
 
-   /**
-    * @return meters per second
-    */
-   @Log(name = "Drivetrain/Right Velocity")
-   public double getRightVelocity() {
-       return rightEncoder.getSelectedSensorVelocity() * 10
-               / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
-   }
+    /**
+     * @return meters per second
+     */
+    @Log(name = "Drivetrain/Right Velocity")
+    public double getRightVelocity() {
+        return rightEncoder.getSelectedSensorVelocity() * 10
+                / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
+    }
 
     /**
      * @return meters per second
@@ -229,15 +227,15 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
         return getPose().getTranslation().getX();
     }
 
-   @Log(name = "Drivetrain/Y Position")
-   public double getYPosition() {
-       return getPose().getTranslation().getY();
-   }
+    @Log(name = "Drivetrain/Y Position")
+    public double getYPosition() {
+        return getPose().getTranslation().getY();
+    }
 
-   @Log(name = "Drivetrain/Odometry angle")
-   public double getOdometryAngle() {
-       return getPose().getRotation().getRadians();
-   }
+    @Log(name = "Drivetrain/Odometry angle")
+    public double getOdometryAngle() {
+        return getPose().getRotation().getDegrees();
+    }
 
     public double getLeftMotorOutputVoltage() {
         return leftFront.getMotorOutputVoltage();
