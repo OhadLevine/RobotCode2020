@@ -55,10 +55,10 @@ public class Robot extends TimedRobot {
         loader = new Loader(); */
         shooter = new Shooter();
         /* climb = new Climb();
-        led = new LED();
+        led = new LED(); */
 
         // Utils:
-        limelight = new Limelight(); */
+        limelight = new Limelight();
         oi = new OI();
         dashboardDataContainer = new DashboardDataContainer();
 

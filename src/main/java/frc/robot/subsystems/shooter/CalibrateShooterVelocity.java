@@ -58,7 +58,7 @@ public class CalibrateShooterVelocity extends CommandBase {
 
   @Override
   public void initialize() {
-    logger = new Logger("shooter velocity calibration.csv", "distance", "measured distance", "velocity");
+    logger = new Logger("shooter velocity calibration.csv", "distance", "robot measured distance", "limelight distance", "velocity");
     drivetrain.resetEncoders();
     isPressed = false;
   }
@@ -70,7 +70,7 @@ public class CalibrateShooterVelocity extends CommandBase {
       if (!isPressed) {
         isPressed = true;
         //logger.log(currentDistance, shooter.getAverageVelocity());
-        logger.log(currentDistance, drivetrain.getAverageDistance() + startingDistance, shooter.getAverageVelocity());
+        logger.log(currentDistance, drivetrain.getAverageDistance() + startingDistance, limelight.getDistanceFromLimelight(), shooter.getAverageVelocity());
         currentDistance += deltaDistance;
       }
     } else
