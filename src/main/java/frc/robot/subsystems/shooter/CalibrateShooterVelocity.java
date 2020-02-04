@@ -69,8 +69,8 @@ public class CalibrateShooterVelocity extends CommandBase {
     if (logButton.getAsBoolean()) {
       if (!isPressed) {
         isPressed = true;
-        //logger.log(currentDistance, shooter.getAverageVelocity());
-        logger.log(currentDistance, drivetrain.getAverageDistance() + startingDistance, limelight.getDistanceFromLimelight(), shooter.getAverageVelocity());
+        //logger.log(currentDistance, 0, limelight.getDistanceFromLimelight(), velocitySetpointSupplier.getAsDouble());
+        logger.log(currentDistance, drivetrain.getAverageDistance() + startingDistance, limelight.getDistanceFromLimelight(), velocitySetpointSupplier.getAsDouble());
         currentDistance += deltaDistance;
       }
     } else
