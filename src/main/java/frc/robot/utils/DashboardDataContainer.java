@@ -12,6 +12,7 @@ import frc.robot.commands.command_groups.CollectFromFeeder;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
 import frc.robot.subsystems.intakeopener.OpenIntake;
 import frc.robot.subsystems.mixer.SpinMixer;
+import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.SetShooterVelocity;
 import frc.robot.subsystems.shooter.ShooterVelocity;
@@ -72,6 +73,8 @@ public class DashboardDataContainer {
         putNumber("Shooter/Override Power", 0);
         putData("Shooter/Override", new OverrideCommand(shooter,
             () -> getNumber("Shooter/Override Power", 0)));
+        putData("Shooter/Calibrate shooter velocity", new CalibrateShooterVelocity(oi.getDriverXboxController()::getAButton,
+            () -> getNumber("Shooter/Shooting velocity setpoint", 0), 100)); // TODO: set starting distance!
     }
 
     public void update() {

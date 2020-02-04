@@ -47,9 +47,9 @@ public class Robot extends TimedRobot {
         robotConstants = new RobotA();
         fieldConstants = new HomeField();
 
-        /*// Subsystems:
+        // Subsystems:
         drivetrain = new Drivetrain();
-        intake = new Intake();
+        /*intake = new Intake();
         intakeOpener = new IntakeOpener();
         mixer = new Mixer();
         loader = new Loader(); */
