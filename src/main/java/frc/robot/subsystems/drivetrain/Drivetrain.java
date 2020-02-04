@@ -110,7 +110,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
      */
     public void voltageTankDrive(double leftVoltage, double rightVoltage) {
         tankDrive(leftVoltage / RobotController.getBatteryVoltage(),
-                rightVoltage / RobotController.getBatteryVoltage());
+            rightVoltage / RobotController.getBatteryVoltage());
     }
 
     /**
@@ -140,15 +140,15 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     // Encoders functions
-   @Log(name = "Drivetrain/Left Ticks")
-   public int getLeftTicks() {
-       return leftEncoder.getSelectedSensorPosition();
-   }
+    @Log(name = "Drivetrain/Left Ticks")
+    public int getLeftTicks() {
+        return leftEncoder.getSelectedSensorPosition();
+    }
 
-   @Log(name = "Drivetrain/Right Ticks")
-   public int getRightTicks() {
-       return rightEncoder.getSelectedSensorPosition();
-   }
+    @Log(name = "Drivetrain/Right Ticks")
+    public int getRightTicks() {
+        return rightEncoder.getSelectedSensorPosition();
+    }
 
     public void resetEncoders() {
         leftEncoder.setSelectedSensorPosition(0);
@@ -182,7 +182,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     @Log(name = "Drivetrain/Right Velocity")
     public double getRightVelocity() {
         return rightEncoder.getSelectedSensorVelocity() * 10
-                / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
+            / robotConstants.drivetrainConstants.kRightEncoderTicksPerMeter;
     }
 
     /**
@@ -191,7 +191,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     @Log(name = "Drivetrain/Left Velocity")
     public double getLeftVelocity() {
         return leftEncoder.getSelectedSensorVelocity() * 10
-                / robotConstants.drivetrainConstants.kLeftEncoderTicksPerMeter;
+            / robotConstants.drivetrainConstants.kLeftEncoderTicksPerMeter;
     }
 
     @Log(name = "Drivetrain/Average Velocity")
@@ -276,8 +276,8 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
         motor.setNeutralMode(NeutralMode.Coast);
         motor.configOpenloopRamp(robotConstants.drivetrainConstants.kRampRate);
         motor.configStatorCurrentLimit(
-                new StatorCurrentLimitConfiguration(false, robotConstants.drivetrainConstants.kCurrentLimit,
-                        robotConstants.drivetrainConstants.kTriggerThresholdCurrent,
-                        robotConstants.drivetrainConstants.kTriggerThresholdTime));
+            new StatorCurrentLimitConfiguration(false, robotConstants.drivetrainConstants.kCurrentLimit,
+                robotConstants.drivetrainConstants.kTriggerThresholdCurrent,
+                robotConstants.drivetrainConstants.kTriggerThresholdTime));
     }
 }
