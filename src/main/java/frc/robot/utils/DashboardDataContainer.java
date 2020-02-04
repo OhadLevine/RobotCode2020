@@ -72,7 +72,6 @@ public class DashboardDataContainer {
         putNumber("Shooter/Override Power", 0);
         putData("Shooter/Override", new OverrideCommand(shooter,
             () -> getNumber("Shooter/Override Power", 0)));
-        putData("Shooter/Set shooting power", new MoveMovableSubsystem(shooter, () -> getNumber("Shooter/Shooting velocity setpoint", 0)));
     }
 
     public void update() {
