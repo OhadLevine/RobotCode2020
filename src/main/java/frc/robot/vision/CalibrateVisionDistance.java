@@ -45,7 +45,7 @@ public class CalibrateVisionDistance extends CommandBase {
 
     @Override
     public void initialize() {
-        logger = new Logger("distance calibration.csv", "height", "distance");
+        logger = new Logger("distance calibration.csv", "height", "distance", "encoder measurement");
         drivetrain.resetEncoders();
         isPressed = false;
     }
@@ -56,7 +56,7 @@ public class CalibrateVisionDistance extends CommandBase {
         if (logButton.getAsBoolean()) {
             if (!isPressed) {
                 isPressed = true;
-                logger.log(Robot.limelight.getTy(), currentDistance);
+                logger.log(Robot.limelight.getTy(), currentDistance, drivetrain.getAverageDistance());
                 currentDistance += deltaDistance;
             }
         } else
