@@ -88,6 +88,6 @@ public class CalibrateShooterVelocity extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return currentDistance > deltaDistance * amountOfLogs;
+    return currentDistance > deltaDistance * amountOfLogs + startingDistance;
   }
 }
