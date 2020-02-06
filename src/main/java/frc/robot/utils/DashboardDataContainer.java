@@ -73,7 +73,10 @@ public class DashboardDataContainer {
         putData("Drivetrain/Turn to port", new TurnToTarget(Target.PowerPort, drivetrain, "Turn PID"));
         putData("Drivetrain/Calibrate power port distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.PowerPort, 200));
         putData("Drivetrain/Calibrate feeder distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.Feeder, 0));
-        putData("Drivetrain/Play song", new InstantCommand(() -> drivetrain.playSong(Song.Star_Wars_Main_Theme)));
+        // drivetrain songs
+        putData("Songs/Play Star wars - main theme", new InstantCommand(() -> drivetrain.playSong(Song.Star_Wars_Main_Theme)));
+        putData("Songs/Play Undertale - megalovania", new InstantCommand(() -> drivetrain.playSong(Song.Undertale_Megalovania)));
+        putData("Songs/Play Kid francescoli - moon", new InstantCommand(() -> drivetrain.playSong(Song.Kid_Francescoli_Moon)));
     }
 
     public void update() {

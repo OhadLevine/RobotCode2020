@@ -285,6 +285,11 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
         orchestra.stop();
     }
 
+    @Log(name = "Drivetrain/Is playing song")
+    public boolean isPlayingSong() {
+        return orchestra.isPlaying();
+    }
+
     public void periodic() {
         odometry.update(Rotation2d.fromDegrees(getAngle()), getLeftDistance(), getRightDistance());
     }
