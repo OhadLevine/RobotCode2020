@@ -3,8 +3,11 @@ package frc.robot.subsystems.drivetrain;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.TalonSRXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.music.Orchestra;
+
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -20,6 +23,9 @@ import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
 import static frc.robot.Robot.robotConstants;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Drivetrain extends SubsystemBase implements MovableSubsystem, Loggable {
     private WPI_TalonFX leftRear;
@@ -37,6 +43,8 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
 
     private DifferentialDriveKinematics kinematics;
     private DifferentialDriveOdometry odometry;
+
+    private Orchestra orchestra; 
 
     /**
      * This is the subsystem of the drivetrain
@@ -76,6 +84,8 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
 
         kinematics = new DifferentialDriveKinematics(robotConstants.drivetrainConstants.kWheelBaseWidth);
         odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
+
+        orchestra = new Orchestra(new ArrayList<TalonFX>(Arrays.asList(leftRear, leftMiddle, leftFront, rightRear, rightMiddle, rightFront)));
     }
 
     // Drive functions
@@ -264,6 +274,15 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     /** Puts TrigonDrive class on the SmartDashboard for tuning */
     public void tuneTrigonDrive() {
         SmartDashboard.putData("Drivetrain/DifferentialDrive", drivetrain);
+    }
+
+    public void playSong(Song song) {
+        orchestra.loadMusic(song.getPath());
+        orchestra.play();
+    }
+
+    public void stopSong() {
+        orchestra.stop();
     }
 
     public void periodic() {

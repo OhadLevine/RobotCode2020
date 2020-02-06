@@ -1,11 +1,13 @@
 package frc.robot.utils;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.OverrideCommand;
 import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.commands.command_groups.CollectFromFeeder;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
+import frc.robot.subsystems.drivetrain.Song;
 import frc.robot.subsystems.intakeopener.OpenIntake;
 import frc.robot.vision.CalibrateVisionDistance;
 import frc.robot.vision.FollowTarget;
@@ -71,6 +73,7 @@ public class DashboardDataContainer {
         putData("Drivetrain/Turn to port", new TurnToTarget(Target.PowerPort, drivetrain, "Turn PID"));
         putData("Drivetrain/Calibrate power port distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.PowerPort, 200));
         putData("Drivetrain/Calibrate feeder distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.Feeder, 0));
+        putData("Drivetrain/Play song", new InstantCommand(() -> drivetrain.playSong(Song.Star_Wars_Main_Theme)));
     }
 
     public void update() {
