@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import java.util.function.DoubleSupplier;
 
-public class ClimbWithXbox extends CommandBase {
+public class MoveClimbAndHook extends CommandBase {
     private DoubleSupplier hookPower;
     private DoubleSupplier climbPower;
 
@@ -16,7 +16,7 @@ public class ClimbWithXbox extends CommandBase {
      * @param hookPower  The power to give the hook motors.
      * @param climbPower The power to give the climb motors.
      */
-    public ClimbWithXbox(DoubleSupplier hookPower, DoubleSupplier climbPower) {
+    public MoveClimbAndHook(DoubleSupplier hookPower, DoubleSupplier climbPower) {
         addRequirements(Robot.climb);
         this.hookPower = hookPower;
         this.climbPower = climbPower;

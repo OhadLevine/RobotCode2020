@@ -29,6 +29,9 @@ public class Climb extends SubsystemBase {
 
         climbSparkMax.setSmartCurrentLimit(robotConstants.climbConstants.kClimbCurrentLimit);
 
+        hookTalonSRX.setInverted(robotConstants.climbConstants.kIsHookInverted);
+        climbSparkMax.setInverted(robotConstants.climbConstants.kIsClimbInverted);
+
         hookTalonSRX.setNeutralMode(NeutralMode.Coast);
         climbSparkMax.setIdleMode(IdleMode.kCoast);
 
@@ -39,7 +42,10 @@ public class Climb extends SubsystemBase {
         hookTalonSRX.set(power);
     }
 
+    /** @param power should be only positive or zero, otherwise, zero power is applied. 
+     * The climb can only rotate in one direction because of ratchet connected to its transmission. 
+     */
     public void setClimbPower(double power) {
-        climbSparkMax.set(power);
+        climbSparkMax.set(power >= 0 ? power : 0);
     }
 }

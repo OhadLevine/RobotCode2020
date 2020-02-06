@@ -42,9 +42,11 @@ public class RobotA extends RobotConstants {
         mixerConstants.kDefaultPower = 0.5;
 
         // Climb Constants
+        climbConstants.kIsHookInverted = false; 
         climbConstants.kHookCurrentLimit = 0;
         climbConstants.kHookThresholdLimit = 0;
         climbConstants.kHookCurrentTimeout = 0;
+        climbConstants.kIsClimbInverted = false;
         climbConstants.kClimbCurrentLimit = 0;
 
         // Shooter Constants

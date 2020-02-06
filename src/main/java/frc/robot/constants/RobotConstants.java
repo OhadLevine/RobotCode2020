@@ -78,9 +78,11 @@ public abstract class RobotConstants extends RobotMap {
     }
 
     public static class ClimbConstants {
+        public boolean kIsHookInverted;
         public double kHookThresholdLimit;
         public double kHookCurrentLimit;
         public double kHookCurrentTimeout;
+        public boolean kIsClimbInverted;
         public int kClimbCurrentLimit;
     }
 

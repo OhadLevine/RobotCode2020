@@ -6,7 +6,7 @@ import frc.robot.commands.OverrideCommand;
 import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.commands.command_groups.CollectFromFeeder;
-import frc.robot.subsystems.climb.ClimbWithXbox;
+import frc.robot.subsystems.climb.MoveClimbAndHook;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
 import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
@@ -64,9 +64,9 @@ public class DashboardDataContainer {
         // climb testing
         putNumber("Climb/Hook power", 0);
         putNumber("Climb/Climb power", 0);
-        putData("Climb/ClimbWithDashboard",
-                new ClimbWithXbox(() -> getNumber("Climb/Hook power", 0), () -> getNumber("Climb/Climb power", 0)));
-        putData("Climb/ClimbWithXbox", new ClimbWithXbox(() -> oi.getOperatorXboxController().getY(Hand.kLeft),
+        putData("Climb/Climb and Hook with dashboard",
+                new MoveClimbAndHook(() -> getNumber("Climb/Hook power", 0), () -> getNumber("Climb/Climb power", 0)));
+        putData("Climb/Climb and Hook with xbox", new MoveClimbAndHook(() -> oi.getOperatorXboxController().getY(Hand.kLeft),
                 () -> oi.getOperatorXboxController().getY(Hand.kRight)));
     }
 
