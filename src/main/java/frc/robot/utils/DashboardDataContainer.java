@@ -76,9 +76,10 @@ public class DashboardDataContainer {
         putData("Drivetrain/Calibrate power port distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.PowerPort, 200));
         putData("Drivetrain/Calibrate feeder distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.Feeder, 0));
         // drivetrain songs
-        putData("Songs/Play Star wars - main theme", new InstantCommand(() -> drivetrain.loadSong(Song.Star_Wars_Main_Theme), drivetrain));
-        putData("Songs/Play Undertale - megalovania", new InstantCommand(() -> drivetrain.loadSong(Song.Undertale_Megalovania), drivetrain));
-        putData("Songs/Play Kid francescoli - moon", new InstantCommand(() -> drivetrain.loadSong(Song.Kid_Francescoli_Moon), drivetrain));
+        putData("Songs/Load Star wars - main theme", new InstantCommand(() -> drivetrain.loadSong(Song.Star_Wars_Main_Theme), drivetrain));
+        putData("Songs/Load Undertale - megalovania", new InstantCommand(() -> drivetrain.loadSong(Song.Undertale_Megalovania), drivetrain));
+        putData("Songs/Load Twentieth century fox - main theme", new InstantCommand(() -> drivetrain.loadSong(Song.Twentieth_Century_Fox), drivetrain));
+        putData("Songs/Load Kid francescoli - moon", new InstantCommand(() -> drivetrain.loadSong(Song.Kid_Francescoli_Moon), drivetrain));
         putData("Songs/Play loaded song", new InstantCommand(drivetrain::playSong, drivetrain));
     }
 
