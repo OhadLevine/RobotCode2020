@@ -95,7 +95,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         DriverStationLogger.logToDS("Autonomous starting");
-        led.stopEmergencyLED();
+        //led.stopEmergencyLED();
 
         autoCommand = autoChooser.getSelected();
         if (autoCommand != null) {
