@@ -276,8 +276,11 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
         SmartDashboard.putData("Drivetrain/DifferentialDrive", drivetrain);
     }
 
-    public void playSong(Song song) {
+    public void loadSong(Song song) {
         orchestra.loadMusic(song.getPath());
+    }
+
+    public void playSong() {
         orchestra.play();
     }
 

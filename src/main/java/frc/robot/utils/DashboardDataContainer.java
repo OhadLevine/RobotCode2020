@@ -1,7 +1,9 @@
 package frc.robot.utils;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.OverrideCommand;
 import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.commands.command_groups.CollectCell;
@@ -74,9 +76,10 @@ public class DashboardDataContainer {
         putData("Drivetrain/Calibrate power port distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.PowerPort, 200));
         putData("Drivetrain/Calibrate feeder distance", new CalibrateVisionDistance(() -> oi.getDriverXboxController().getButtonA().get(), Target.Feeder, 0));
         // drivetrain songs
-        putData("Songs/Play Star wars - main theme", new InstantCommand(() -> drivetrain.playSong(Song.Star_Wars_Main_Theme)));
-        putData("Songs/Play Undertale - megalovania", new InstantCommand(() -> drivetrain.playSong(Song.Undertale_Megalovania)));
-        putData("Songs/Play Kid francescoli - moon", new InstantCommand(() -> drivetrain.playSong(Song.Kid_Francescoli_Moon)));
+        putData("Songs/Play Star wars - main theme", new InstantCommand(() -> drivetrain.loadSong(Song.Star_Wars_Main_Theme), drivetrain));
+        putData("Songs/Play Undertale - megalovania", new InstantCommand(() -> drivetrain.loadSong(Song.Undertale_Megalovania), drivetrain));
+        putData("Songs/Play Kid francescoli - moon", new InstantCommand(() -> drivetrain.loadSong(Song.Kid_Francescoli_Moon), drivetrain));
+        putData("Songs/Play loaded song", new InstantCommand(drivetrain::playSong, drivetrain));
     }
 
     public void update() {
