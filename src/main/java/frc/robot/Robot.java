@@ -6,10 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.autonomus.MiddleFieldAuto;
-import frc.robot.autonomus.SimpleAuto;
-import frc.robot.autonomus.StartingPose;
-import frc.robot.autonomus.TrenchAuto;
 import frc.robot.constants.FieldConstants;
 import frc.robot.constants.RobotConstants;
 import frc.robot.constants.fields.HomeField;
@@ -33,7 +29,6 @@ public class Robot extends TimedRobot {
     private SendableChooser<Command> autoChooser;
     private DashboardDataContainer dashboardDataContainer;
 
-    public static OI oi;
     public static Drivetrain drivetrain;
     public static Intake intake;
     public static IntakeOpener intakeOpener;
@@ -70,11 +65,11 @@ public class Robot extends TimedRobot {
         dashboardDataContainer = new DashboardDataContainer();
         autoChooser = new SendableChooser<>();
 
-        autoChooser.setDefaultOption("Simple Auto", new SimpleAuto());
+        /*autoChooser.setDefaultOption("Simple Auto", new SimpleAuto());
         autoChooser.addOption("TrenchAuto: In line with Trench", new TrenchAuto(StartingPose.kLineUpWithTrenchRun));
         autoChooser.addOption("TrenchAuto: Facing Power Port", new TrenchAuto(StartingPose.kFacingPowerPort));
         autoChooser.addOption("MiddleFieldAuto: Facing Power Port", new MiddleFieldAuto(StartingPose.kFacingPowerPort));
-        autoChooser.addOption("MiddleFieldAuto: Facing right of Power Port", new MiddleFieldAuto(StartingPose.kFacingRightOfPowerPort));
+        autoChooser.addOption("MiddleFieldAuto: Facing right of Power Port", new MiddleFieldAuto(StartingPose.kFacingRightOfPowerPort));*/
         
         SmartDashboard.putData("Auto/autoChooser", autoChooser);
         
