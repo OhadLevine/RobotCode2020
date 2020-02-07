@@ -10,7 +10,7 @@ import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.commands.command_groups.CollectFromFeeder;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
-import frc.robot.subsystems.intakeopener.OpenIntake;
+import frc.robot.subsystems.intakeopener.SetDesiredOpenerAngle;
 import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
@@ -59,7 +59,10 @@ public class DashboardDataContainer {
         putNumber("IntakeOpener/Intake Opener power", 0);
         putData("IntakeOpener/Override intake opener", new OverrideCommand(intakeOpener,
             () -> getNumber("IntakeOpener/Intake Opener power", 0)));
-        putData("IntakeOpener/Tune PID", new OpenIntake());
+        putData("IntakeOpener/Tune PID", new StartEndCommand(() -> intakeOpener.getDefaultCommand().enableTuning(),
+            () -> intakeOpener.getDefaultCommand().stopTuning(), intakeOpener));
+        putData("IntakeOpener/Open", new SetDesiredOpenerAngle(true));
+        putData("IntakeOpener/Close", new SetDesiredOpenerAngle(false));
         // Command groups data
         putData("CommandGroup/Auto Shoot", new AutoShoot());
         putData("CommandGroup/Collect Cell", new CollectCell());
