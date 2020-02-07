@@ -3,9 +3,6 @@ package frc.robot.utils;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.OverrideCommand;
 import frc.robot.commands.RunWhenDisabledCommand;
-import frc.robot.commands.command_groups.AutoShoot;
-import frc.robot.commands.command_groups.CollectCell;
-import frc.robot.commands.command_groups.CollectFromFeeder;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
 import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
@@ -14,8 +11,7 @@ import frc.robot.subsystems.shooter.ShooterVelocity;
 import io.github.oblarg.oblog.Logger;
 
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
-import static frc.robot.Robot.oi;
-import static frc.robot.Robot.shooter;
+import static frc.robot.Robot.*;
 
 /**
  * DashboardDataContainer contains all the data to be viewed or put in the
