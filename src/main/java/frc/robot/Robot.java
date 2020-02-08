@@ -53,8 +53,8 @@ public class Robot extends TimedRobot {
         drivetrain = new Drivetrain();
         /*intake = new Intake();
         intakeOpener = new IntakeOpener();
-        mixer = new Mixer();
-        loader = new Loader(); */
+        mixer = new Mixer();*/
+        loader = new Loader();
         shooter = new Shooter();
         /* climb = new Climb();
         led = new LED(); */

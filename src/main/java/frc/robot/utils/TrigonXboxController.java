@@ -118,6 +118,11 @@ public class TrigonXboxController extends XboxController {
         notifier.startPeriodic(kIntermittentRumbleTime);
     }
 
+    @Override
+    public double getY(Hand hand) {
+        return -super.getY(hand);
+    }
+
     public void notifierPeriodic() {
         if (rumbleAmount == 0) {
             notifier.stop();
