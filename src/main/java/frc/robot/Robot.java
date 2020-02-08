@@ -52,8 +52,8 @@ public class Robot extends TimedRobot {
         // Subsystems:
         drivetrain = new Drivetrain();
         /*intake = new Intake();
-        intakeOpener = new IntakeOpener();
-        mixer = new Mixer();*/
+        intakeOpener = new IntakeOpener();*/
+        mixer = new Mixer();
         loader = new Loader();
         shooter = new Shooter();
         /* climb = new Climb();

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.subsystems.loader.SetLoaderSpeed;
+import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.ShooterVelocity;
 import frc.robot.vision.Limelight;
@@ -68,7 +69,7 @@ public class AutoShoot extends SequentialCommandGroup {
         addCommands(
             deadline(
                 setShooterVelocity,
-                // new SpinMixer(),
+                new SpinMixer(),
                 // turnToTarget,
                 sequence(
                     new WaitUntilCommand(() ->

@@ -7,6 +7,7 @@ import frc.robot.commands.RunWhenDisabledCommand;
 import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
 import frc.robot.subsystems.loader.SetLoaderSpeed;
+import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.SetShooterVelocity;
@@ -23,13 +24,13 @@ import static frc.robot.Robot.*;
 public class DashboardDataContainer {
 
     public DashboardDataContainer() {
-        /*
+
         // Mixer dashboard data:
         putNumber("Mixer/Mixer power", 0);
         putData("Mixer/Spin mixer",
             new SpinMixer(() -> getNumber("Mixer/Mixer power", 0)));
         putData("Mixer/Override", new OverrideCommand(mixer,
-            () -> getNumber("Mixer/Mixer power", 0)));*/
+            () -> getNumber("Mixer/Mixer power", 0)));
         // Drivetrain dashboard data
         putData("Drivetrain/Tune drivetrain rotate PID", new RotateDrivetrain());
         putData("Drivetrain/Reset Encoders", new RunWhenDisabledCommand(drivetrain::resetEncoders, drivetrain));
