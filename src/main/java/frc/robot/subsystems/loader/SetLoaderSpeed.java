@@ -21,7 +21,11 @@ public class SetLoaderSpeed extends CommandBase {
      * the mixer at the power of {@link frc.robot.constants.RobotConstants.LoaderConstants#kDefaultPower}
      */
     public SetLoaderSpeed() {
-        this(robotConstants.loaderConstants.kDefaultPower);
+        this(LoaderPower.defaults);
+    }
+
+    public SetLoaderSpeed(LoaderPower loaderPower) {
+        this(loaderPower.getPower());
     }
 
     /**

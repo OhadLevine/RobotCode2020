@@ -30,10 +30,10 @@ public class SetLoaderVelocity extends CommandBase {
 
     /**
      * This class accelerates the loader subsystem to the desired velocity using PID
-     * This constructor uses {@link frc.robot.constants.RobotConstants.LoaderConstants#kDefaultVelocity} as the desired velocity.
+     * This constructor uses {@link LoaderPower#defaults} as the desired velocity.
      */
     public static SetLoaderVelocity defaultSetLoaderVelocityCommand() {
-        return new SetLoaderVelocity(robotConstants.loaderConstants.kDefaultVelocity);
+        return new SetLoaderVelocity(LoaderPower.defaults.getPower());
     }
 
     /**
@@ -70,7 +70,7 @@ public class SetLoaderVelocity extends CommandBase {
         if (!pidController.isTuning())
             pidController.setSetpoint(desiredVelocity.getAsDouble());
         if (Timer.getFPGATimestamp() - firstStallTimestamp < robotConstants.loaderConstants.kSpinBackwardsTime) {
-            loader.move(robotConstants.loaderConstants.kOnStallPower);
+            loader.move(LoaderPower.onStall.getPower());
             inStall = false;
             return;
         }
@@ -79,7 +79,7 @@ public class SetLoaderVelocity extends CommandBase {
             DriverStationLogger.logToDS("A cell got stuck in the loader. Trying to unjam it");
             inStall = true;
             firstStallTimestamp = Timer.getFPGATimestamp();
-            loader.move(robotConstants.loaderConstants.kOnStallPower);
+            loader.move(LoaderPower.onStall.getPower());
         } else
             loader.setVoltage(
                 pidController.calculate(loader.getVelocity(), -6, 6)

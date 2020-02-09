@@ -3,6 +3,7 @@ package frc.robot.commands.command_groups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.subsystems.loader.LoaderPower;
 import frc.robot.subsystems.loader.SetLoaderSpeed;
 import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
@@ -78,7 +79,7 @@ public class AutoShoot extends SequentialCommandGroup {
                         new MoveMovableSubsystem(loader, () -> robotConstants.loaderConstants.kDefaultBackwardsPower),
                         () -> Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance))*/
                     new SetLoaderSpeed(() -> (Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance) ?
-                        robotConstants.loaderConstants.kDefaultPower : robotConstants.loaderConstants.kDefaultBackwardsPower)
+                        LoaderPower.defaults.getPower() : LoaderPower.backwards.getPower())
                 )
             ),
             new WaitCommand(kAutoWaitTimeAfterShot)

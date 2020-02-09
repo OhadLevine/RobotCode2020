@@ -88,11 +88,8 @@ public class RobotA extends RobotConstants {
         loaderConstants.kThresholdLimit = 0;
         loaderConstants.kTimeout = 0;
         loaderConstants.kTicksPerRotation = 1;
-        loaderConstants.kDefaultVelocity = 0.5;
         loaderConstants.kStallLimit = 20;
         loaderConstants.kSpinBackwardsTime = 1;
-        loaderConstants.kDefaultBackwardsPower = -0.2;
-        loaderConstants.kOnStallPower = -0.3;
         loaderConstants.kDefaultPower = 0.3;
         loaderConstants.kStallWaitTime = 0.4;
         controlConstants.loaderFeedforward = new SimpleMotorFeedforward(0, 0, 0);
