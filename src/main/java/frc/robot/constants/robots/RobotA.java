@@ -132,16 +132,16 @@ public class RobotA extends RobotConstants {
         can.kIntakeOpenerTalonSRX = 16;
         analogInput.kIntakeOpenerPotentiometer = 1;
         // Mixer Map
-        can.kMixerTalonSRX = 12;
+        can.kMixerTalonSRX = 11;
         // Loader Map
-        can.kLoaderTalonSRX = 15;
+        can.kLoaderTalonSRX = 8;
         // Shooter Map
         can.kLeftShooterTalonFX = 9;
         can.kRightShooterTalonFX = 10;
         dio.kSwitchShooter = 0;
         // Climb Map
-        can.kHookTalonSRX = 13;
-        can.kClimbSparkMax = 14;
+        can.kHookTalonSRX = 6;
+        can.kClimbSparkMax = 7;
         // PWM Map
         pwm.kLedController = 0;
         // I2C Port

@@ -281,11 +281,13 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     public void playSong() {
+        drivetrain.setSafetyEnabled(false);
         orchestra.play();
     }
 
     public void stopSong() {
         orchestra.stop();
+        drivetrain.setSafetyEnabled(true);
     }
 
     @Log(name = "Drivetrain/Is playing song")
