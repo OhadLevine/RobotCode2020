@@ -8,7 +8,7 @@ import static frc.robot.Robot.loader;
 import static frc.robot.Robot.robotConstants;
 
 /**
- * Spins the mixer during the game for putting balls in the loader, if the
+ * Spins the loader during the game for putting balls in the shooter, if the
  * current is too big the motor power flips.
  */
 public class SetLoaderSpeed extends CommandBase {
@@ -18,21 +18,14 @@ public class SetLoaderSpeed extends CommandBase {
 
     /**
      * This constructor creates the command that spins
-     * the mixer at the power of {@link frc.robot.constants.RobotConstants.LoaderConstants#kDefaultPower}
+     * the loader at the power of LoaderPower.DefaultLoadToShoot.
      */
     public SetLoaderSpeed() {
-        this(LoaderPower.defaults);
+        this(LoaderPower.DefaultLoadToShoot);
     }
 
     public SetLoaderSpeed(LoaderPower loaderPower) {
-        this(loaderPower.getPower());
-    }
-
-    /**
-     * gets a double for motor power
-     */
-    public SetLoaderSpeed(double power) {
-        this(() -> power);
+        this(() -> loaderPower.getPower());
     }
 
     /**

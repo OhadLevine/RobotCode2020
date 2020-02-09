@@ -33,7 +33,7 @@ public class SetLoaderVelocity extends CommandBase {
      * This constructor uses {@link LoaderPower#defaults} as the desired velocity.
      */
     public static SetLoaderVelocity defaultSetLoaderVelocityCommand() {
-        return new SetLoaderVelocity(LoaderPower.defaults.getPower());
+        return new SetLoaderVelocity(LoaderPower.DefaultLoadToShoot.getPower());
     }
 
     /**

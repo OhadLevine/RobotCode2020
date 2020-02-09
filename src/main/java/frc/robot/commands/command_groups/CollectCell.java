@@ -18,7 +18,7 @@ public class CollectCell extends ParallelCommandGroup {
             sequence(new WaitUntilCommand(intakeOpener::isAtGoal),
                 parallel(new SetIntakeSpeed(() -> robotConstants.intakeConstants.kDefaultIntakePower),
                     new SpinMixer(),
-                    new SetLoaderSpeed(LoaderPower.backwards)
+                    new SetLoaderSpeed(LoaderPower.DefaultBackwardsForMix)
                 )
             )
         );

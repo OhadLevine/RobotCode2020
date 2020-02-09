@@ -91,9 +91,9 @@ public class AutoShoot extends SequentialCommandGroup {
     private double getDesiredLoaderSpeed() {
         if (Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance)
             if (speedSupplier.getAsDouble() < robotConstants.loaderConstants.kFarawayShooterSpeed)
-                return LoaderPower.defaults.getPower();
-            else return LoaderPower.faraway.getPower();
-        return LoaderPower.backwards.getPower();
+                return LoaderPower.DefaultLoadToShoot.getPower();
+            else return LoaderPower.FarShoot.getPower();
+        return LoaderPower.DefaultBackwardsForMix.getPower();
     }
 
     @Override

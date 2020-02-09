@@ -1,11 +1,15 @@
 package frc.robot.utils;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import frc.robot.commands.MoveMovableSubsystem;
 import frc.robot.commands.OverrideCommand;
 import frc.robot.commands.RunWhenDisabledCommand;
 import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
+import frc.robot.subsystems.loader.LoaderPower;
 import frc.robot.subsystems.loader.SetLoaderSpeed;
 import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
@@ -24,19 +28,20 @@ import static frc.robot.Robot.*;
 public class DashboardDataContainer {
 
     public DashboardDataContainer() {
-
         // Mixer dashboard data:
         putNumber("Mixer/Mixer power", 0);
         putData("Mixer/Spin mixer",
             new SpinMixer(() -> getNumber("Mixer/Mixer power", 0)));
         putData("Mixer/Override", new OverrideCommand(mixer,
             () -> getNumber("Mixer/Mixer power", 0)));
+        
         // Drivetrain dashboard data
         putData("Drivetrain/Tune drivetrain rotate PID", new RotateDrivetrain());
         putData("Drivetrain/Reset Encoders", new RunWhenDisabledCommand(drivetrain::resetEncoders, drivetrain));
         putData("Drivetrain/Reset Gyro", new RunWhenDisabledCommand(drivetrain::resetGyro, drivetrain));
         putData("Drivetrain/Calibrate Gyro", new RunWhenDisabledCommand(drivetrain::calibrateGyro, drivetrain));
         putData("Drivetrain/Reset Odometry", new RunWhenDisabledCommand(drivetrain::resetOdometry, drivetrain));
+        
         // Shooter dashboard data
         putNumber("Shooter/Shooting velocity setpoint", ShooterVelocity.kDefault.getVelocity());
         putData("Shooter/Set cheesy shooting velocity", new CheesySetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
@@ -47,14 +52,19 @@ public class DashboardDataContainer {
             () -> getNumber("Shooter/Override Power", 0)));
         putData("Shooter/Calibrate shooter velocity", new CalibrateShooterVelocity(oi.getDriverXboxController()::getAButton,
             () -> getNumber("Shooter/Shooting velocity setpoint", 0), 100, 100)); // TODO: set starting distance and delta distance!
+        
         // Loader dashboard data
+        putNumber("Mixer/Mixer invert power", 0);
         putNumber("Loader/Loader Power", 0);
         putData("Loader/Spin Loader by value", new SetLoaderSpeed(
             () -> getNumber("Loader/Loader Power", 0)));
         putData("Loader/Spin Loader", new SetLoaderSpeed());
-        putData("Loader/Move with joystick", new OverrideCommand(loader, () -> oi.getDriverXboxController().getY(Hand.kLeft)));
+        putData("Loader/Move Loader", new MoveMovableSubsystem(loader, () -> getNumber("Loader/Loader Power", 0)));
         
-        // putData("CommandGroup/Combine ", );
+        // CommandGroup dashboard data
+        putData("CommandGroup/Load and Shoot", new ParallelCommandGroup(
+            new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
+            new MoveMovableSubsystem(shooter, () -> 0.2)));
         putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
 
         /*// Intake dashboard data
