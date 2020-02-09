@@ -125,7 +125,7 @@ public class RobotA extends RobotConstants {
         can.kDrivetrainRightFrontTalonFX = 4;
         can.kDrivetrainRightMiddleTalonFX = 5;
         can.kDrivetrainRightRearTalonFX = 6;
-        can.kTemporaryTalonForLeftDrivetrainEncoder = 7;
+        can.kTemporaryTalonForLeftDrivetrainEncoder = 13;
         can.kTemporaryTalonForRightDrivetrainEncoder = 8;
         // Intake Map
         can.kCellIntakeSparkMax = 11;

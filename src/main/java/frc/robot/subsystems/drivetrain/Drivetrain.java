@@ -78,9 +78,9 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
             "Could not set right drivetrain encoder");
 
         // TODO: set correct port for pigeon gyro.
-        gyro = new Pigeon(robotConstants.can.kDrivetrainLeftRearTalonFX);
-        DriverStationLogger.logErrorToDS(gyro.resetGyroWithErrorCode(),
-            "Could not reset pigeon gyro");
+        //gyro = new Pigeon(robotConstants.can.kDrivetrainLeftRearTalonFX);
+        /*DriverStationLogger.logErrorToDS(gyro.resetGyroWithErrorCode(),
+            "Could not reset pigeon gyro");*/
 
         kinematics = new DifferentialDriveKinematics(robotConstants.drivetrainConstants.kWheelBaseWidth);
         odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
@@ -131,9 +131,10 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     // Gyro functions
-    @Log(name = "Drivetrain/Angle")
+    //@Log(name = "Drivetrain/Angle")
     public double getAngle() {
-        return Math.IEEEremainder(gyro.getAngle(), 360);
+        return 0;
+        //return Math.IEEEremainder(gyro.getAngle(), 360);
     }
 
     public double getRadianAngle() {
@@ -296,7 +297,7 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     public void periodic() {
-        odometry.update(Rotation2d.fromDegrees(getAngle()), getLeftDistance(), getRightDistance());
+        //odometry.update(Rotation2d.fromDegrees(getAngle()), getLeftDistance(), getRightDistance());
     }
 
     private void configTalonFX(WPI_TalonFX motor, WPI_TalonFX master) {
