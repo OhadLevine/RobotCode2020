@@ -47,12 +47,15 @@ public class DashboardDataContainer {
             () -> getNumber("Shooter/Override Power", 0)));
         putData("Shooter/Calibrate shooter velocity", new CalibrateShooterVelocity(oi.getDriverXboxController()::getAButton,
             () -> getNumber("Shooter/Shooting velocity setpoint", 0), 100, 100)); // TODO: set starting distance and delta distance!
-        //Loader dashboard data
+        // Loader dashboard data
         putNumber("Loader/Loader Power", 0);
         putData("Loader/Spin Loader by value", new SetLoaderSpeed(
             () -> getNumber("Loader/Loader Power", 0)));
         putData("Loader/Spin Loader", new SetLoaderSpeed());
         putData("Loader/Move with joystick", new OverrideCommand(loader, () -> oi.getDriverXboxController().getY(Hand.kLeft)));
+        
+        putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
+
         /*// Intake dashboard data
         putNumber("Intake/Intake power", 0);
         putData("Intake/Override intake", new OverrideCommand(intake,
@@ -68,7 +71,6 @@ public class DashboardDataContainer {
         // Command groups data
         putData("CommandGroup/Collect Cell", new CollectCell());
         putData("CommandGroup/Collect From Feeder", new CollectFromFeeder()); */
-        putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
     }
 
     public void update() {
