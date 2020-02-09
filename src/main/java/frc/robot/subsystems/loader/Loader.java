@@ -23,7 +23,7 @@ public class Loader extends OverridableSubsystem implements Loggable {
         talonSRX.setNeutralMode(NeutralMode.Coast);
 
         talonSRX.configSupplyCurrentLimit(
-            new SupplyCurrentLimitConfiguration(true, robotConstants.loaderConstants.kCurrentLimit,
+            new SupplyCurrentLimitConfiguration(false, robotConstants.loaderConstants.kCurrentLimit,
                 robotConstants.loaderConstants.kThresholdLimit, robotConstants.loaderConstants.kTimeout));
 
         DriverStationLogger.logErrorToDS(talonSRX.configSelectedFeedbackSensor(TalonSRXFeedbackDevice.CTRE_MagEncoder_Relative, 0, 0),

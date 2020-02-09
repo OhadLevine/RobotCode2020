@@ -54,6 +54,7 @@ public class DashboardDataContainer {
         putData("Loader/Spin Loader", new SetLoaderSpeed());
         putData("Loader/Move with joystick", new OverrideCommand(loader, () -> oi.getDriverXboxController().getY(Hand.kLeft)));
         
+        // putData("CommandGroup/Combine ", );
         putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
 
         /*// Intake dashboard data

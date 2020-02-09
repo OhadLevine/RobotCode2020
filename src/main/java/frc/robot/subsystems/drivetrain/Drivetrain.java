@@ -70,8 +70,8 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
 
         // TODO: set correct port for pigeon gyro.
         gyro = new Pigeon(robotConstants.can.kDrivetrainLeftRearTalonFX);
-        DriverStationLogger.logErrorToDS(gyro.resetGyroWithErrorCode(),
-            "Could not reset pigeon gyro");
+        /*DriverStationLogger.logErrorToDS(gyro.resetGyroWithErrorCode(),
+            "Could not reset pigeon gyro");*/
 
         kinematics = new DifferentialDriveKinematics(robotConstants.drivetrainConstants.kWheelBaseWidth);
         odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getAngle()));
@@ -120,9 +120,10 @@ public class Drivetrain extends SubsystemBase implements MovableSubsystem, Logga
     }
 
     // Gyro functions
-    @Log(name = "Drivetrain/Angle")
+    //@Log(name = "Drivetrain/Angle")
     double getAngle() {
-        return Math.IEEEremainder(gyro.getAngle(), 360);
+        return 0;
+        //return Math.IEEEremainder(gyro.getAngle(), 360);
     }
 
     public double getRadianAngle() {
