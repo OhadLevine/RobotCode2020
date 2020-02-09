@@ -20,6 +20,8 @@ import static frc.robot.Robot.*;
  */
 public class AutoShoot extends SequentialCommandGroup {
     private static final double kAutoWaitTimeAfterShot = 0.1;
+    private DoubleSupplier speedSupplier;
+    private CheesySetShooterVelocity setShooterVelocity;
 
     /**
      * Constructs automatic shooting sequence with shooter velocities based on vision.
@@ -65,7 +67,8 @@ public class AutoShoot extends SequentialCommandGroup {
      * @param isAuto whether the command group should stop automatically
      */
     public AutoShoot(DoubleSupplier speedSupplier, boolean isAuto) {
-        CheesySetShooterVelocity setShooterVelocity = new CheesySetShooterVelocity(speedSupplier, isAuto);
+        this.speedSupplier = speedSupplier;
+        this.setShooterVelocity = new CheesySetShooterVelocity(speedSupplier, isAuto);
         //TurnToTarget turnToTarget = new TurnToTarget(Target.PowerPort, drivetrain);
         addCommands(
             deadline(
@@ -78,12 +81,19 @@ public class AutoShoot extends SequentialCommandGroup {
                     /*new RunTwoCommands(SetLoaderVelocity.defaultSetLoaderVelocityCommand(),
                         new MoveMovableSubsystem(loader, () -> robotConstants.loaderConstants.kDefaultBackwardsPower),
                         () -> Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance))*/
-                    new SetLoaderSpeed(() -> (Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance) ?
-                        LoaderPower.defaults.getPower() : LoaderPower.backwards.getPower())
-                )
-            ),
-            new WaitCommand(kAutoWaitTimeAfterShot)
+                    new SetLoaderSpeed(this::getDesiredLoaderSpeed)
+                ),
+                new WaitCommand(kAutoWaitTimeAfterShot)
+            )
         );
+    }
+
+    private double getDesiredLoaderSpeed() {
+        if (Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance)
+            if (speedSupplier.getAsDouble() < robotConstants.loaderConstants.kFarawayShooterSpeed)
+                return LoaderPower.defaults.getPower();
+            else return LoaderPower.faraway.getPower();
+        return LoaderPower.backwards.getPower();
     }
 
     @Override
