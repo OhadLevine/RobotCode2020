@@ -10,6 +10,7 @@ public enum Song {
     Star_Wars_Main_Theme,
     Undertale_Megalovania,
     Twentieth_Century_Fox,
+    Rasputin,
     Kid_Francescoli_Moon;
 
     private final String path;

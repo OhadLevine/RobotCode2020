@@ -80,6 +80,7 @@ public class DashboardDataContainer {
         putData("Songs/Load Undertale - megalovania", new InstantCommand(() -> drivetrain.loadSong(Song.Undertale_Megalovania), drivetrain));
         putData("Songs/Load Twentieth century fox - main theme", new InstantCommand(() -> drivetrain.loadSong(Song.Twentieth_Century_Fox), drivetrain));
         putData("Songs/Load Kid francescoli - moon", new InstantCommand(() -> drivetrain.loadSong(Song.Kid_Francescoli_Moon), drivetrain));
+        putData("Songs/Load Rasputin", new InstantCommand(() -> drivetrain.loadSong(Song.Rasputin), drivetrain));        
         putData("Songs/Play loaded song", new StartEndCommand(drivetrain::playSong, drivetrain::stopSong, drivetrain));
     }
 
