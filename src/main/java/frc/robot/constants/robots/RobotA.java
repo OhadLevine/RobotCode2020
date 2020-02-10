@@ -52,11 +52,11 @@ public class RobotA extends RobotConstants {
         controlConstants.intakeOpenerFeedforward = new ArmFeedforward(0, 0, 0, 0);
 
         // Mixer Constants
-        mixerConstants.kMixerMaxStall = 30;
+        mixerConstants.kMixerMaxStall = 20;
         mixerConstants.kIsInverted = false;
         mixerConstants.kRampUpTime = 0.1;
         mixerConstants.kStallWaitTime = 0.3;
-        mixerConstants.kBackwardsSpinTime = 1;
+        mixerConstants.kBackwardsSpinTime = 2;
         mixerConstants.kDefaultPower = 0.42;
 
         // Climb Constants

@@ -33,10 +33,10 @@ public class Mixer extends OverridableSubsystem implements Loggable {
     }
 
     /**
-     * @return whether the mixer motor is stalled (calibrated to stall value of cell stuck in the system with liniar function)
+     * @return whether the mixer motor is stalled (calibrated to stall value of cell
+     *         stuck in the system with liniar function)
      */
     public boolean isInStall() {
-        return false;
-        // return getCurrent() >= talonSRX.get() * 1 - 10;
+        return getCurrent() >= robotConstants.mixerConstants.kMixerMaxStall;
     }
 }

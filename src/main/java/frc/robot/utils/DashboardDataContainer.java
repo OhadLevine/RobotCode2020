@@ -57,7 +57,7 @@ public class DashboardDataContainer {
         putNumber("Mixer/Mixer invert power", 0);
         putNumber("Loader/Loader Power", 0);
         putData("Loader/Spin Loader by value", new SetLoaderSpeed(
-            () -> getNumber("Loader/Loader Power", 0)));
+            () -> getNumber("Loader/Loader Power", 0)).raceWith(new SpinMixer(() -> getNumber("Mixer/Mixer power", 0))));
         putData("Loader/Spin Loader", new SetLoaderSpeed());
         putData("Loader/Move Loader", new MoveMovableSubsystem(loader, () -> getNumber("Loader/Loader Power", 0)));
         
