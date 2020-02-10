@@ -142,7 +142,7 @@ public class RobotA extends RobotConstants {
         can.kTemporaryTalonForLeftDrivetrainEncoder = 7;
         can.kTemporaryTalonForRightDrivetrainEncoder = 8;
         // Intake Map
-        can.kCellIntakeSparkMax = 11;
+        can.kCellIntakeSparkMax = 12;
         can.kIntakeOpenerTalonSRX = 16;
         analogInput.kIntakeOpenerPotentiometer = 1;
         // Mixer Map
@@ -154,8 +154,8 @@ public class RobotA extends RobotConstants {
         can.kRightShooterTalonFX = 10;
         dio.kSwitchShooter = 0;
         // Climb Map
-        can.kHookTalonSRX = 13;
-        can.kClimbSparkMax = 14;
+        can.kHookTalonSRX = 14;
+        can.kClimbSparkMax = 7;
         // PWM Map
         pwm.kLedController = 0;
         // I2C Port

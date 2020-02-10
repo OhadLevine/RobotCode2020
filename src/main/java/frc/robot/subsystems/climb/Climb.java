@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -21,13 +22,14 @@ public class Climb extends SubsystemBase {
      */
     public Climb() {
         hookTalonSRX = new WPI_TalonSRX(robotConstants.can.kHookTalonSRX);
-        climbSparkMax = new CANSparkMax(robotConstants.can.kClimbSparkMax, MotorType.kBrushless);
+        climbSparkMax = new CANSparkMax(robotConstants.can.kClimbSparkMax, MotorType.kBrushed);
 
         hookTalonSRX.configSupplyCurrentLimit(
-            new SupplyCurrentLimitConfiguration(true, robotConstants.climbConstants.kHookCurrentLimit,
+            new SupplyCurrentLimitConfiguration(false, robotConstants.climbConstants.kHookCurrentLimit,
                 robotConstants.climbConstants.kHookThresholdLimit, robotConstants.climbConstants.kHookCurrentTimeout));
 
-        climbSparkMax.setSmartCurrentLimit(robotConstants.climbConstants.kClimbCurrentLimit);
+        //climbSparkMax.setSmartCurrentLimit(robotConstants.climbConstants.kClimbCurrentLimit);
+        climbSparkMax.getEncoder(EncoderType.kNoSensor, 0);
 
         hookTalonSRX.setInverted(robotConstants.climbConstants.kIsHookInverted);
         climbSparkMax.setInverted(robotConstants.climbConstants.kIsClimbInverted);
