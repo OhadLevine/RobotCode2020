@@ -101,6 +101,16 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         isTuning = false;
     }
 
+    @Log(name = "Shooter/Left Power")
+    public double getLeftPower() {
+        return leftTalonFX.getMotorOutputPercent();
+    }
+
+    @Log(name = "Shooter/Right Power")
+    public double getRightPower() {
+        return rightTalonFX.getMotorOutputPercent();
+    }
+
     public int getLeftTicks() {
         return leftTalonFX.getSelectedSensorPosition();
     }

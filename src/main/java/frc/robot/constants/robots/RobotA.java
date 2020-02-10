@@ -56,7 +56,7 @@ public class RobotA extends RobotConstants {
         mixerConstants.kIsInverted = false;
         mixerConstants.kRampUpTime = 0.1;
         mixerConstants.kStallWaitTime = 0.3;
-        mixerConstants.kBackwardsSpinTime = 2;
+        mixerConstants.kBackwardsSpinTime = 0.5;
         mixerConstants.kDefaultPower = 0.42;
 
         // Climb Constants
@@ -79,8 +79,8 @@ public class RobotA extends RobotConstants {
         shooterConstants.kIsRightEncoderInverted = false;
         shooterConstants.kStopLoadingTolerance = 10;
         shooterConstants.kVelocityTolerance = 100;
-        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.086, 0.000000001, 2.5, 0.05416, 2);
-        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.1, 0.00000075, 2.6, 0.05020, 2);
+        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.045, 0.00000175, 1, 0.05165, 2);
+        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.05, 0.0000023, 1, 0.0492, 2);
 
         // Loader Constants
         loaderConstants.kRampRate = 0;

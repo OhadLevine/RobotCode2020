@@ -43,7 +43,7 @@ public class DashboardDataContainer {
         putData("Drivetrain/Reset Odometry", new RunWhenDisabledCommand(drivetrain::resetOdometry, drivetrain));
         
         // Shooter dashboard data
-        putNumber("Shooter/Shooting velocity setpoint", ShooterVelocity.kDefault.getVelocity());
+        putNumber("Shooter/Shooting velocity setpoint", 3500);
         putData("Shooter/Set cheesy shooting velocity", new CheesySetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
         putData("Shooter/Set shooting velocity", new SetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
         putData("Shooter/Enable tuning", new StartEndCommand(shooter::enableTuning, shooter::disableTuning));
@@ -62,6 +62,9 @@ public class DashboardDataContainer {
         putData("Loader/Move Loader", new MoveMovableSubsystem(loader, () -> getNumber("Loader/Loader Power", 0)));
         
         // CommandGroup dashboard data
+        putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
+            new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
+            new MoveMovableSubsystem(mixer, () -> 0.75)));
         putData("CommandGroup/Load and Shoot", new ParallelCommandGroup(
             new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
             new MoveMovableSubsystem(shooter, () -> 0.2)));
