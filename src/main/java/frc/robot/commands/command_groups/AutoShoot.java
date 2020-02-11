@@ -9,6 +9,9 @@ import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.ShooterVelocity;
 import frc.robot.vision.Limelight;
+import frc.robot.vision.Target;
+import frc.robot.vision.TurnToTarget;
+
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -69,19 +72,19 @@ public class AutoShoot extends SequentialCommandGroup {
     public AutoShoot(DoubleSupplier speedSupplier, boolean isAuto) {
         this.speedSupplier = speedSupplier;
         this.setShooterVelocity = new CheesySetShooterVelocity(speedSupplier, isAuto);
-        //TurnToTarget turnToTarget = new TurnToTarget(Target.PowerPort, drivetrain);
+        TurnToTarget turnToTarget = new TurnToTarget(Target.PowerPort, drivetrain);
         addCommands(
             deadline(
                 setShooterVelocity,
-                new SpinMixer(),
-                // turnToTarget,
+                turnToTarget,
                 sequence(
                     new WaitUntilCommand(() ->
-                        setShooterVelocity.readyToShoot() /*&& turnToTarget.isOnTarget()*/),
+                        setShooterVelocity.readyToShoot() && turnToTarget.isOnTarget()),
                     /*new RunTwoCommands(SetLoaderVelocity.defaultSetLoaderVelocityCommand(),
                         new MoveMovableSubsystem(loader, () -> robotConstants.loaderConstants.kDefaultBackwardsPower),
                         () -> Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance))*/
-                    new SetLoaderSpeed(this::getDesiredLoaderSpeed)
+                    parallel(new SpinMixer(),                    
+                        new SetLoaderSpeed(LoaderPower.DefaultLoadToShoot))//this::getDesiredLoaderSpeed))
                 ),
                 new WaitCommand(kAutoWaitTimeAfterShot)
             )

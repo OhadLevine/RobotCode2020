@@ -198,7 +198,7 @@ public class CheesySetShooterVelocity extends CommandBase {
      */
     public boolean readyToShoot() { 
         return Math.abs(getError()) <
-            robotConstants.controlConstants.leftShooterSettings.getTolerance() 
+            robotConstants.shooterConstants.kVelocityTolerance 
             && currentShooterState == CheesyShooterState.Hold;
     }
 

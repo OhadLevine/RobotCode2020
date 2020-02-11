@@ -119,8 +119,7 @@ public class Limelight implements Loggable {
      */
     @Log(name = "Limelight/Vision Angle")
     public double getAngle() {
-        Vector2d vector = calculateVector();
-        return Math.toDegrees(Math.atan(vector.y / vector.x));
+        return -getTx();
     }
 
     /**

@@ -21,7 +21,7 @@ public class RobotA extends RobotConstants {
         drivetrainConstants.kRobotWidth = 0;
         drivetrainConstants.kLeftEncoderTicksPerMeter = 1;
         drivetrainConstants.kRightEncoderTicksPerMeter = 1;
-        drivetrainConstants.kRampRate = 1;
+        drivetrainConstants.kRampRate = 0.5;
         drivetrainConstants.kCurrentLimit = 1;
         drivetrainConstants.kTriggerThresholdCurrent = 1;
         drivetrainConstants.kTriggerThresholdTime = 1;
@@ -54,7 +54,7 @@ public class RobotA extends RobotConstants {
         // Mixer Constants
         mixerConstants.kMixerMaxStall = 20;
         mixerConstants.kIsInverted = false;
-        mixerConstants.kRampUpTime = 0.1;
+        mixerConstants.kRampUpTime = 0.5;
         mixerConstants.kStallWaitTime = 0.3;
         mixerConstants.kBackwardsSpinTime = 0.35;
         mixerConstants.kDefaultPower = 0.75;
@@ -78,14 +78,14 @@ public class RobotA extends RobotConstants {
         shooterConstants.kIsLeftEncoderInverted = false;
         shooterConstants.kIsRightEncoderInverted = false;
         shooterConstants.kStopLoadingTolerance = 10;
-        shooterConstants.kVelocityTolerance = 100;
-        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.045, 0.00000175, 1, 0.05165, 2);
-        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.05, 0.0000023, 1, 0.0492, 2);
-        controlConstants.leftShooterCheesySettings = PIDSettings.fromTalonSettings(0.045, 0, 1, 0.05165, 0);
-        controlConstants.rightShooterCheesySettings = PIDSettings.fromTalonSettings(0.05, 0, 1, 0.0492, 0);
+        shooterConstants.kVelocityTolerance = 20;
+        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.045, 0.00000375, 1, 0.05165, 2);
+        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.05, 0.000004, 1, 0.0492, 2);
+        controlConstants.leftShooterCheesySettings = PIDSettings.fromTalonSettings(0.08, 0, 2.5, 0.05165, 0);
+        controlConstants.rightShooterCheesySettings = PIDSettings.fromTalonSettings(0.07, 0, 2.5, 0.0492, 0);
 
         // Loader Constants
-        loaderConstants.kRampRate = 0;
+        loaderConstants.kRampRate = 0.5;
         loaderConstants.kCurrentLimit = 0;
         loaderConstants.kThresholdLimit = 0;
         loaderConstants.kTimeout = 0;
@@ -116,7 +116,7 @@ public class RobotA extends RobotConstants {
         visionConstants.kLimelightAngleOffset = 0;
         visionConstants.kTargetNotFoundWaitTime = 0.1;
         controlConstants.visionDistanceSettings = new PIDSettings(0, 0, 0, 0, 0);
-        controlConstants.visionRotationSettings = new PIDSettings(0, 0, 0, 0, 0);
+        controlConstants.visionRotationSettings = new PIDSettings(0.025, 0.002, 0.0015, 1, 1);//(0.02, 0.002, 0.0015, 1, 1);
         controlConstants.drivetrainRotateSettings = new PIDSettings(0, 0, 0, 0, 0);
 
         // Auto Constants

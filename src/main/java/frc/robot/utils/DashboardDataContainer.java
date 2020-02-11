@@ -1,10 +1,7 @@
 package frc.robot.utils;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import frc.robot.commands.MoveMovableSubsystem;
 import frc.robot.commands.OverrideCommand;
 import frc.robot.commands.RunWhenDisabledCommand;
 import frc.robot.commands.command_groups.AutoShoot;
@@ -15,7 +12,8 @@ import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.SetShooterVelocity;
-import frc.robot.subsystems.shooter.ShooterVelocity;
+import frc.robot.vision.Target;
+import frc.robot.vision.TurnToTarget;
 import io.github.oblarg.oblog.Logger;
 
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
@@ -30,8 +28,6 @@ public class DashboardDataContainer {
     public DashboardDataContainer() {
         // Mixer dashboard data:
         putNumber("Mixer/Mixer power", 0);
-        putData("Mixer/Spin mixer",
-            new SpinMixer(() -> getNumber("Mixer/Mixer power", 0)));
         putData("Mixer/Override", new OverrideCommand(mixer,
             () -> getNumber("Mixer/Mixer power", 0)));
         
@@ -52,39 +48,13 @@ public class DashboardDataContainer {
             () -> getNumber("Shooter/Override Power", 0)));
         putData("Shooter/Calibrate shooter velocity", new CalibrateShooterVelocity(oi.getDriverXboxController()::getAButton,
             () -> getNumber("Shooter/Shooting velocity setpoint", 0), 100, 100)); // TODO: set starting distance and delta distance!
-        
-        // Loader dashboard data
-        putNumber("Mixer/Mixer invert power", 0);
-        putNumber("Loader/Loader Power", 0);
-        putData("Loader/Spin Loader by value", new SetLoaderSpeed(
-            () -> getNumber("Loader/Loader Power", 0)).raceWith(new SpinMixer(() -> getNumber("Mixer/Mixer power", 0))));
-        putData("Loader/Spin Loader", new SetLoaderSpeed());
-        putData("Loader/Move Loader", new MoveMovableSubsystem(loader, () -> getNumber("Loader/Loader Power", 0)));
-        
+        putData("Shooter/Turn to port", new TurnToTarget(Target.PowerPort, drivetrain, "Turn PID"));
+
         // CommandGroup dashboard data
         putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
-            new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
+            new SetLoaderSpeed(LoaderPower.DefaultLoadToShoot),
             new SpinMixer()));
-        putData("CommandGroup/Load and Shoot", new ParallelCommandGroup(
-            new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
-            new MoveMovableSubsystem(shooter, () -> 0.2)));
         putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
-
-        /*// Intake dashboard data
-        putNumber("Intake/Intake power", 0);
-        putData("Intake/Override intake", new OverrideCommand(intake,
-            () -> getNumber("Intake/Intake power", 0)));
-        // IntakeOpener dashboard data
-        putNumber("IntakeOpener/Intake Opener power", 0);
-        putData("IntakeOpener/Override intake opener", new OverrideCommand(intakeOpener,
-            () -> getNumber("IntakeOpener/Intake Opener power", 0)));
-        putData("IntakeOpener/Tune PID", new StartEndCommand(() -> intakeOpener.getDefaultCommand().enableTuning(),
-            () -> intakeOpener.getDefaultCommand().stopTuning(), intakeOpener));
-        putData("IntakeOpener/Open", new SetDesiredOpenerAngle(true));
-        putData("IntakeOpener/Close", new SetDesiredOpenerAngle(false));
-        // Command groups data
-        putData("CommandGroup/Collect Cell", new CollectCell());
-        putData("CommandGroup/Collect From Feeder", new CollectFromFeeder()); */
     }
 
     public void update() {

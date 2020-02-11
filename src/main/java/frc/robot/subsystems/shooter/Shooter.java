@@ -191,11 +191,9 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         leftTalonFX.config_kP(1, robotConstants.controlConstants.leftShooterCheesySettings.getKP());
         leftTalonFX.config_kI(1, robotConstants.controlConstants.leftShooterCheesySettings.getKI());
         leftTalonFX.config_kD(1, robotConstants.controlConstants.leftShooterCheesySettings.getKD());
-        leftTalonFX.config_kF(1, robotConstants.controlConstants.leftShooterCheesySettings.getKF());
         rightTalonFX.config_kP(1, robotConstants.controlConstants.rightShooterCheesySettings.getKP());
         rightTalonFX.config_kI(1, robotConstants.controlConstants.rightShooterCheesySettings.getKI());
         rightTalonFX.config_kD(1, robotConstants.controlConstants.rightShooterCheesySettings.getKD());
-        rightTalonFX.config_kF(1, robotConstants.controlConstants.rightShooterCheesySettings.getKF());
     }
 
     /**
