@@ -11,6 +11,7 @@ public enum Song {
     Undertale_Megalovania,
     Twentieth_Century_Fox,
     Rasputin,
+    Animal_Crossing_Nook_Scranny,
     Kid_Francescoli_Moon;
 
     private final String path;
