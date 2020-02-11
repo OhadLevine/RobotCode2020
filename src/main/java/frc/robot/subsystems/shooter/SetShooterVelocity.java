@@ -39,7 +39,7 @@ public class SetShooterVelocity extends CommandBase {
      * @see frc.robot.subsystems.shooter.ShooterVelocity#kDefault
      */
     public SetShooterVelocity(boolean isAuto) {
-        this(ShooterVelocity.kDefault, isAuto);
+        this(ShooterVelocity.Default, isAuto);
     }
 
     /**

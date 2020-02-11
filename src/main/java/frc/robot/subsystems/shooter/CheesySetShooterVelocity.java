@@ -43,7 +43,7 @@ public class CheesySetShooterVelocity extends CommandBase {
      * @see frc.robot.subsystems.shooter.ShooterVelocity#kDefault
      */
     public CheesySetShooterVelocity(boolean isAuto) {
-        this(ShooterVelocity.kDefault, isAuto);
+        this(ShooterVelocity.Default, isAuto);
     }
 
     /**

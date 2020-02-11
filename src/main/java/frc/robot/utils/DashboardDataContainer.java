@@ -64,7 +64,7 @@ public class DashboardDataContainer {
         // CommandGroup dashboard data
         putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
             new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
-            new MoveMovableSubsystem(mixer, () -> 0.4)));
+            new SpinMixer()));
         putData("CommandGroup/Load and Shoot", new ParallelCommandGroup(
             new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
             new MoveMovableSubsystem(shooter, () -> 0.2)));
