@@ -1,5 +1,6 @@
 package frc.robot.vision;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
 import frc.robot.utils.Logger;
@@ -54,10 +55,11 @@ public class CalibrateVisionDistance extends CommandBase {
 
     @Override
     public void execute() {
+        SmartDashboard.putNumber("Calibrate distance - current distance", currentDistance);
         if (logButton.get()) {
             if (!isPressed) {
                 isPressed = true;
-                logger.log(Robot.limelight.getTy(), currentDistance, drivetrain.getAverageDistance());
+                logger.log(Robot.limelight.getTy(), currentDistance, 0/*drivetrain.getAverageDistance()*/);
                 currentDistance += deltaDistance;
             }
         } else
