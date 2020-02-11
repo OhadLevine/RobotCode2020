@@ -71,7 +71,7 @@ public class RobotA extends RobotConstants {
         shooterConstants.kWheelRadius = 1;
         shooterConstants.kLeftUnitsPerRotation = 2048;
         shooterConstants.kRightUnitsPerRotation = 2048;
-        shooterConstants.kShootingBallZone = 2000;
+        shooterConstants.kShootingBallZone = 125;
         shooterConstants.kWaitTimeZone = 0;
         shooterConstants.kIsLeftMotorInverted = false;
         shooterConstants.kIsRightMotorInverted = true;
@@ -81,6 +81,8 @@ public class RobotA extends RobotConstants {
         shooterConstants.kVelocityTolerance = 100;
         controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.045, 0.00000175, 1, 0.05165, 2);
         controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.05, 0.0000023, 1, 0.0492, 2);
+        controlConstants.leftShooterCheesySettings = PIDSettings.fromTalonSettings(0.045, 0, 1, 0.05165, 0);
+        controlConstants.rightShooterCheesySettings = PIDSettings.fromTalonSettings(0.05, 0, 1, 0.0492, 0);
 
         // Loader Constants
         loaderConstants.kRampRate = 0;

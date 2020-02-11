@@ -108,11 +108,11 @@ public class CheesySetShooterVelocity extends CommandBase {
                 spinUpExecute();
                 break;
             case HoldWhenReady:
-                // set avarage calculated kF to both shooter sides and set kP, kI and kD values to 0; 
+                // set avarage calculated kF to both shooter sides and set kP, kI and kD values for cheesy control; 
                 prepareShooterToHoldState();
                 break;
             default:
-                // switch to open loop with calculated kF    
+                // switch to cheesy control with calculated kF    
                 holdExecute();
         }
     }
@@ -131,7 +131,7 @@ public class CheesySetShooterVelocity extends CommandBase {
     }
 
     private void prepareShooterToHoldState() {
-        // set PID gains of the two sides of the shooter to zero (open loop control)
+        // set PID gains of the two sides of the shooter for cheesy control
         shooter.setProfileSlot(true);
         // set feedforward gains of the two sides of the shooter to the calculated gains from SpinUp state 
         shooter.configFeedforwardGains(leftKfSamplesSum / kfSamplesAmount, rightKfSamplesSum / kfSamplesAmount);
@@ -147,13 +147,20 @@ public class CheesySetShooterVelocity extends CommandBase {
         // If in auto, check how many cells were shot.
         if (isAuto) {
             SmartDashboard.putNumber("Shooter/Cells Shot", cellsShot);
-            boolean isCellBeingShot = Math.abs(setpoint - shooter.getAverageVelocity()) < robotConstants.shooterConstants.kShootingBallZone;
+            boolean isCellBeingShot = Math.abs(setpoint - shooter.getAverageVelocity()) >= robotConstants.shooterConstants.kShootingBallZone;
             countShotCells(isCellBeingShot);
         }
     }
 
     private void countShotCells(boolean isCellBeingShot) {
-        if (!isInZone && isCellBeingShot &&
+        if(isCellBeingShot && !isInZone) {
+            isInZone = true;
+            cellsShot++; 
+        } else if (!isCellBeingShot && isInZone) {
+            isInZone = false;
+        }
+
+        /*if (!isInZone && isCellBeingShot &&
             Timer.getFPGATimestamp() - firstTimeOutsideZone > robotConstants.shooterConstants.kWaitTimeZone) {
             isInZone = true;
             firstTimeInZone = Timer.getFPGATimestamp();
@@ -162,7 +169,7 @@ public class CheesySetShooterVelocity extends CommandBase {
             Timer.getFPGATimestamp() - firstTimeInZone > robotConstants.shooterConstants.kWaitTimeZone) {
             isInZone = false;
             firstTimeOutsideZone = Timer.getFPGATimestamp();
-        }
+        }*/
     }
 
     private void updateKf() {
@@ -186,7 +193,7 @@ public class CheesySetShooterVelocity extends CommandBase {
 
     /**
      * @return whether the shooter is ready to shoot cells.
-     * Shooter must be in Hold state (open loop shooting contorl) and on target velocity.
+     * Shooter must be in Hold state (cheesy shooting contorl) and on target velocity.
      * The velocity tolerance is taken from {@link frc.robot.constants.RobotConstants.ShooterConstants#kVelocityTolerance}
      */
     public boolean readyToShoot() { 

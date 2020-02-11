@@ -44,7 +44,7 @@ public class DashboardDataContainer {
         
         // Shooter dashboard data
         putNumber("Shooter/Shooting velocity setpoint", 3500);
-        putData("Shooter/Set cheesy shooting velocity", new CheesySetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
+        putData("Shooter/Set cheesy shooting velocity", new CheesySetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0), false));
         putData("Shooter/Set shooting velocity", new SetShooterVelocity(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
         putData("Shooter/Enable tuning", new StartEndCommand(shooter::enableTuning, shooter::disableTuning));
         putNumber("Shooter/Override Power", 0);
@@ -64,7 +64,7 @@ public class DashboardDataContainer {
         // CommandGroup dashboard data
         putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
             new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
-            new MoveMovableSubsystem(mixer, () -> 0.75)));
+            new MoveMovableSubsystem(mixer, () -> 0.4)));
         putData("CommandGroup/Load and Shoot", new ParallelCommandGroup(
             new MoveMovableSubsystem(loader, () -> LoaderPower.DefaultLoadToShoot.getPower()), 
             new MoveMovableSubsystem(shooter, () -> 0.2)));
