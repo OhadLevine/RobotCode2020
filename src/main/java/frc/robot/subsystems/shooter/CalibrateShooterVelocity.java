@@ -1,11 +1,10 @@
 package frc.robot.subsystems.shooter;
 
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.utils.Logger;
 import frc.robot.vision.Target;
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
 
 import static frc.robot.Robot.*;
 
@@ -23,7 +22,7 @@ public class CalibrateShooterVelocity extends CommandBase {
 
   /**
    * @param logButton whenever the supplier toggles to true - log the values.
-   * @param velocitySetpointSupplier shooter velocity setpoint supplier. 
+   * @param velocitySetpointSupplier shooter velocity setpoint supplier.
    * @param startingDistance the starting distance of the masurement from the power port.
    */
   public CalibrateShooterVelocity(BooleanSupplier logButton, DoubleSupplier velocitySetpointSupplier, double startingDistance) {
@@ -32,7 +31,7 @@ public class CalibrateShooterVelocity extends CommandBase {
 
   /**
    * @param logButton     whenever the supplier toggles to true - log the values.
-   * @param velocitySetpointSupplier shooter velocity setpoint supplier. 
+   * @param velocitySetpointSupplier shooter velocity setpoint supplier.
    * @param startingDistance the starting distance of the masurement from the power port.
    * @param deltaDistance the distance between each log.
    */
@@ -42,7 +41,7 @@ public class CalibrateShooterVelocity extends CommandBase {
 
   /**
    * @param logButton     whenever the supplier toggles to true - log the values.
-   * @param velocitySetpointSupplier shooter velocity setpoint supplier. 
+   * @param velocitySetpointSupplier shooter velocity setpoint supplier.
    * @param startingDistance the starting distance of the masurement from the power port.
    * @param deltaDistance the distance between each log.
    * @param amountOfLogs  how much times the command will log the data before it ends.
@@ -59,7 +58,7 @@ public class CalibrateShooterVelocity extends CommandBase {
 
   @Override
   public void initialize() {
-    logger = new Logger("shooter velocity calibration.csv", "distance", "robot measured distance", "limelight distance", "velocity");
+    logger = new Logger("shooter velocity calibration.csv", "distance", "robot measured distance", "limelight angle", "velocity");
     drivetrain.resetEncoders();
     limelight.startVision(Target.PowerPort);
     isPressed = false;
@@ -71,8 +70,8 @@ public class CalibrateShooterVelocity extends CommandBase {
     if (logButton.getAsBoolean()) {
       if (!isPressed) {
         isPressed = true;
-        //logger.log(currentDistance, 0, limelight.getDistanceFromLimelight(), velocitySetpointSupplier.getAsDouble());
-        logger.log(currentDistance, drivetrain.getAverageDistance() + startingDistance, limelight.getDistanceFromLimelight(), velocitySetpointSupplier.getAsDouble());
+        //logger.log(currentDistance, 0, limelight.getTy(), velocitySetpointSupplier.getAsDouble());
+        logger.log(currentDistance, drivetrain.getAverageDistance() + startingDistance, limelight.getTy(), velocitySetpointSupplier.getAsDouble());
         currentDistance += deltaDistance;
       }
     } else
@@ -82,7 +81,6 @@ public class CalibrateShooterVelocity extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     shooter.stopMove();
-    limelight.stopVision();
     logger.close();
   }
 
