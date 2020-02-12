@@ -63,7 +63,7 @@ public class RobotTest {
             new DriveWithXbox(() -> 0, () -> 0),
             // new SensorCheck(),
             new MoveMovableSubsystem(Robot.loader, () -> 0),
-            new OverrideCommand(Robot.shooter, () -> 0),
+            new OverrideCommand(Robot.shooter),
             /*new CollectCell(),
             new CollectFromFeeder(),*/
             new AutoShoot(),

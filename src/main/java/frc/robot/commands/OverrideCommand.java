@@ -7,8 +7,8 @@ import java.util.function.DoubleSupplier;
 
 public class OverrideCommand extends StartEndCommand {
 
-    public OverrideCommand(OverridableSubsystem overridableSubsystem, DoubleSupplier moveSupplier) {
-        super(() -> overridableSubsystem.startOverride(moveSupplier),
+    public OverrideCommand(OverridableSubsystem overridableSubsystem) {
+        super(() -> overridableSubsystem.startOverride(),
             overridableSubsystem::stopOverride);
     }
 }
