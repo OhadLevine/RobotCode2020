@@ -67,7 +67,8 @@ public abstract class RobotConstants extends RobotMap {
         public boolean kIsInverted;
         public double kStallWaitTime;
         public double kTotalStallWaitTime;
-        public double kBackwardsSpinTime;
+        public double kBackwardsSpinTimeLowSpeed;
+        public double kBackwardsSpinTimeHighSpeed;
         public double kRampUpTime;
     }
 

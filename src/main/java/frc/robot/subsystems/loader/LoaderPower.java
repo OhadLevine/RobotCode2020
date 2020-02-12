@@ -3,7 +3,7 @@ package frc.robot.subsystems.loader;
 public enum LoaderPower {
     DefaultLoadToShoot(0.7), 
     FarShoot(0.45), 
-    DefaultBackwardsForMix(-0.1);
+    DefaultBackwardsForMix(-0.045);
     
     private final double power;
 

@@ -56,8 +56,8 @@ public class Robot extends TimedRobot {
         mixer = new Mixer();
         loader = new Loader();
         shooter = new Shooter();
-        /* climb = new Climb();
-        led = new LED(); */
+        //climb = new Climb();
+        led = new LED();
 
         // Utils:
         limelight = new Limelight();

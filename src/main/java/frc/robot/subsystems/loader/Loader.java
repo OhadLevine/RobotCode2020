@@ -53,6 +53,6 @@ public class Loader extends OverridableSubsystem implements Loggable {
     }
 
   public boolean getIsInStall() {
-    return talonSRX.getStatorCurrent() > robotConstants.loaderConstants.kStallLimit;
+    return Math.abs(talonSRX.getStatorCurrent()) > robotConstants.loaderConstants.kStallLimit;
   }
 }

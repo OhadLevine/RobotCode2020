@@ -1,7 +1,10 @@
 package frc.robot.subsystems.mixer;
 
+import edu.wpi.first.hal.sim.DriverStationSim;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.utils.DriverStationLogger;
+
 import java.util.function.DoubleSupplier;
 
 import static frc.robot.Robot.mixer;
@@ -48,13 +51,16 @@ public class SpinMixer extends CommandBase {
     public void initialize() {
         lastTimeNotOnStall = Timer.getFPGATimestamp();
         backwardsSpinStartTime = 0;
+        stalled = false;
+        // For Test!! remove later...
+        mixer.stopOverride();
     }
 
     @Override
     public void execute() {
-        if (Timer.getFPGATimestamp() - backwardsSpinStartTime < robotConstants.mixerConstants.kBackwardsSpinTime)
+        if (Timer.getFPGATimestamp() - backwardsSpinStartTime < (power.getAsDouble() > 0.5 ? robotConstants.mixerConstants.kBackwardsSpinTimeHighSpeed : robotConstants.mixerConstants.kBackwardsSpinTimeLowSpeed))
             mixer.move(-power.getAsDouble());
-        else if (Timer.getFPGATimestamp() - lastTimeNotOnStall > robotConstants.mixerConstants.kStallWaitTime)
+        else if (Timer.getFPGATimestamp() - lastTimeNotOnStall > robotConstants.mixerConstants.kTotalStallWaitTime)
             stalled = true;
         else {
             if (!mixer.isInStall()) {
@@ -76,7 +82,9 @@ public class SpinMixer extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         mixer.stopMove();
-        if(stalled)
+        if(stalled) {
             mixer.startOverride();
+            DriverStationLogger.logErrorToDS("A ball got stuck in the mixer");
+        }
     }
 }

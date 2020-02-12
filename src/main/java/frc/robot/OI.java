@@ -71,6 +71,7 @@ public class OI {
         driverXbox.getRightStickButton().toggleWhenPressed(driverClimb);*/
         
         mixer.setOverrideSupplier(driverXbox::getY);
+        shooter.setOverrideSupplier(() -> SmartDashboard.getNumber("Shooter/Override Power", 0));
     }
 
     private void createOperatorCommands() {

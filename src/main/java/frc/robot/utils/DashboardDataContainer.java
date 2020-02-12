@@ -27,9 +27,14 @@ import static frc.robot.Robot.*;
 public class DashboardDataContainer {
 
     public DashboardDataContainer() {
+        // Loader
+        putNumber("Loader/Loader power", 0);
+        putData("Loader/Spin Loader by value", new SetLoaderSpeed(() -> getNumber("Loader/Loader power", 0)));
+        
         // Mixer dashboard data:
         putNumber("Mixer/Mixer power", 0);
         putData("Mixer/Override", new OverrideCommand(mixer));
+        putData("Mixer/Spin Mixer", new SpinMixer(() -> getNumber("Mixer/Mixer power", 0)));
         
         // Drivetrain dashboard data
         putData("Drivetrain/Tune drivetrain rotate PID", new RotateDrivetrain());
