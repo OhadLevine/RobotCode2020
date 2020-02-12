@@ -13,7 +13,7 @@ import static frc.robot.Robot.shooter;
  */
 public class CheesySetShooterVelocity extends CommandBase {
 
-    private static final int kLoadedCellsInAuto = 3;
+    private static final int kLoadedCellsInAuto = 5;
     private static final int kMinimumKfSamples = 20;
     private DoubleSupplier velocitySetpoint;
     private CheesyShooterState currentShooterState;

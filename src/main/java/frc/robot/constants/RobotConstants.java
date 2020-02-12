@@ -66,12 +66,14 @@ public abstract class RobotConstants extends RobotMap {
         public double kMixerMaxStall;
         public boolean kIsInverted;
         public double kStallWaitTime;
+        public double kTotalStallWaitTime;
         public double kBackwardsSpinTime;
         public double kRampUpTime;
         public double kDefaultPower;
     }
 
     public static class LoaderConstants {
+        public boolean kIsInverted;
         public double kRampRate;
         public double kCurrentLimit;
         public double kThresholdLimit;

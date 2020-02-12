@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.utils.TrigonXboxController;
 
+import static frc.robot.Robot.*; 
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -67,6 +69,8 @@ public class OI {
         driverXbox.getButtonA().whenHeld(driverCollectCell);
         driverXbox.getButtonY().whenPressed(driverCollectFromFeeder);
         driverXbox.getRightStickButton().toggleWhenPressed(driverClimb);*/
+        
+        mixer.setOverrideSupplier(driverXbox::getY);
     }
 
     private void createOperatorCommands() {

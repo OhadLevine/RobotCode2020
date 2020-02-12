@@ -15,6 +15,7 @@ public class SpinMixer extends CommandBase {
     private DoubleSupplier power;
     private double lastTimeNotOnStall;
     private double backwardsSpinStartTime;
+    private boolean stalled;
 
     /**
      * This constructor creates the command that spins
@@ -49,6 +50,8 @@ public class SpinMixer extends CommandBase {
     public void execute() {
         if (Timer.getFPGATimestamp() - backwardsSpinStartTime < robotConstants.mixerConstants.kBackwardsSpinTime)
             mixer.move(-power.getAsDouble());
+        else if (Timer.getFPGATimestamp() - lastTimeNotOnStall > robotConstants.mixerConstants.kStallWaitTime)
+            stalled = true;
         else {
             if (!mixer.isInStall()) {
                 lastTimeNotOnStall = Timer.getFPGATimestamp();
@@ -62,7 +65,14 @@ public class SpinMixer extends CommandBase {
     }
 
     @Override
+    public boolean isFinished() {
+        return stalled;
+    }
+
+    @Override
     public void end(boolean interrupted) {
         mixer.stopMove();
+        if(stalled)
+            mixer.startOverride();
     }
 }

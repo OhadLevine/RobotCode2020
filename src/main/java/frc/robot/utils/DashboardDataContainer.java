@@ -54,7 +54,7 @@ public class DashboardDataContainer {
         putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
             new SetLoaderSpeed(LoaderPower.DefaultLoadToShoot),
             new SpinMixer()));
-        putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0)));
+        putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0), true));
     }
 
     public void update() {

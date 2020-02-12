@@ -8,6 +8,8 @@ import io.github.oblarg.oblog.annotations.Log;
 
 import static frc.robot.Robot.robotConstants;
 
+import java.util.function.DoubleSupplier;
+
 /**
  * This class holds all of the methods for the Mixer subsystem, which holds
  * POWER CELLS in the robot for shooting.

@@ -54,10 +54,11 @@ public class RobotA extends RobotConstants {
         // Mixer Constants
         mixerConstants.kMixerMaxStall = 20;
         mixerConstants.kIsInverted = false;
-        mixerConstants.kRampUpTime = 0.5;
+        mixerConstants.kRampUpTime = 0.25;
         mixerConstants.kStallWaitTime = 0.3;
+        mixerConstants.kTotalStallWaitTime = 1;
         mixerConstants.kBackwardsSpinTime = 0.35;
-        mixerConstants.kDefaultPower = 0.75;
+        mixerConstants.kDefaultPower = 0.8; //0.72
 
         // Climb Constants
         climbConstants.kHookCurrentLimit = 0;
@@ -79,13 +80,14 @@ public class RobotA extends RobotConstants {
         shooterConstants.kIsRightEncoderInverted = false;
         shooterConstants.kStopLoadingTolerance = 10;
         shooterConstants.kVelocityTolerance = 20;
-        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.045, 0.00000375, 1, 0.05165, 2);
-        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.05, 0.000004, 1, 0.0492, 2);
-        controlConstants.leftShooterCheesySettings = PIDSettings.fromTalonSettings(0.08, 0, 2.5, 0.05165, 0);
-        controlConstants.rightShooterCheesySettings = PIDSettings.fromTalonSettings(0.07, 0, 2.5, 0.0492, 0);
+        controlConstants.leftShooterSettings = PIDSettings.fromTalonSettings(0.045, 0.00000175, 1, 0.0512, 2);
+        controlConstants.rightShooterSettings = PIDSettings.fromTalonSettings(0.05, 0.0000023, 1, 0.0488, 2);
+        controlConstants.leftShooterCheesySettings = PIDSettings.fromTalonSettings(0.095, 0, 2.5, 0.05165, 0);
+        controlConstants.rightShooterCheesySettings = PIDSettings.fromTalonSettings(0.085, 0, 2.5, 0.0492, 0);
 
         // Loader Constants
-        loaderConstants.kRampRate = 0.5;
+        loaderConstants.kIsInverted = true;
+        loaderConstants.kRampRate = 0.25;
         loaderConstants.kCurrentLimit = 0;
         loaderConstants.kThresholdLimit = 0;
         loaderConstants.kTimeout = 0;

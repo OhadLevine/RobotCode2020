@@ -21,7 +21,7 @@ public class Loader extends OverridableSubsystem implements Loggable {
         talonSRX = new WPI_TalonSRX(robotConstants.can.kLoaderTalonSRX);
         talonSRX.configOpenloopRamp(robotConstants.loaderConstants.kRampRate);
         talonSRX.setNeutralMode(NeutralMode.Coast);
-
+        talonSRX.setInverted(robotConstants.loaderConstants.kIsInverted);
         talonSRX.configSupplyCurrentLimit(
             new SupplyCurrentLimitConfiguration(false, robotConstants.loaderConstants.kCurrentLimit,
                 robotConstants.loaderConstants.kThresholdLimit, robotConstants.loaderConstants.kTimeout));
