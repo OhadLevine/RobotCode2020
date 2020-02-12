@@ -69,7 +69,6 @@ public abstract class RobotConstants extends RobotMap {
         public double kTotalStallWaitTime;
         public double kBackwardsSpinTime;
         public double kRampUpTime;
-        public double kDefaultPower;
     }
 
     public static class LoaderConstants {

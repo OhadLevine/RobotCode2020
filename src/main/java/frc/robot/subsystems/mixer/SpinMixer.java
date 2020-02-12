@@ -19,10 +19,14 @@ public class SpinMixer extends CommandBase {
 
     /**
      * This constructor creates the command that spins
-     * the mixer at the power of {@link frc.robot.constants.RobotConstants.MixerConstants#kDefaultPower}
+     * the mixer at the power of {@link MixerPower#MixForShoot}
      */
     public SpinMixer() {
-        this(robotConstants.mixerConstants.kDefaultPower);
+        this(MixerPower.MixForShoot);
+    }
+
+    public SpinMixer(MixerPower mixerPower) {
+        this(mixerPower.getPower());
     }
 
     /**

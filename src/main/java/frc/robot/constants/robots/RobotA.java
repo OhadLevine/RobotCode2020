@@ -58,7 +58,6 @@ public class RobotA extends RobotConstants {
         mixerConstants.kStallWaitTime = 0.3;
         mixerConstants.kTotalStallWaitTime = 1;
         mixerConstants.kBackwardsSpinTime = 0.35;
-        mixerConstants.kDefaultPower = 0.8; //0.72
 
         // Climb Constants
         climbConstants.kHookCurrentLimit = 0;

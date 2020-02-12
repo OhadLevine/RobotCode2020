@@ -8,6 +8,7 @@ import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
 import frc.robot.subsystems.loader.LoaderPower;
 import frc.robot.subsystems.loader.SetLoaderSpeed;
+import frc.robot.subsystems.mixer.MixerPower;
 import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
@@ -51,7 +52,7 @@ public class DashboardDataContainer {
         // CommandGroup dashboard data
         putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
             new SetLoaderSpeed(LoaderPower.DefaultLoadToShoot),
-            new SpinMixer()));
+            new SpinMixer(MixerPower.MixForShoot)));
         putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0), true));
     }
 

@@ -5,13 +5,13 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.subsystems.loader.LoaderPower;
 import frc.robot.subsystems.loader.SetLoaderSpeed;
+import frc.robot.subsystems.mixer.MixerPower;
 import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.ShooterVelocity;
 import frc.robot.vision.Limelight;
 import frc.robot.vision.Target;
 import frc.robot.vision.TurnToTarget;
-
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -83,7 +83,7 @@ public class AutoShoot extends SequentialCommandGroup {
                     /*new RunTwoCommands(SetLoaderVelocity.defaultSetLoaderVelocityCommand(),
                         new MoveMovableSubsystem(loader, () -> robotConstants.loaderConstants.kDefaultBackwardsPower),
                         () -> Math.abs(setShooterVelocity.getError()) < robotConstants.shooterConstants.kStopLoadingTolerance))*/
-                    parallel(new SpinMixer(),                    
+                    parallel(new SpinMixer(MixerPower.MixForShoot),
                         new SetLoaderSpeed(LoaderPower.DefaultLoadToShoot))//this::getDesiredLoaderSpeed))
                 ),
                 new WaitCommand(kAutoWaitTimeAfterShot)
