@@ -6,10 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.autonomus.MiddleFieldAuto;
-import frc.robot.autonomus.SimpleAuto;
-import frc.robot.autonomus.StartingPose;
-import frc.robot.autonomus.TrenchAuto;
 import frc.robot.constants.FieldConstants;
 import frc.robot.constants.RobotConstants;
 import frc.robot.constants.fields.HomeField;
@@ -54,14 +50,14 @@ public class Robot extends TimedRobot {
         fieldConstants = new HomeField();
 
         // Subsystems:
-        drivetrain = new Drivetrain();
+//        drivetrain = new Drivetrain();
         intake = new Intake();
         intakeOpener = new IntakeOpener();
-        mixer = new Mixer();
-        loader = new Loader();
-        shooter = new Shooter();
-        climb = new Climb();
-        led = new LED();
+//        mixer = new Mixer();
+//        loader = new Loader();
+//        shooter = new Shooter();
+//        climb = new Climb();
+//        led = new LED();
 
         // Utils:
         limelight = new Limelight();
@@ -69,14 +65,14 @@ public class Robot extends TimedRobot {
         dashboardDataContainer = new DashboardDataContainer();
         autoChooser = new SendableChooser<>();
 
-        autoChooser.setDefaultOption("Simple Auto", new SimpleAuto());
-        autoChooser.addOption("TrenchAuto: In line with Trench", new TrenchAuto(StartingPose.kLineUpWithTrenchRun));
-        autoChooser.addOption("TrenchAuto: Facing Power Port", new TrenchAuto(StartingPose.kFacingPowerPort));
-        autoChooser.addOption("MiddleFieldAuto: Facing Power Port", new MiddleFieldAuto(StartingPose.kFacingPowerPort));
-        autoChooser.addOption("MiddleFieldAuto: Facing right of Power Port", new MiddleFieldAuto(StartingPose.kFacingRightOfPowerPort));
-        
+//        autoChooser.setDefaultOption("Simple Auto", new SimpleAuto());
+//        autoChooser.addOption("TrenchAuto: In line with Trench", new TrenchAuto(StartingPose.kLineUpWithTrenchRun));
+//        autoChooser.addOption("TrenchAuto: Facing Power Port", new TrenchAuto(StartingPose.kFacingPowerPort));
+//        autoChooser.addOption("MiddleFieldAuto: Facing Power Port", new MiddleFieldAuto(StartingPose.kFacingPowerPort));
+//        autoChooser.addOption("MiddleFieldAuto: Facing right of Power Port", new MiddleFieldAuto(StartingPose.kFacingRightOfPowerPort));
+
         SmartDashboard.putData("Auto/autoChooser", autoChooser);
-        
+
         // We configure the logger here since it needs the container of all the
         // subsystems
         Logger.configureLoggingNTOnly(this, "Logging");
@@ -113,7 +109,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         DriverStationLogger.logToDS("Autonomous starting");
-        led.stopEmergencyLED();
+        // led.stopEmergencyLED();
 
         autoCommand = autoChooser.getSelected();
         if (autoCommand != null) {
