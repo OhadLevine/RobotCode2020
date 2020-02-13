@@ -66,8 +66,10 @@ public class OI {
 
     private void createDriverCommands() {
         driverDriveWithXbox = new DriveWithXbox(() -> driverXbox.getX(Hand.kLeft), driverXbox::getDeltaTriggers).deadlineWith(new ConditionalCommand(new RunCommand(() -> led.blinkColor(LEDColor.Green, kBlinkingAmount), led)), new RunCommand(() -> led.blinkColor(LEDColor.Red, kBlinkingAmount), led), () -> drivetrain.getLeftMotorOutputVoltage() >=0 || () -> drivetrain.getRightMotorOutputVoltage() >= 0)));
-        driverAutoShoot = new AutoShoot().withInterrupt(() -> Math.abs(driverXbox.getDeltaTriggers()) >= robotConstants.oiConstants.kDeltaTriggersInterruptDifference);
-        driverCollectCell = new CollectCell();
+        driverAutoShoot = new AutoShoot().withInterrupt(() -> Math.abs(driverXbox.getDeltaTriggers()) >= robotConstants.oiConstants.kDeltaTriggersInterruptDifference).deadlineWith(                new ConditionalCommand(new RunCommand(() -> led.setColor(LEDColor.Gold), led),
+        new RunCommand(() -> led.setColor(LEDColor.Blue), led),
+        () -> setShooterVelocity.isCellBeingShot()));
+        driverCollectCell = new CollectCell().deadlineWith(new RunCommand(() -> led.blinkColor(LEDColor.Blue, kBlinkingAmount), led));
         driverCollectFromFeeder = new CollectFromFeeder().withInterrupt(() -> Math.abs(driverXbox.getDeltaTriggers()) >= robotConstants.oiConstants.kDeltaTriggersInterruptDifference);
         driverClimb = new MoveClimbAndHook(() -> driverXbox.getY(Hand.kRight), () -> driverXbox.getBButton() ? robotConstants.climbConstants.kDefaultClimbPower : 0).deadlineWith(new RunCommand(() -> led.blinkColor(LEDColor.Blue, kBlinkingAmount)));
     }
