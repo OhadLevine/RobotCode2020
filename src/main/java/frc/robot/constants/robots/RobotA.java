@@ -22,9 +22,9 @@ public class RobotA extends RobotConstants {
         drivetrainConstants.kLeftEncoderTicksPerMeter = 8216;
         drivetrainConstants.kRightEncoderTicksPerMeter = 8237;
         drivetrainConstants.kRampRate = 0.1;
-        drivetrainConstants.kCurrentLimit = 1;
-        drivetrainConstants.kTriggerThresholdCurrent = 1;
-        drivetrainConstants.kTriggerThresholdTime = 1;
+        drivetrainConstants.kCurrentLimit = 20;
+        drivetrainConstants.kTriggerThresholdCurrent = 20;
+        drivetrainConstants.kTriggerThresholdTime = 2;
         drivetrainConstants.kRightEncoderInverted = true;
         drivetrainConstants.kLeftEncoderInverted = false;
 
