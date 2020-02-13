@@ -46,6 +46,15 @@ public class IntakeOpener extends OverridableSubsystem implements Loggable {
         talonSRX.set(power);
     }
 
+    @Override
+    public void move(double power) {
+        if((getAngle() >= robotConstants.intakeOpenerConstants.kOpenAngle && power > 0)
+            || (getAngle() <= robotConstants.intakeOpenerConstants.kClosedAngle && power < 0))
+            super.move(0);
+        else 
+            super.move(power);
+    }
+
     /**
      * Moves the intakeOpener motor.
      */
@@ -64,6 +73,7 @@ public class IntakeOpener extends OverridableSubsystem implements Loggable {
     }
 
     /** @return The change in angle per delta time */
+    @Log(name = "IntakeOpener/Angle Velocity")
     public double getVelocity() {
         return velocity;
     }

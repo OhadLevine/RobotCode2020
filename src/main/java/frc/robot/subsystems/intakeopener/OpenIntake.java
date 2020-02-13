@@ -40,7 +40,7 @@ public class OpenIntake extends CommandBase {
         pidController = new TrigonProfiledPIDController(robotConstants.controlConstants.intakeOpenerSettings,
             new Constraints(robotConstants.intakeOpenerConstants.kMaxVelocity,
                 robotConstants.intakeOpenerConstants.kMaxAcceleration));
-//        pidController = new TrigonPIDController(robotConstants.controlConstants.intakeOpenerSettings);
+        //pidController = new TrigonPIDController(robotConstants.controlConstants.intakeOpenerSettings);
         this.angleSupplier = angleSupplier;
         feedforward = robotConstants.controlConstants.intakeOpenerFeedforward;
         isTuning = false;
@@ -49,7 +49,7 @@ public class OpenIntake extends CommandBase {
     @Override
     public void initialize() {
         pidController.reset(intakeOpener.getAngle());
-//        pidController.reset();
+        //pidController.reset();
     }
 
     @Override
@@ -58,7 +58,7 @@ public class OpenIntake extends CommandBase {
             pidController.setGoal(angleSupplier.getAsDouble());
         intakeOpener.setIntakeOpenerVoltage(pidController.calculate(intakeOpener.getAngle(), -1, 1)
             + feedforward.calculate(pidController.getSetpoint().position, pidController.getSetpoint().velocity));
-//        intakeOpener.move(pidController.calculate(intakeOpener.getAngle(), -1, 1));
+        //intakeOpener.move(pidController.calculate(intakeOpener.getAngle(), -1, 1));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class OpenIntake extends CommandBase {
 
     public boolean isAtGoal() {
         return pidController.atGoal();
-//        return pidController.atSetpoint();
+        //return pidController.atSetpoint();
     }
 
     /**
