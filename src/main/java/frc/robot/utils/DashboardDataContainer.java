@@ -1,7 +1,7 @@
 package frc.robot.utils;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.autonomus.SimpleAuto;
 import frc.robot.commands.OverrideCommand;
@@ -13,6 +13,7 @@ import frc.robot.motion_profiling.AutoPath;
 import frc.robot.motion_profiling.CalibrateFeedforward;
 import frc.robot.motion_profiling.FollowPath;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
+import frc.robot.subsystems.intakeopener.SetDesiredOpenerAngle;
 import frc.robot.subsystems.loader.LoaderPower;
 import frc.robot.subsystems.loader.SetLoaderSpeed;
 import frc.robot.subsystems.mixer.MixerPower;
@@ -20,8 +21,6 @@ import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.shooter.CalibrateShooterVelocity;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.SetShooterVelocity;
-import frc.robot.vision.Target;
-import frc.robot.vision.TurnToTarget;
 import frc.robot.vision.CalibrateVisionDistance;
 import frc.robot.vision.FollowTarget;
 import frc.robot.vision.Target;
@@ -58,7 +57,7 @@ public class DashboardDataContainer {
         FollowPath TrenchPathCommand = new FollowPath(AutoPath.FacingPowerPortToTrenchStart);
         TrenchPathCommand.enableTuning();
         putData("Motion Profiling/Power Port to Trench", TrenchPathCommand);
-        putNumber("Drivetrain/Simple Auto timout", 0);
+        putNumber("Drivetrain/Simple Auto timeout", 0);
         putData("Drivetrain/Simple Auto", new SimpleAuto(() -> getNumber("Drivetrain/Simple Auto timeout", 0)));
         putData("Drivetrain/Reset Encoders", new RunWhenDisabledCommand(drivetrain::resetEncoders, drivetrain));
         putData("Drivetrain/Reset Gyro", new RunWhenDisabledCommand(drivetrain::resetGyro, drivetrain));
@@ -76,22 +75,6 @@ public class DashboardDataContainer {
             () -> getNumber("Shooter/Shooting velocity setpoint", 0), 100, 100)); // TODO: set starting distance and delta distance!
         putData("Shooter/Turn to port", new TurnToTarget(Target.PowerPort, drivetrain, "Turn PID"));
 
-        // CommandGroup dashboard data
-        putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
-            new SetLoaderSpeed(LoaderPower.DefaultLoadToShoot),
-            new SpinMixer(MixerPower.MixForShoot)));
-        putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0), true));
-        putDefaultNumber("Shooter/Override Power", 0);
-        putData("Shooter/Override", new OverrideCommand(shooter,
-            () -> getNumber("Shooter/Override Power", 0)));
-        // Loader dashboard data
-        putDefaultNumber("Loader/Loader Power", 0);
-        putData("Loader/Override", new OverrideCommand(loader,
-            () -> getNumber("Loader/Loader Power", 0)));
-        // Intake dashboard data
-        putDefaultNumber("Intake/Intake power", 0);
-        putData("Intake/Override intake", new OverrideCommand(intake,
-            () -> getNumber("Intake/Intake power", 0)));
         // IntakeOpener dashboard data
         putDefaultNumber("IntakeOpener/Intake Opener power", 0);
         putData("IntakeOpener/Override intake opener", new OverrideCommand(intakeOpener,
@@ -100,8 +83,12 @@ public class DashboardDataContainer {
             () -> intakeOpener.getDefaultCommand().stopTuning(), intakeOpener));
         putData("IntakeOpener/Open", new SetDesiredOpenerAngle(true));
         putData("IntakeOpener/Close", new SetDesiredOpenerAngle(false));
-        // Command groups data
-        putData("CommandGroup/Auto Shoot", new AutoShoot());
+
+        // CommandGroup dashboard data
+        putData("CommandGroup/Mix and Load", new ParallelCommandGroup(
+            new SetLoaderSpeed(LoaderPower.DefaultLoadToShoot),
+            new SpinMixer(MixerPower.MixForShoot)));
+        putData("CommandGroup/Auto Shoot", new AutoShoot(() -> getNumber("Shooter/Shooting velocity setpoint", 0), true));
         putData("CommandGroup/Collect Cell", new CollectCell());
         putData("CommandGroup/Collect From Feeder", new CollectFromFeeder());
     }

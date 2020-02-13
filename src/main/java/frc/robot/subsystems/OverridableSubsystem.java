@@ -26,6 +26,11 @@ public abstract class OverridableSubsystem extends SubsystemBase implements Mova
         overridden = true;
     }
 
+    public void startOverride(DoubleSupplier powerSupplier) {
+        setOverrideSupplier(powerSupplier);
+        startOverride();
+    }
+
     public void stopOverride() {
         if (overridden) {
             DriverStationLogger.logToDS("Stopping to override " + getName());
