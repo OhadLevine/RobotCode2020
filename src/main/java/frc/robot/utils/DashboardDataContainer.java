@@ -1,7 +1,7 @@
 package frc.robot.utils;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.autonomus.SimpleAuto;
 import frc.robot.commands.OverrideCommand;
@@ -9,10 +9,10 @@ import frc.robot.commands.RunWhenDisabledCommand;
 import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.commands.command_groups.CollectFromFeeder;
-import frc.robot.subsystems.climb.MoveClimbAndHook;
 import frc.robot.motion_profiling.AutoPath;
 import frc.robot.motion_profiling.CalibrateFeedforward;
 import frc.robot.motion_profiling.FollowPath;
+import frc.robot.subsystems.climb.MoveClimbAndHook;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
 import frc.robot.subsystems.intakeopener.SetDesiredOpenerAngle;
 import frc.robot.subsystems.mixer.SpinMixer;
@@ -92,7 +92,7 @@ public class DashboardDataContainer {
         // Command groups data
         putData("CommandGroup/Auto Shoot", new AutoShoot());
         putData("CommandGroup/Collect Cell", new CollectCell());
-        putData("CommandGroup/Collect From Feeder", new CollectFromFeeder()); */
+        putData("CommandGroup/Collect From Feeder", new CollectFromFeeder());
 
     }
 
