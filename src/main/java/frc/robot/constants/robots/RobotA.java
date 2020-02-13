@@ -15,16 +15,18 @@ public class RobotA extends RobotConstants {
     public RobotA() {
         /* Robot Constants */
         // Drivetrain Constants
-        drivetrainConstants.kWheelDiameter = 0;
+        drivetrainConstants.kWheelDiameter = 15.748;
         drivetrainConstants.kWheelBaseWidth = 0;
         drivetrainConstants.kRobotLength = 0;
         drivetrainConstants.kRobotWidth = 0;
-        drivetrainConstants.kLeftEncoderTicksPerMeter = 1;
-        drivetrainConstants.kRightEncoderTicksPerMeter = 1;
-        drivetrainConstants.kRampRate = 0.5;
+        drivetrainConstants.kLeftEncoderTicksPerMeter = 8216;
+        drivetrainConstants.kRightEncoderTicksPerMeter = 8237;
+        drivetrainConstants.kRampRate = 0.1;
         drivetrainConstants.kCurrentLimit = 1;
         drivetrainConstants.kTriggerThresholdCurrent = 1;
         drivetrainConstants.kTriggerThresholdTime = 1;
+        drivetrainConstants.kRightEncoderInverted = true;
+        drivetrainConstants.kLeftEncoderInverted = false;
 
         // Trigon Drive Constants
         trigonDriveConstants.kSensitivity = 1;
@@ -116,14 +118,14 @@ public class RobotA extends RobotConstants {
         visionConstants.kLimelightOffsetX = 0;
         visionConstants.kLimelightOffsetY = 0;
         visionConstants.kLimelightAngleOffset = 0;
-        visionConstants.kTargetNotFoundWaitTime = 0.1;
+        visionConstants.kTargetNotFoundWaitTime = 0.5;
         controlConstants.visionDistanceSettings = new PIDSettings(0, 0, 0, 0, 0);
-        controlConstants.visionRotationSettings = new PIDSettings(0.025, 0.002, 0.0015, 1, 1);//(0.02, 0.002, 0.0015, 1, 1);
+        controlConstants.visionRotationSettings = new PIDSettings(0.0185, 0.00025, 0.0005, 1, 1);
         controlConstants.drivetrainRotateSettings = new PIDSettings(0, 0, 0, 0, 0);
 
         // Auto Constants
-        autoConstants.kSimpleAutoPower = -0.3;
-        autoConstants.kSimpleAutoTimeout = 0.85;
+        autoConstants.kSimpleAutoPower = -0.2;
+        autoConstants.kSimpleAutoTimeout = 0.6;
         autoConstants.kTrenchAutoRotateToPortAngle = 0;
         autoConstants.kMiddleFieldAutoRotateToPortAngle = 167.0;
         autoConstants.kMiddleFieldAutoRotateLeftAngle = 60;
@@ -140,8 +142,8 @@ public class RobotA extends RobotConstants {
         can.kDrivetrainRightFrontTalonFX = 4;
         can.kDrivetrainRightMiddleTalonFX = 5;
         can.kDrivetrainRightRearTalonFX = 6;
-        can.kTemporaryTalonForLeftDrivetrainEncoder = 13;
-        can.kTemporaryTalonForRightDrivetrainEncoder = 8;
+        can.kDrivetrainLeftEncoder = 13;
+        can.kPigeonTalonSRX = 10;
         // Intake Map
         can.kCellIntakeSparkMax = 11;
         can.kIntakeOpenerTalonSRX = 16;
@@ -155,8 +157,8 @@ public class RobotA extends RobotConstants {
         can.kRightShooterTalonFX = 15;
         dio.kSwitchShooter = 0;
         // Climb Map
-        can.kHookTalonSRX = 13;
-        can.kClimbSparkMax = 14;
+        can.kHookTalonSRX = 14;
+        can.kClimbSparkMax = 12;
         // PWM Map
         pwm.kLedController = 0;
         // I2C Port
