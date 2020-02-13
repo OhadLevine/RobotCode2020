@@ -3,6 +3,8 @@ package frc.robot.subsystems.shooter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
+import frc.robot.subsystems.led.LEDColor;
 import java.util.function.DoubleSupplier;
 
 import static frc.robot.Robot.robotConstants;
@@ -15,6 +17,7 @@ public class CheesySetShooterVelocity extends CommandBase {
 
     private static final int kLoadedCellsInAuto = 5;
     private static final int kMinimumKfSamples = 20;
+    private static final int kBlinkAmount = 3000;
     private DoubleSupplier velocitySetpoint;
     private CheesyShooterState currentShooterState;
     private boolean isAuto;
@@ -88,6 +91,7 @@ public class CheesySetShooterVelocity extends CommandBase {
 
     @Override
     public void initialize() {
+        Robot.led.blinkColor(LEDColor.Gold, kBlinkAmount);
         setpoint = velocitySetpoint.getAsDouble();
         currentShooterState = CheesyShooterState.SpinUp;
         kfSamplesAmount = 0;
