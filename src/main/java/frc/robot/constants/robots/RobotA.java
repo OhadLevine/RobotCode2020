@@ -22,7 +22,7 @@ public class RobotA extends RobotConstants {
         drivetrainConstants.kLeftEncoderTicksPerMeter = 8216;
         drivetrainConstants.kRightEncoderTicksPerMeter = 8237;
         drivetrainConstants.kRampRate = 0.1;
-        drivetrainConstants.kCurrentLimit = 1;
+        drivetrainConstants.kCurrentLimit = 35;
         drivetrainConstants.kTriggerThresholdCurrent = 1;
         drivetrainConstants.kTriggerThresholdTime = 1;
         drivetrainConstants.kRightEncoderInverted = true;
@@ -33,9 +33,9 @@ public class RobotA extends RobotConstants {
         trigonDriveConstants.kThreshold = 0.5;
 
         // Intake Constants
-        intakeConstants.kIsInverted = false;
+        intakeConstants.kIsInverted = true;
         intakeConstants.kDefaultIntakePower = 0.85;
-        intakeConstants.kStallLimit = 20;
+        intakeConstants.kStallLimit = 80;
         intakeConstants.kSpinBackwardsTime = 0.5;
         intakeConstants.kStallTimeout = 100;
 
@@ -142,8 +142,8 @@ public class RobotA extends RobotConstants {
         can.kDrivetrainLeftEncoder = 13;
         can.kPigeonTalonSRX = 10;
         // Intake Map
-        can.kCellIntakeSparkMax = 11;
-        can.kIntakeOpenerTalonSRX = 16;
+        can.kCellIntakeSparkMax = 7;
+        can.kIntakeOpenerTalonSRX = 10;
         analogInput.kIntakeOpenerPotentiometer = 1;
         // Mixer Map
         can.kMixerTalonSRX = 11;

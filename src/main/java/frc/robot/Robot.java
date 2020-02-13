@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
         mixer = new Mixer();
         loader = new Loader();
         shooter = new Shooter();
-        //climb = new Climb();
+        climb = new Climb();
         led = new LED();
         drivetrain = new Drivetrain();
 

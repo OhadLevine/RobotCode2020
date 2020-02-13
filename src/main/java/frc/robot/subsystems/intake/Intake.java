@@ -1,6 +1,7 @@
 package frc.robot.subsystems.intake;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.subsystems.OverridableSubsystem;
@@ -20,6 +21,7 @@ public class Intake extends OverridableSubsystem implements Loggable{
         sparkMax.setInverted(robotConstants.intakeConstants.kIsInverted);
         sparkMax.setIdleMode(IdleMode.kCoast);
         sparkMax.setSmartCurrentLimit(robotConstants.intakeConstants.kStallLimit);
+        sparkMax.getEncoder(EncoderType.kHallSensor, 42);
         sparkMax.burnFlash();
     }
 
@@ -34,6 +36,12 @@ public class Intake extends OverridableSubsystem implements Loggable{
     @Log(name = "Intake/Output Current")
     public double getOutputCurrent(){  
         return sparkMax.getOutputCurrent();
+    }
+
+
+    @Log(name = "Intake/Output Voltage")
+    public double getOutputVoltage(){  
+        return sparkMax.getAppliedOutput();
     }
 
 	public boolean getIsInStall() {
