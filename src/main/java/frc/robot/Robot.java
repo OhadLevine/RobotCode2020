@@ -54,28 +54,29 @@ public class Robot extends TimedRobot {
         fieldConstants = new HomeField();
 
         // Subsystems:
-        /* drivetrain = new Drivetrain();
         intake = new Intake();
+        intakeOpener = new IntakeOpener();
         mixer = new Mixer();
         loader = new Loader();
-        shooter = new Shooter(); */
+        shooter = new Shooter();
         climb = new Climb();
-        /* led = new LED();
+        led = new LED();
+        drivetrain = new Drivetrain();
 
         // Utils:
-        limelight = new Limelight(); */
+        limelight = new Limelight();
         oi = new OI();
         dashboardDataContainer = new DashboardDataContainer();
         autoChooser = new SendableChooser<>();
 
-        /*autoChooser.setDefaultOption("Simple Auto", new SimpleAuto());
+        autoChooser.setDefaultOption("Simple Auto", new SimpleAuto());
         autoChooser.addOption("TrenchAuto: In line with Trench", new TrenchAuto(StartingPose.kLineUpWithTrenchRun));
         autoChooser.addOption("TrenchAuto: Facing Power Port", new TrenchAuto(StartingPose.kFacingPowerPort));
         autoChooser.addOption("MiddleFieldAuto: Facing Power Port", new MiddleFieldAuto(StartingPose.kFacingPowerPort));
-        autoChooser.addOption("MiddleFieldAuto: Facing right of Power Port", new MiddleFieldAuto(StartingPose.kFacingRightOfPowerPort));*/
-        
+        autoChooser.addOption("MiddleFieldAuto: Facing right of Power Port", new MiddleFieldAuto(StartingPose.kFacingRightOfPowerPort));
+
         SmartDashboard.putData("Auto/autoChooser", autoChooser);
-        
+
         // We configure the logger here since it needs the container of all the
         // subsystems
         Logger.configureLoggingNTOnly(this, "Logging");
@@ -112,7 +113,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         DriverStationLogger.logToDS("Autonomous starting");
-        //led.stopEmergencyLED();
+        led.stopEmergencyLED();
 
         autoCommand = autoChooser.getSelected();
         if (autoCommand != null) {

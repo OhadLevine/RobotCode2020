@@ -50,4 +50,9 @@ public class Climb extends SubsystemBase {
     public void setClimbPower(double power) {
         climbSparkMax.set(power >= 0 ? power : 0);
     }
+
+    /** Used for right drivetrain encoder */
+    public WPI_TalonSRX getHookTalonSRXInstance() {
+        return hookTalonSRX;
+    }
 }
