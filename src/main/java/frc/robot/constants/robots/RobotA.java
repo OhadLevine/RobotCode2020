@@ -27,6 +27,8 @@ public class RobotA extends RobotConstants {
         drivetrainConstants.kTriggerThresholdTime = 1;
         drivetrainConstants.kRightEncoderInverted = true;
         drivetrainConstants.kLeftEncoderInverted = false;
+        drivetrainConstants.kClimbDriveDistance = 0.1;
+        controlConstants.driveForClimbSettings = new PIDSettings(0, 0, 0, 0, 0);
 
         // Trigon Drive Constants
         trigonDriveConstants.kSensitivity = 1;

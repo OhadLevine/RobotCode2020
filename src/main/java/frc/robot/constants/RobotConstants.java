@@ -35,6 +35,7 @@ public abstract class RobotConstants extends RobotMap {
         public double kTriggerThresholdTime;
         public boolean kRightEncoderInverted;
         public boolean kLeftEncoderInverted;
+        public double kClimbDriveDistance;
     }
 
     public static class TrigonDriveConstants {
@@ -121,6 +122,7 @@ public abstract class RobotConstants extends RobotMap {
         public PIDSettings visionRotationSettings;
         public PIDSettings visionDistanceSettings;
         public PIDSettings drivetrainRotateSettings;
+        public PIDSettings driveForClimbSettings;
         public PIDSettings leftShooterSettings;
         public PIDSettings rightShooterSettings;
         public PIDSettings loaderPidSettings;
