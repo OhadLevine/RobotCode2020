@@ -7,15 +7,18 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.commands.command_groups.AutoShoot;
 import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.commands.command_groups.CollectFromFeeder;
 import frc.robot.subsystems.climb.MoveClimbAndHook;
 import frc.robot.subsystems.drivetrain.DriveWithXbox;
+import frc.robot.subsystems.led.LEDColor;
 import frc.robot.utils.TrigonXboxController;
 
 import static frc.robot.Robot.drivetrain;
 import static frc.robot.Robot.robotConstants;
+import static frc.robot.Robot.led;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -67,7 +70,7 @@ public class OI {
         driverCollectFromFeeder = new CollectFromFeeder().withInterrupt(() -> Math
                 .abs(driverXbox.getDeltaTriggers()) >= robotConstants.oiConstants.kDeltaTriggersInterruptDifference);
         driverClimb = new MoveClimbAndHook(() -> driverXbox.getY(Hand.kRight),
-                () -> driverXbox.getBButton() ? robotConstants.climbConstants.kDefaultClimbPower : 0);
+                () -> driverXbox.getBButton() ? robotConstants.climbConstants.kDefaultClimbPower : 0).deadlineWith(new RunCommand(() -> led.blinkColor(LEDColor.Blue, 10)));
     }
 
     private void bindDriverCommands() {
