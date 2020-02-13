@@ -91,4 +91,8 @@ public class IntakeOpener extends OverridableSubsystem implements Loggable {
     public OpenIntake getDefaultCommand() {
         return defaultCommand;
     }
+
+    public WPI_TalonSRX getTalonSRX() {
+        return talonSRX;
+    }
 }
