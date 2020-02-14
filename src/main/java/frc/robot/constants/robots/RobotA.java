@@ -44,13 +44,13 @@ public class RobotA extends RobotConstants {
         intakeOpenerConstants.kCurrentLimit = 0;
         intakeOpenerConstants.kThresholdLimit = 0;
         intakeOpenerConstants.kTriggerThresholdTime = 0;
-        intakeOpenerConstants.kOpenAngle = 0;
-        intakeOpenerConstants.kClosedAngle = 30;
+        intakeOpenerConstants.kOpenAngle = 37.599743;
+        intakeOpenerConstants.kClosedAngle = 0;
         intakeOpenerConstants.kPotentiometerAngleMultiplier = 1200;
         intakeOpenerConstants.kPotentiometerOffset = 0;
         intakeOpenerConstants.kMaxVelocity = 40; // angle to second
         intakeOpenerConstants.kMaxAcceleration = 10; //angle to second ^ 2
-        controlConstants.intakeOpenerSettings = new PIDSettings(0, 0, 0, 0, 0);
+        controlConstants.intakeOpenerSettings = new PIDSettings(0, 0, 0, 1, 1);
         controlConstants.intakeOpenerFeedforward = new ArmFeedforward(0, 0, 0, 0);
 
         // Mixer Constants
@@ -143,7 +143,7 @@ public class RobotA extends RobotConstants {
         // Intake Map
         can.kCellIntakeSparkMax = 7;
         can.kIntakeOpenerTalonSRX = 10;
-        analogInput.kIntakeOpenerPotentiometer = 1;
+        analogInput.kIntakeOpenerPotentiometer = 0;
         // Mixer Map
         can.kMixerTalonSRX = 11;
         // Loader Map

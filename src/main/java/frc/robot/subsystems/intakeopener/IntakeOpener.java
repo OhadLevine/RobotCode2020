@@ -25,7 +25,7 @@ public class IntakeOpener extends OverridableSubsystem implements Loggable {
     public IntakeOpener() {
         talonSRX = new WPI_TalonSRX(robotConstants.can.kIntakeOpenerTalonSRX);
         talonSRX.setInverted(robotConstants.intakeOpenerConstants.kIsInverted);
-        talonSRX.setNeutralMode(NeutralMode.Coast);
+        talonSRX.setNeutralMode(NeutralMode.Brake);
         talonSRX.configSupplyCurrentLimit(
             new SupplyCurrentLimitConfiguration(false, robotConstants.intakeOpenerConstants.kCurrentLimit,
                 robotConstants.intakeOpenerConstants.kThresholdLimit,
@@ -63,13 +63,7 @@ public class IntakeOpener extends OverridableSubsystem implements Loggable {
     /** @return The angle of the potentiometer parallel to the floor. */
     @Log(name = "IntakeOpener/Angle")
     public double getAngle() {
-        return potentiometer.get();
-    }
-
-    /** @return The change in angle per delta time */
-    @Log(name = "IntakeOpener/Angle Velocity")
-    public double getVelocity() {
-        return velocity;
+        return -(potentiometer.get() - 600);
     }
 
 
