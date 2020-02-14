@@ -4,14 +4,15 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.EncoderType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.Loggable;
 
 import static frc.robot.Robot.robotConstants;
 
-public class Climb extends SubsystemBase {
+public class Climb extends SubsystemBase implements Loggable {
     private WPI_TalonSRX hookTalonSRX;
     private CANSparkMax climbSparkMax;
 
@@ -28,8 +29,8 @@ public class Climb extends SubsystemBase {
             new SupplyCurrentLimitConfiguration(false, robotConstants.climbConstants.kHookCurrentLimit,
                 robotConstants.climbConstants.kHookThresholdLimit, robotConstants.climbConstants.kHookCurrentTimeout));
 
-        //climbSparkMax.setSmartCurrentLimit(robotConstants.climbConstants.kClimbCurrentLimit);
-        climbSparkMax.getEncoder(EncoderType.kNoSensor, 0);
+        climbSparkMax.setSmartCurrentLimit(robotConstants.climbConstants.kClimbCurrentLimit);
+        climbSparkMax.getEncoder(EncoderType.kHallSensor, 42);
 
         hookTalonSRX.setInverted(robotConstants.climbConstants.kIsHookInverted);
         climbSparkMax.setInverted(robotConstants.climbConstants.kIsClimbInverted);

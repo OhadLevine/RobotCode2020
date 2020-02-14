@@ -68,8 +68,8 @@ public class RobotA extends RobotConstants {
         climbConstants.kHookCurrentLimit = 0;
         climbConstants.kHookThresholdLimit = 0;
         climbConstants.kHookCurrentTimeout = 0;
-        climbConstants.kIsClimbInverted = false;
-        climbConstants.kClimbCurrentLimit = 0;
+        climbConstants.kIsClimbInverted = true;
+        climbConstants.kClimbCurrentLimit = 80;
         climbConstants.kDefaultClimbPower = 0;
 
         // Shooter Constants
@@ -146,7 +146,7 @@ public class RobotA extends RobotConstants {
         can.kDrivetrainLeftEncoder = 13;
         can.kPigeonTalonSRX = 10;
         // Intake Map
-        can.kCellIntakeSparkMax = 12;
+        can.kCellIntakeSparkMax = 7;
         can.kIntakeOpenerTalonSRX = 16;
         analogInput.kIntakeOpenerPotentiometer = 1;
         // Mixer Map
@@ -159,7 +159,7 @@ public class RobotA extends RobotConstants {
         dio.kSwitchShooter = 0;
         // Climb Map
         can.kHookTalonSRX = 14;
-        can.kClimbSparkMax = 7;
+        can.kClimbSparkMax = 12;
         // PWM Map
         pwm.kLedController = 0;
         // I2C Port
