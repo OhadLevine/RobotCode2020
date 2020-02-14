@@ -1,12 +1,12 @@
 package frc.robot.utils;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.OverrideCommand;
-import frc.robot.subsystems.intakeopener.SetDesiredOpenerAngle;
+import frc.robot.subsystems.intakeopener.OpenIntake;
 import io.github.oblarg.oblog.Logger;
 
-import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.*;
+import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.getNumber;
+import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putData;
 import static frc.robot.Robot.intake;
 import static frc.robot.Robot.intakeOpener;
 
@@ -22,13 +22,12 @@ public class DashboardDataContainer {
         putData("Intake/Override intake", new OverrideCommand(intake,
             () -> getNumber("Intake/Intake power", 0)));
         // IntakeOpener dashboard data
-        putDefaultNumber("IntakeOpener/Intake Opener power", 0);
-        putData("IntakeOpener/Override intake opener", new OverrideCommand(intakeOpener,
-            () -> getNumber("IntakeOpener/Intake Opener power", 0)));
-        putData("IntakeOpener/Tune PID", new StartEndCommand(() -> intakeOpener.getDefaultCommand().enableTuning(),
-            () -> intakeOpener.getDefaultCommand().stopTuning(), intakeOpener));
-        putData("IntakeOpener/Open", new SetDesiredOpenerAngle(true));
-        putData("IntakeOpener/Close", new SetDesiredOpenerAngle(false));
+        putDefaultNumber("Intake Opener/Intake Opener power", 0);
+        putData("Intake Opener/Override intake opener", new OverrideCommand(intakeOpener,
+            () -> getNumber("Intake Opener/Intake Opener power", 0)));
+        putData("Intake Opener/Tune PID", new OpenIntake());
+        putData("Intake Opener/Open Intake", new OpenIntake(true));
+        putData("Intake Opener/Close Intake", new OpenIntake(false));
     }
 
     /**
