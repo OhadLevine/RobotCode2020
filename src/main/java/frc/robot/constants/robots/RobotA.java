@@ -22,9 +22,9 @@ public class RobotA extends RobotConstants {
         drivetrainConstants.kLeftEncoderTicksPerMeter = 8216;
         drivetrainConstants.kRightEncoderTicksPerMeter = 8237;
         drivetrainConstants.kRampRate = 0.1;
-        drivetrainConstants.kCurrentLimit = 20;
-        drivetrainConstants.kTriggerThresholdCurrent = 20;
-        drivetrainConstants.kTriggerThresholdTime = 2;
+        drivetrainConstants.kCurrentLimit = 40;
+        drivetrainConstants.kTriggerThresholdCurrent = 40;
+        drivetrainConstants.kTriggerThresholdTime = 1;
         drivetrainConstants.kRightEncoderInverted = true;
         drivetrainConstants.kLeftEncoderInverted = false;
 
@@ -141,8 +141,8 @@ public class RobotA extends RobotConstants {
         can.kDrivetrainRightRearTalonFX = 6;
         can.kDrivetrainLeftEncoder = 13;
         // Intake Map
-        can.kCellIntakeSparkMax = 11;
-        can.kIntakeOpenerTalonSRX = 16;
+        can.kCellIntakeSparkMax = 12;
+        can.kIntakeOpenerTalonSRX = 10;
         analogInput.kIntakeOpenerPotentiometer = 1;
         // Mixer Map
         can.kMixerTalonSRX = 11;
@@ -154,7 +154,7 @@ public class RobotA extends RobotConstants {
         dio.kSwitchShooter = 0;
         // Climb Map
         can.kHookTalonSRX = 14;
-        can.kClimbSparkMax = 12;
+        can.kClimbSparkMax = 7;
         // PWM Map
         pwm.kLedController = 0;
         // I2C Port
