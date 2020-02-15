@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.OverridableSubsystem;
 import io.github.oblarg.oblog.Loggable;
@@ -42,33 +41,19 @@ public class IntakeOpener extends OverridableSubsystem implements Loggable {
 
     @Override
     public void move(double power) {
-        if ((getAngle() >= robotConstants.intakeOpenerConstants.kOpenAngle && power > 0)
-            || (getAngle() <= robotConstants.intakeOpenerConstants.kClosedAngle && power < 0))
-            super.move(0);
-        else if (!isOverridden())
-            super.move(power);
-    }
-
-    /**
-     * Moves the intakeOpener motor.
-     */
-    public void setIntakeOpenerVoltage(double voltage) {
-        move(voltage / RobotController.getBatteryVoltage());
-    }
-
-    public double getMotorOutputVoltage() {
-        return talonSRX.getMotorOutputVoltage();
+        if (!isOverridden()) {
+            if ((getAngle() >= robotConstants.intakeOpenerConstants.kOpenAngle && power > 0)
+                || (getAngle() <= robotConstants.intakeOpenerConstants.kClosedAngle && power < 0))
+                super.move(0);
+            else
+                super.move(power);
+        }
     }
 
     /** @return The angle of the potentiometer parallel to the floor. */
     @Log(name = "IntakeOpener/Angle")
     public double getAngle() {
         return -(potentiometer.get() - 600);
-    }
-
-
-    public boolean isAtGoal() {
-        return true;
     }
 
     @Override

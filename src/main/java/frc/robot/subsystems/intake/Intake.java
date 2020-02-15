@@ -1,9 +1,9 @@
 package frc.robot.subsystems.intake;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.EncoderType;
 import frc.robot.subsystems.OverridableSubsystem;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
@@ -32,16 +32,10 @@ public class Intake extends OverridableSubsystem implements Loggable{
     public void overriddenMove(double power) {
         sparkMax.set(power);
     }
- 
+
     @Log(name = "Intake/Output Current")
-    public double getOutputCurrent(){  
+    public double getOutputCurrent(){
         return sparkMax.getOutputCurrent();
-    }
-
-
-    @Log(name = "Intake/Output Voltage")
-    public double getOutputVoltage(){  
-        return sparkMax.getAppliedOutput();
     }
 
 	public boolean getIsInStall() {
