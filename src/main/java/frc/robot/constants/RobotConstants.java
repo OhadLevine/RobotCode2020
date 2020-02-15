@@ -124,6 +124,7 @@ public abstract class RobotConstants extends RobotMap {
         public PIDSettings loaderPidSettings;
         public SimpleMotorFeedforward loaderFeedforward;
         public PIDSettings intakeOpenerSettings;
+        public PIDSettings intakeCloserSettings;
         public ArmFeedforward intakeOpenerFeedforward;
     }
 

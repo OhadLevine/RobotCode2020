@@ -9,7 +9,7 @@ import static frc.robot.Robot.robotConstants;
 
 public class OpenIntake extends CommandBase {
     private DoubleSupplier angleSupplier;
-//    private TrigonProfiledPIDController pidController;
+    //    private TrigonProfiledPIDController pidController;
     private TrigonPIDController pidController;
 //    private ArmFeedforward feedforward;
 

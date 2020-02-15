@@ -45,12 +45,13 @@ public class RobotA extends RobotConstants {
         intakeOpenerConstants.kThresholdLimit = 0;
         intakeOpenerConstants.kTriggerThresholdTime = 0;
         intakeOpenerConstants.kOpenAngle = 37.599743;
-        intakeOpenerConstants.kClosedAngle = 0;
+        intakeOpenerConstants.kClosedAngle = -9;
         intakeOpenerConstants.kPotentiometerAngleMultiplier = 1200;
         intakeOpenerConstants.kPotentiometerOffset = 0;
         intakeOpenerConstants.kMaxVelocity = 40; // angle to second
         intakeOpenerConstants.kMaxAcceleration = 10; //angle to second ^ 2
-        controlConstants.intakeOpenerSettings = new PIDSettings(0, 0, 0, 1, 1);
+        controlConstants.intakeOpenerSettings = new PIDSettings(0.012, 0.01, 0,1,10);
+        controlConstants.intakeCloserSettings = new PIDSettings(0.015, 0.015, 0,1,10);
         controlConstants.intakeOpenerFeedforward = new ArmFeedforward(0, 0, 0, 0);
 
         // Mixer Constants

@@ -53,7 +53,6 @@ public class TrigonPIDController extends PIDController {
             SmartDashboard.getNumber("PID/" + dashboardKey + "/i", 0),
             SmartDashboard.getNumber("PID/" + dashboardKey + "/d", 0));
         setSetpoint(defaultSetpoint);
-        setTolerance(1);
         isTuning = true;
         SmartDashboard.putData("PID/" + dashboardKey, this);
     }
