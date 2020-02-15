@@ -1,7 +1,6 @@
 package frc.robot.constants.robots;
 
 import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import frc.robot.constants.RobotConstants;
 import frc.robot.utils.PIDSettings;
@@ -48,11 +47,9 @@ public class RobotA extends RobotConstants {
         intakeOpenerConstants.kClosedAngle = -9;
         intakeOpenerConstants.kPotentiometerAngleMultiplier = 1200;
         intakeOpenerConstants.kPotentiometerOffset = 0;
-        intakeOpenerConstants.kMaxVelocity = 40; // angle to second
-        intakeOpenerConstants.kMaxAcceleration = 10; //angle to second ^ 2
+        intakeOpenerConstants.kTimeout = 0.5;
         controlConstants.intakeOpenerSettings = new PIDSettings(0.012, 0.01, 0,1,10);
         controlConstants.intakeCloserSettings = new PIDSettings(0.015, 0.015, 0,1,10);
-        controlConstants.intakeOpenerFeedforward = new ArmFeedforward(0, 0, 0, 0);
 
         // Mixer Constants
         mixerConstants.kMixerMaxStall = 30;

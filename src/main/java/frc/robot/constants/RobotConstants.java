@@ -1,6 +1,5 @@
 package frc.robot.constants;
 
-import edu.wpi.first.wpilibj.controller.ArmFeedforward;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
 import frc.robot.utils.PIDSettings;
 
@@ -60,8 +59,7 @@ public abstract class RobotConstants extends RobotMap {
         public double kClosedAngle;
         public double kPotentiometerAngleMultiplier;
         public double kPotentiometerOffset;
-        public double kMaxVelocity;
-        public double kMaxAcceleration;
+        public double kTimeout;
     }
 
     public static class MixerConstants {
@@ -125,7 +123,6 @@ public abstract class RobotConstants extends RobotMap {
         public SimpleMotorFeedforward loaderFeedforward;
         public PIDSettings intakeOpenerSettings;
         public PIDSettings intakeCloserSettings;
-        public ArmFeedforward intakeOpenerFeedforward;
     }
 
     public static class MotionProfilingConstants {

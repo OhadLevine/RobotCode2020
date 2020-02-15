@@ -7,12 +7,12 @@ import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.motion_profiling.AutoPath;
 import frc.robot.motion_profiling.FollowPath;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
-import frc.robot.subsystems.intakeopener.OpenIntake;
 
 import static frc.robot.Robot.drivetrain;
 import static frc.robot.Robot.robotConstants;
 import static frc.robot.motion_profiling.AutoPath.FacingPowerPortToMiddleField;
 import static frc.robot.motion_profiling.AutoPath.RightOfPortToMiddleField;
+import static frc.robot.subsystems.intakeopener.OpenIntake.openIntake;
 
 /**
  * This auto command shoots 3 cells, and then goes to collect cells from the RENDEZVOUS POINT.
@@ -27,7 +27,7 @@ public class MiddleFieldAuto extends SequentialCommandGroup {
             new RotateDrivetrain(() ->
                 autoPath.getPath().getTrajectory().getInitialPose().getRotation().getDegrees()),
             parallel(
-                new OpenIntake(true),
+                openIntake(true),
                 new FollowPath(autoPath)
             ),
             deadline(
@@ -39,7 +39,7 @@ public class MiddleFieldAuto extends SequentialCommandGroup {
             ),
             new RotateDrivetrain(robotConstants.autoConstants.kMiddleFieldAutoRotateToPortAngle),
             parallel(
-                new OpenIntake(false),
+                openIntake(false),
                 new AutoShoot()
             )
         );

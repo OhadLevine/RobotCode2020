@@ -8,10 +8,10 @@ import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.motion_profiling.AutoPath;
 import frc.robot.motion_profiling.FollowPath;
 import frc.robot.subsystems.drivetrain.RotateDrivetrain;
-import frc.robot.subsystems.intakeopener.OpenIntake;
 
 import static frc.robot.Robot.drivetrain;
 import static frc.robot.Robot.robotConstants;
+import static frc.robot.subsystems.intakeopener.OpenIntake.openIntake;
 
 /**
  * This auto command shoots 3 balls and then goes to collect more cells from the trench run
@@ -27,7 +27,7 @@ public class TrenchAuto extends SequentialCommandGroup {
             new RotateDrivetrain(() ->
                 autoPath.getPath().getTrajectory().getInitialPose().getRotation().getDegrees()),
             parallel(
-                new OpenIntake(true),
+                openIntake(true),
                 new FollowPath(autoPath)
             ),
             deadline(

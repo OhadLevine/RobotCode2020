@@ -9,21 +9,20 @@ import static frc.robot.Robot.robotConstants;
 
 public class OpenIntake extends CommandBase {
     private DoubleSupplier angleSupplier;
-    //    private TrigonProfiledPIDController pidController;
     private TrigonPIDController pidController;
-//    private ArmFeedforward feedforward;
 
     /**
      * Either opens the Intake subsystem or closes it with PID
      *
      * @param isOpen true - opens the Intake, false - closes it.
      */
-    public OpenIntake(boolean isOpen) {
-        this(
-            isOpen ?
-                () -> robotConstants.intakeOpenerConstants.kOpenAngle :
-                () -> robotConstants.intakeOpenerConstants.kClosedAngle
-        );
+    public static CommandBase openIntake(boolean isOpen) {
+        if (isOpen)
+            return new OpenIntake(() -> robotConstants.intakeOpenerConstants.kOpenAngle).
+                withTimeout(robotConstants.intakeOpenerConstants.kTimeout);
+        else
+            return new CloseIntake(() -> robotConstants.intakeOpenerConstants.kClosedAngle).
+                withTimeout(robotConstants.intakeOpenerConstants.kTimeout);
     }
 
     /**
@@ -31,9 +30,6 @@ public class OpenIntake extends CommandBase {
      */
     public OpenIntake(DoubleSupplier angleSupplier) {
         addRequirements(intakeOpener);
-        /*pidController = new TrigonProfiledPIDController(robotConstants.controlConstants.intakeOpenerSettings,
-            new Constraints(robotConstants.intakeOpenerConstants.kMaxVelocity,
-                robotConstants.intakeOpenerConstants.kMaxAcceleration));*/
         pidController = new TrigonPIDController(robotConstants.controlConstants.intakeOpenerSettings);
         this.angleSupplier = angleSupplier;
     }
@@ -48,7 +44,6 @@ public class OpenIntake extends CommandBase {
 
     @Override
     public void initialize() {
-//        pidController.reset(intakeOpener.getAngle());
         pidController.reset();
     }
 
@@ -56,8 +51,6 @@ public class OpenIntake extends CommandBase {
     public void execute() {
         if (!pidController.isTuning())
             pidController.setSetpoint(angleSupplier.getAsDouble());
-        /*intakeOpener.setIntakeOpenerVoltage(pidController.calculate(intakeOpener.getAngle(), -1, 1)
-            + feedforward.calculate(pidController.getSetpoint().position, pidController.getSetpoint().velocity));*/
         intakeOpener.move(pidController.calculate(intakeOpener.getAngle(), -1, 1));
     }
 

@@ -13,6 +13,7 @@ import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.getNumber;
 import static edu.wpi.first.wpilibj.smartdashboard.SmartDashboard.putData;
 import static frc.robot.Robot.intake;
 import static frc.robot.Robot.intakeOpener;
+import static frc.robot.subsystems.intakeopener.OpenIntake.openIntake;
 
 /**
  * DashboardDataContainer contains all the data to be viewed or put in the
@@ -33,8 +34,8 @@ public class DashboardDataContainer {
         putData("Intake Opener/Tune Close PID", new CloseIntake());
         putData("collect", new CollectCell());
 
-        putData("Intake Opener/Open Intake", new OpenIntake(true));
-        putData("Intake Opener/Close Intake", new OpenIntake(false));
+        putData("Intake Opener/Open Intake", openIntake(true));
+        putData("Intake Opener/Close Intake", openIntake(false));
         putData("Intake Opener/Move", new MoveMovableSubsystem(intakeOpener, () -> getNumber("Intake Opener/Intake Opener power", 0)));
         putDefaultNumber("hook", 0);
         putData("Climb/climb", new ClimbWithXbox(() -> 0,() -> SmartDashboard.getNumber("hook", 0)));
