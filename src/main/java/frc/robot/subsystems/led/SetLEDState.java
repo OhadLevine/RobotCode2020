@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import static frc.robot.Robot.*;
 
 public class SetLEDState extends CommandBase {
-  private final static int kBlinkingTime = 3000;
+  private final static int kBlinkingAmount = 3000;
 
   /**
    * Changes the color of the LED's according to different states in the robot.
@@ -31,18 +31,18 @@ public class SetLEDState extends CommandBase {
     } else if (shooter.isSwitchPressed()) {
       led.setColor(LEDColor.Blue);
     } else if (shooter.getAverageSpeed() != 0) {
-      led.blinkColor(LEDColor.Gold, kBlinkingTime);
+      led.blinkColor(LEDColor.Gold, kBlinkingAmount);
     } else if (intake.getOutputCurrent() != 0) {
-      led.blinkColor(LEDColor.Yellow, kBlinkingTime);
+      led.blinkColor(LEDColor.Yellow, kBlinkingAmount);
     } else if (robotConstants.visionConstants.isFollowingTarget) {
       led.setColor(LEDColor.Orange);
     } else if (drivetrain.getLeftMotorOutputVoltage() <= 0) {
-      led.blinkColor(LEDColor.Red, kBlinkingTime);
+      led.blinkColor(LEDColor.Red, kBlinkingAmount);
     } else if (drivetrain.getLeftMotorOutputVoltage() >= 0 || drivetrain.getRightMotorOutputVoltage() >= 0) {
-      led.blinkColor(LEDColor.Green, kBlinkingTime);
+      led.blinkColor(LEDColor.Green, kBlinkingAmount);
     } else {
       led.setColor(LEDColor.White);
-      System.out.println("You Missed a Robot state!!!");
+      System.out.println("You missed a robot state!!!");
     }
   }
 
