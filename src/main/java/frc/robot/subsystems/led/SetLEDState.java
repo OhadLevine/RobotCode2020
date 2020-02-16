@@ -1,6 +1,7 @@
 package frc.robot.subsystems.led;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.utils.DriverStationLogger;
 
 import static frc.robot.Robot.*;
 
@@ -21,13 +22,13 @@ public class SetLEDState extends CommandBase {
       led.setColor(LEDColor.Blue);
     } else if (mixer.isInStall()) {
       led.setColor(LEDColor.Random);
-      System.out.println("Mixer is in stall!!!");
+      DriverStationLogger.logToDS("Mixer is in stall!!!");
     } else if (intake.getIsInStall()) {
       led.setColor(LEDColor.Random);
-      System.out.println("Intake is in stall!!!");
+      DriverStationLogger.logToDS("Intake is in stall!!!");
     } else if (loader.getIsInStall()) {
       led.setColor(LEDColor.Random);
-      System.out.println("Loader is in stall!!!");
+      DriverStationLogger.logToDS("Loader is in stall!!!");
     } else if (shooter.isSwitchPressed()) {
       led.setColor(LEDColor.Blue);
     } else if (shooter.getAverageSpeed() != 0) {
@@ -42,7 +43,7 @@ public class SetLEDState extends CommandBase {
       led.blinkColor(LEDColor.Green, kBlinkingAmount);
     } else {
       led.setColor(LEDColor.White);
-      System.out.println("You missed a robot state!!!");
+      DriverStationLogger.logToDS("You missed a robot state!!!");
     }
   }
 
