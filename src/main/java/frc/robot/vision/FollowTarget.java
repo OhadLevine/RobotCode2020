@@ -35,6 +35,7 @@ public class FollowTarget extends CommandBase {
      */
     public FollowTarget(Target target, String dashboardKey) {
         addRequirements(Robot.drivetrain);
+        robotConstants.visionConstants.isFollowingTarget = true;
         this.target = target;
         // distancePIDController = new TrigonPIDController(dashboardKey + " - distance", target.getDistance());
         rotationPIDController = new TrigonPIDController(dashboardKey + " - rotation", 0);

@@ -146,6 +146,7 @@ public abstract class RobotConstants extends RobotMap {
         public double kLimelightOffsetY;
         public double kLimelightAngleOffset;
         public double kTargetNotFoundWaitTime;
+        public boolean isFollowingTarget;
     }
 
     public static class AutoConstants {

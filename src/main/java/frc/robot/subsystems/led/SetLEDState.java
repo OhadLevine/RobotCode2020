@@ -15,28 +15,34 @@ public class SetLEDState extends CommandBase {
   }
 
   @Override
-  public void initialize() {
-    led.setColor(LEDColor.Green);
-  }
-
-  @Override
   public void execute() {
     // Check the robots states and change the led colors accordingly
-    if (drivetrain.getLeftMotorOutputVoltage() >= 0 || drivetrain.getRightMotorOutputVoltage() >= 0) {
-      led.blinkColor(LEDColor.Green, kBlinkingTime);
-    } else if (drivetrain.getLeftMotorOutputVoltage() <= 0) {
-      led.blinkColor(LEDColor.Red, kBlinkingTime);
-    } else if (shooter.getAverageSpeed() != 0) {
-      led.blinkColor(LEDColor.Gold, kBlinkingTime);
-    } else if (shooter.isSwitchPressed()) {
+    if (climb.getClimbPower() != 0 || climb.getHookPower() != 0) {
       led.setColor(LEDColor.Blue);
     } else if (mixer.isInStall()) {
       led.setColor(LEDColor.Random);
-    } else if (climb.getClimbPower() != 0 || climb.getHookPower() != 0) {
+      System.out.println("Mixer is in stall!!!");
+    } else if (intake.getIsInStall()) {
+      led.setColor(LEDColor.Random);
+      System.out.println("Intake is in stall!!!");
+    } else if (loader.getIsInStall()) {
+      led.setColor(LEDColor.Random);
+      System.out.println("Loader is in stall!!!");
+    } else if (shooter.isSwitchPressed()) {
       led.setColor(LEDColor.Blue);
+    } else if (shooter.getAverageSpeed() != 0) {
+      led.blinkColor(LEDColor.Gold, kBlinkingTime);
+    } else if (intake.getOutputCurrent() != 0) {
+      led.blinkColor(LEDColor.Yellow, kBlinkingTime);
+    } else if (robotConstants.visionConstants.isFollowingTarget) {
+      led.setColor(LEDColor.Orange);
+    } else if (drivetrain.getLeftMotorOutputVoltage() <= 0) {
+      led.blinkColor(LEDColor.Red, kBlinkingTime);
+    } else if (drivetrain.getLeftMotorOutputVoltage() >= 0 || drivetrain.getRightMotorOutputVoltage() >= 0) {
+      led.blinkColor(LEDColor.Green, kBlinkingTime);
     } else {
       led.setColor(LEDColor.White);
-      System.out.println("You Missed a Robot state!!! Please add this specific state!");
+      System.out.println("You Missed a Robot state!!!");
     }
   }
 

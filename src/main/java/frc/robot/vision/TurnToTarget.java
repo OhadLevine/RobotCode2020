@@ -47,6 +47,7 @@ public class TurnToTarget extends CommandBase {
     @Override
     public void initialize() {
         rotationPIDController.reset();
+        robotConstants.visionConstants.isFollowingTarget = true;
         // Configure the limelight to start computing vision.
         limelight.startVision(target);
     }
