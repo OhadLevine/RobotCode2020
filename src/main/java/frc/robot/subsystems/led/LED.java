@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.utils.DriverStationLogger;
@@ -131,5 +132,10 @@ public class LED extends SubsystemBase {
     private int randomOddNumber() {
         int rand = this.rand.nextInt(10);
         return rand % 2 == 0 ? rand + 1 : rand;
+    }
+
+    @Override
+    public void setDefaultCommand(Command defaultCommand) {
+        super.setDefaultCommand(new SetLEDState());
     }
 }
