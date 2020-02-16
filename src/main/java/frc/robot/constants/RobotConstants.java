@@ -76,14 +76,9 @@ public abstract class RobotConstants extends RobotMap {
 
     public static class LoaderConstants {
         public boolean kIsInverted;
+        public boolean kIsEncoderInverted;
         public double kRampRate;
-        public double kCurrentLimit;
-        public double kThresholdLimit;
-        public double kTimeout;
         public double kTicksPerRotation;
-        public double kSpinBackwardsTime;
-        public double kStallWaitTime;
-        public double kStallLimit;
         public double kFarawayShooterSpeed;
     }
 
@@ -123,7 +118,7 @@ public abstract class RobotConstants extends RobotMap {
         public PIDSettings rightShooterSettings;
         public PIDSettings leftShooterCheesySettings;
         public PIDSettings rightShooterCheesySettings;
-        public PIDSettings loaderPidSettings;
+        public PIDSettings loaderSettings;
         public SimpleMotorFeedforward loaderFeedforward;
         public PIDSettings intakeOpenerSettings;
         public ArmFeedforward intakeOpenerFeedforward;

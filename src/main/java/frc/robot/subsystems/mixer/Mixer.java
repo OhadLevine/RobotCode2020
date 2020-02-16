@@ -1,5 +1,6 @@
 package frc.robot.subsystems.mixer;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import frc.robot.subsystems.OverridableSubsystem;
@@ -20,6 +21,7 @@ public class Mixer extends OverridableSubsystem implements Loggable {
         talonSRX.setNeutralMode(NeutralMode.Coast);
         talonSRX.setInverted(robotConstants.mixerConstants.kIsInverted);
         talonSRX.configOpenloopRamp(robotConstants.mixerConstants.kRampUpTime);
+        talonSRX.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     }
 
     @Override

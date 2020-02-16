@@ -20,7 +20,6 @@ public class Shooter extends OverridableSubsystem implements Loggable {
     private WPI_TalonFX leftTalonFX;
     private WPI_TalonFX rightTalonFX;
     private boolean isTuning;
-    //private DigitalInput microSwitch;
 
     public Shooter() {
         leftTalonFX = new WPI_TalonFX(robotConstants.can.kLeftShooterTalonFX);
@@ -46,7 +45,6 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         configCloseLoopPIDFGains(); // for slot 0, full pidf control 
         configCheesyPIDFGains(); // for slot 1, open loop control (feedforward gains only) 
         resetEncoders();
-        //microSwitch = new DigitalInput(robotConstants.dio.kSwitchShooter);
     }
 
     @Override
@@ -209,11 +207,6 @@ public class Shooter extends OverridableSubsystem implements Loggable {
         leftTalonFX.setSelectedSensorPosition(0);
         rightTalonFX.setSelectedSensorPosition(0);
     }
-
-    /* @Log(name = "Shooter/Is Switch Pressed")
-    public boolean isSwitchPressed() {
-        return microSwitch.get();
-    } */
 
     @Override
     public void periodic() {

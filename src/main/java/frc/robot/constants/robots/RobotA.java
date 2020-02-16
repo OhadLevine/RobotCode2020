@@ -89,17 +89,11 @@ public class RobotA extends RobotConstants {
 
         // Loader Constants
         loaderConstants.kIsInverted = true;
+        loaderConstants.kIsEncoderInverted = false;
         loaderConstants.kRampRate = 0.25;
-        loaderConstants.kCurrentLimit = 0;
-        loaderConstants.kThresholdLimit = 0;
-        loaderConstants.kTimeout = 0;
-        loaderConstants.kTicksPerRotation = 1;
-        loaderConstants.kStallLimit = 20;
-        loaderConstants.kSpinBackwardsTime = 1;
-        loaderConstants.kStallWaitTime = 0.4;
+        loaderConstants.kTicksPerRotation = 4096;
         loaderConstants.kFarawayShooterSpeed = 5000;
-        controlConstants.loaderFeedforward = new SimpleMotorFeedforward(0, 0, 0);
-        controlConstants.loaderPidSettings = new PIDSettings(0, 0, 0, 0, 0);
+        controlConstants.loaderSettings = PIDSettings.fromTalonSettings(0, 0, 0, 0.133, 0);
 
         // Motion Profiling Constants
         motionProfilingConstants.kMaxVelocity = 0;
