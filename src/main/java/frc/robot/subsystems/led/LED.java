@@ -31,6 +31,7 @@ public class LED extends SubsystemBase {
         blinkingAmount = -1;
         notifier = new Notifier(this::notifierPeriodic);
         rand = new Random();
+        setDefaultCommand(new SetLEDState());
     }
 
     public void setColor(LEDColor color) {
@@ -132,10 +133,5 @@ public class LED extends SubsystemBase {
     private int randomOddNumber() {
         int rand = this.rand.nextInt(10);
         return rand % 2 == 0 ? rand + 1 : rand;
-    }
-
-    @Override
-    public void setDefaultCommand(Command defaultCommand) {
-        super.setDefaultCommand(new SetLEDState());
     }
 }
