@@ -108,12 +108,14 @@ public class RobotConstants {
     }
 
     //TODO: set real values.
-    public static class TrenchRollerConstants {
+    public static class RollerConstants {
         public static final boolean kIsInverted = false;
+        public static final double kRampRate = 0.25;
     }
 
-    public static class TrenchRollerOpenerConstants {
+    public static class RollerOpenerConstants {
         public static final boolean kIsInverted = false;
+        public static final double kRampRate = 0.25;
     }
 
     public static class MotionProfilingConstants {

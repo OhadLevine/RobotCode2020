@@ -36,9 +36,9 @@ public abstract class RobotMap {
     public static final int kClimbSparkMax = 8;
     // TrenchRoller Map
     // TODO: set real values.
-    public static final int kTrenchRollerTalonSRX = 0;
-    public static final int kTrenchRollerOpenerTalonSRX = 0;
-    public static final int kTrenchRollerOpenerPotentiometer = 0;
+    public static final int kRollerTalonSRX = 0;
+    public static final int kRollerOpenerTalonSRX = 0;
+    public static final int kRollerOpenerPotentiometer = 0;
     // PWM Map
     public static final int kLedController = 0;
     // I2C Port
