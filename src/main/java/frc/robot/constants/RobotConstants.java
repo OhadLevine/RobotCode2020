@@ -107,6 +107,15 @@ public class RobotConstants {
         public static final double kFarawayTyMeasurement = 13;
     }
 
+    //TODO: set real values.
+    public static class TrenchRollerConstants {
+        public static final boolean kIsInverted = false;
+    }
+
+    public static class TrenchRollerOpenerConstants {
+        public static final boolean kIsInverted = false;
+    }
+
     public static class MotionProfilingConstants {
         public static final double kMaxVelocity = 0;
         public static final double kMaxAcceleration = 0;
