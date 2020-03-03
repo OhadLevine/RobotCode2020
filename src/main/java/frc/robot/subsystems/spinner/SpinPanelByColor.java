@@ -27,7 +27,7 @@ public class SpinPanelByColor extends CommandBase {
       DriverStationLogger.logErrorToDS("Did not get any color so cannot run SpinPanelByColor");
       end(true);
     }
-    
+
     startingColor = spinner.getColor();
     spinDirection = spinner.calculateSpinDirection(startingColor, setpoint);
 
@@ -52,6 +52,6 @@ public class SpinPanelByColor extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return spinner.isOnColor(setpoint) & !startedOnSetpoint;
+    return spinner.isOnColor(setpoint) && !startedOnSetpoint;
   }
 }
