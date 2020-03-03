@@ -9,9 +9,9 @@ import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.constants.RobotMap;
 import frc.robot.subsystems.OverridableSubsystem;
-import frc.robot.constants.RobotConstants.RollerConstants;
+import frc.robot.constants.RobotConstants.SpinnerConstants;
 
-public class Roller extends OverridableSubsystem {
+public class Spinner extends OverridableSubsystem {
   private final WPI_TalonSRX talonSRX;
   private final ColorSensorV3 colorSensor;
   private final ColorMatch colorMatcher;
@@ -19,12 +19,12 @@ public class Roller extends OverridableSubsystem {
    * This class holds all of the methods for the trench roller subsystem, which
    * spins the trench.
    */
-  public Roller() {
+  public Spinner() {
     talonSRX = new WPI_TalonSRX(RobotMap.kRollerTalonSRX);
     talonSRX.setNeutralMode(NeutralMode.Coast);
-    talonSRX.setInverted(RollerConstants.kIsInverted);
-    talonSRX.configOpenloopRamp(RollerConstants.kRampRate);
-    talonSRX.configClosedloopRamp(RollerConstants.kRampRate);
+    talonSRX.setInverted(SpinnerConstants.kIsInverted);
+    talonSRX.configOpenloopRamp(SpinnerConstants.kRampRate);
+    talonSRX.configClosedloopRamp(SpinnerConstants.kRampRate);
 
     colorSensor = new ColorSensorV3(RobotMap.kI2cPort);
     colorMatcher = new ColorMatch();
@@ -59,5 +59,9 @@ public class Roller extends OverridableSubsystem {
 
   //TODO: write calibration function
   public void createColors() {
+    colorMatcher.addColorMatch(Color.kFirstRed);
+    colorMatcher.addColorMatch(Color.kGreen);
+    colorMatcher.addColorMatch(Color.kFirstBlue);
+    colorMatcher.addColorMatch(Color.kYellow);
   }
 }

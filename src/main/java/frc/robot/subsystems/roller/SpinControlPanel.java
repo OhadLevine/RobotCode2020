@@ -2,14 +2,16 @@ package frc.robot.subsystems.roller;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-import static frc.robot.Robot.roller;
+import static frc.robot.Robot.spinner;
 
-public class RollTrench extends CommandBase {
+
+public class SpinControlPanel extends CommandBase {
+
   /**
    * Spins the trench to a specific color or for a specific time.
    */
-  public RollTrench() {
-    addRequirements(roller);
+  public SpinControlPanel() {
+    addRequirements(spinner);
   }
 
   @Override
