@@ -1,4 +1,4 @@
-package frc.robot.subsystems.roller;
+package frc.robot.subsystems.spinner;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -6,23 +6,23 @@ import frc.robot.constants.RobotConstants.SpinnerConstants;
 
 import static frc.robot.Robot.spinner;
 
-public class SpinControlPanel extends CommandBase {
+public class SpinPanelByRotation extends CommandBase {
   private Color startingColor;
-  private double timesOnColor;
+  private int timesOnColor;
   private double timesToSeeColor;
   private boolean seenColor;
 
   /**
    * Spins the Control Panel for a total of three and a half times.
    */
-  public SpinControlPanel() {
+  public SpinPanelByRotation() {
     this(3.5);
   }
 
   /**
    * Spins the Control Panel for a specified amount of times.
    */
-  public SpinControlPanel(double amountOfSpins) {
+  public SpinPanelByRotation(double amountOfSpins) {
     addRequirements(spinner);
     startingColor = spinner.getColor();
     timesToSeeColor = amountOfSpins * 2;
@@ -30,17 +30,19 @@ public class SpinControlPanel extends CommandBase {
   }
 
   @Override
-  public void initialize() {
-  }
-
-  @Override
   public void execute() {
-    spinner.move(SpinnerConstants.kDefaultSpeed);
     if (spinner.isOnColor(startingColor) && seenColor) {
       timesOnColor++;
       seenColor = false;
     } else {
       seenColor = !spinner.isOnColor(startingColor);
+    }
+
+    if ((timesToSeeColor - timesOnColor) == 1) {
+      spinner.move(SpinnerConstants.kCloseToTargetSpeed);
+    } 
+    else {
+      spinner.move(SpinnerConstants.kDefaultSpeed);
     }
   }
 

@@ -18,7 +18,7 @@ import frc.robot.subsystems.intakeopener.IntakeOpener;
 import frc.robot.subsystems.led.LED;
 import frc.robot.subsystems.loader.Loader;
 import frc.robot.subsystems.mixer.Mixer;
-import frc.robot.subsystems.roller.Spinner;
+import frc.robot.subsystems.spinner.Spinner;
 import frc.robot.subsystems.shooter.Shooter;
 import frc.robot.utils.DashboardDataContainer;
 import frc.robot.utils.DriverStationLogger;
