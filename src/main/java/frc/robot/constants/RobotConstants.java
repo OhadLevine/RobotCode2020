@@ -111,7 +111,7 @@ public class RobotConstants {
     public static class SpinnerConstants {
         public static final boolean kIsInverted = false;
         public static final double kRampRate = 0.25;
-        public static final double kTicksPer
+        public static final double kDefaultSpeed = 0.5;
     }
 
     public static class SpinnerOpenerConstants {

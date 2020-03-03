@@ -58,7 +58,7 @@ public class Spinner extends OverridableSubsystem {
   }
 
   //TODO: write calibration function
-  public void createColors() {
+  private void createColors() {
     colorMatcher.addColorMatch(Color.kFirstRed);
     colorMatcher.addColorMatch(Color.kGreen);
     colorMatcher.addColorMatch(Color.kFirstBlue);
