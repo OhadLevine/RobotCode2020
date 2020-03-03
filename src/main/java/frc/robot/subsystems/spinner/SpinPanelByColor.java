@@ -8,39 +8,41 @@ import frc.robot.utils.DriverStationLogger;
 import static frc.robot.Robot.spinner;
 
 public class SpinPanelByColor extends CommandBase {
-  private final Color setpoint; 
-  private final Color startingColor;
-  private final int spinDirection;
+  private Color setpoint;
+  private Color startingColor;
+  private int spinDirection;
   private boolean startedOnSetpoint;
-  /**
-   * Spins the Control Panel to a specified color by the fms for stage three.
-   */
-  public SpinPanelByColor() {
-    this(spinner.getFMSColor());
-  }
 
   /**
    * Spins the Control Panel to a specified color for stage three.
    */
-  public SpinPanelByColor(Color colorSetpoint) {
+  public SpinPanelByColor() {
     addRequirements(spinner);
-    setpoint = colorSetpoint;
+  }
+
+  @Override
+  public void initialize() {
+    setpoint = spinner.getFMSColor();
     if (setpoint == null) {
       DriverStationLogger.logErrorToDS("Did not get any color so cannot run SpinPanelByColor");
       end(true);
     }
+    
     startingColor = spinner.getColor();
     spinDirection = spinner.calculateSpinDirection(startingColor, setpoint);
 
-    if (startingColor == setpoint) startedOnSetpoint = true;
-    else startedOnSetpoint = false;
+    if (startingColor == setpoint)
+      startedOnSetpoint = true;
+    else
+      startedOnSetpoint = false;
   }
 
   @Override
   public void execute() {
     spinner.move(SpinnerConstants.kCloseToTargetSpeed * spinDirection);
 
-    if (!spinner.isOnColor(setpoint )) startedOnSetpoint = false;
+    if (!spinner.isOnColor(setpoint))
+      startedOnSetpoint = false;
   }
 
   @Override
