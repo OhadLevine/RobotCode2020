@@ -14,7 +14,7 @@ import frc.robot.constants.RobotConstants.RollerConstants;
 public class Roller extends OverridableSubsystem {
   private final WPI_TalonSRX talonSRX;
   private final ColorSensorV3 colorSensor;
-  ColorMatch colorMatch;
+  private final ColorMatch colorMatcher;
   /**
    * This class holds all of the methods for the trench roller subsystem, which
    * spins the trench.
@@ -27,9 +27,9 @@ public class Roller extends OverridableSubsystem {
     talonSRX.configClosedloopRamp(RollerConstants.kRampRate);
 
     colorSensor = new ColorSensorV3(RobotMap.kI2cPort);
-    colorMatch = new ColorMatch();
-    colorMatch.addColorMatch(new Color(0.0, 0.0, 0.0));
-    ColorMatchResult match = colorMatch.matchClosestColor(colorSensor.getColor());
+    colorMatcher = new ColorMatch();
+    
+    createColors();
   }
 
   @Override
@@ -47,10 +47,9 @@ public class Roller extends OverridableSubsystem {
 
   // TODO: write compare color function
   public boolean isOnColor(Color desiredColor) {
-    colorMatch.addColorMatch(desiredColor);
-    return true;
+    ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
+    return match.color == desiredColor ? true : false;
   }
-
   /**
    * @return Proximity measurement value, ranging from 0 - far, to 2047 - close.
    */
@@ -59,7 +58,6 @@ public class Roller extends OverridableSubsystem {
   }
 
   //TODO: write calibration function
-  public void calibrateColors() {
-
+  public void createColors() {
   }
 }
