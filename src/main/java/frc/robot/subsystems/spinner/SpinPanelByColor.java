@@ -17,35 +17,28 @@ public class SpinPanelByColor extends CommandBase {
    * Spins the Control Panel to a specified color for stage three.
    */
   public SpinPanelByColor() {
-    this(false);
-  }
-
-    /**
-   * Spins the Control Panel to a specified color for stage three.
-   */
-  public SpinPanelByColor(boolean isTuning) {
     addRequirements(spinner);
   }
 
   @Override
   public void initialize() {
     setpoint = spinner.getFMSColor();
-    if (setpoint == null) {
+    if (setpoint != null) {
+      startingColor = spinner.getColor();
+      spinDirection = spinner.calculateSpinDirection(startingColor, setpoint);
+      startedOnSetpoint = spinner.compareColors(startingColor, setpoint);
+    } else
       DriverStationLogger.logErrorToDS("Did not get any color so cannot run SpinPanelByColor");
-      end(true);
-    }
-
-    startingColor = spinner.getColor();
-    spinDirection = spinner.calculateSpinDirection(startingColor, setpoint);
-    startedOnSetpoint = spinner.compareColors(startingColor, setpoint);
   }
 
   @Override
   public void execute() {
-    spinner.move(SpinnerConstants.kCloseToTargetSpeed * spinDirection);
+    if (setpoint != null) {
+      spinner.move(SpinnerConstants.kCloseToTargetSpeed * spinDirection);
 
-    if (!spinner.isOnColor(startingColor))
-      startedOnSetpoint = false;
+      if (!spinner.isOnColor(startingColor))
+        startedOnSetpoint = false;
+    }
   }
 
   @Override
@@ -55,6 +48,6 @@ public class SpinPanelByColor extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return spinner.isOnColor(setpoint) && !startedOnSetpoint;
+    return spinner.isOnColor(setpoint) && !startedOnSetpoint || setpoint == null;
   }
 }
