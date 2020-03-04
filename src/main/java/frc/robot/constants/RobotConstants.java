@@ -112,11 +112,6 @@ public class RobotConstants {
         public final static double kCloseToTargetSpeed = 0.25;
     }
 
-    public static class SpinnerOpenerConstants {
-        public static final boolean kIsInverted = false;
-        public static final double kRampRate = 0.25;
-    }
-
     public static class MotionProfilingConstants {
         public static final double kMaxVelocity = 0;
         public static final double kMaxAcceleration = 0;

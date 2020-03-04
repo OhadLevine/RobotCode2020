@@ -37,9 +37,6 @@ public abstract class RobotMap {
     // Spinner Map
     // TODO: set real values.
     public static final int kRollerTalonSRX = 0;
-    // Spinner opener Map
-    public static final int kRollerOpenerTalonSRX = 0;
-    public static final int kRollerOpenerPotentiometer = 0;
     // PWM Map
     public static final int kLedController = 0;
     // I2C Port
