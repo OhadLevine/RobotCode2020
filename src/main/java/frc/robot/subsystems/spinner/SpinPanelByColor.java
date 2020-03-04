@@ -1,50 +1,15 @@
 package frc.robot.subsystems.spinner;
 
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.constants.RobotConstants.SpinnerConstants;
-import frc.robot.utils.DriverStationLogger;
+import edu.wpi.first.wpilibj2.command.ConditionalCommand;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.utils.FMSColor;
 
-import static frc.robot.Robot.spinner;
+/**
+ * Add your docs here.
+ */
+public class SpinPanelByColor extends ConditionalCommand {
 
-public class SpinPanelByColor extends CommandBase {
-  private Color setpoint;
-  private Color startingColor;
-  private int spinDirection;
-
-  /**
-   * Spins the Control Panel to a specified color for stage three.
-   */
-  public SpinPanelByColor() {
-    addRequirements(spinner);
-  }
-
-  @Override
-  public void initialize() {
-    setpoint = FMSColor.getFMSColor();
-    if (setpoint != null) {
-      startingColor = spinner.getColor();
-      spinDirection = spinner.calculateSpinDirection(startingColor, setpoint);
-    } else {
-      DriverStationLogger.logErrorToDS("Did not get any color so cannot run SpinPanelByColor");
+    public SpinPanelByColor() {
+        super(new SpinPanelByColorWithoutCondition(), new InstantCommand(), () -> FMSColor.getFMSColor() != null);
     }
-  }
-
-  @Override
-  public void execute() {
-    if (setpoint != null)
-      spinner.move(SpinnerConstants.kCloseToTargetSpeed * spinDirection);
-  }
-
-  @Override
-  public boolean isFinished() {
-    return spinner.isOnColor(setpoint) || setpoint == null;
-  }
-  
-  @Override
-  public void end(boolean interrupted) {
-    spinner.stopMove();
-  }
-
 }
