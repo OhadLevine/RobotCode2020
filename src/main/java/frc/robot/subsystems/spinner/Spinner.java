@@ -31,7 +31,7 @@ public class Spinner extends OverridableSubsystem {
     colorSensor = new ColorSensorV3(RobotMap.kI2cPort);
     colorMatcher = new ColorMatch();
 
-    createColors();
+    createRGBColors();
   }
 
   @Override
@@ -114,11 +114,18 @@ public class Spinner extends OverridableSubsystem {
       return -1;
   }
 
-  private void createColors() {
+  private void createDefaultColors() {
     colorMatcher.addColorMatch(Color.kFirstRed);
     colorMatcher.addColorMatch(Color.kGreen);
     colorMatcher.addColorMatch(Color.kFirstBlue);
     colorMatcher.addColorMatch(Color.kYellow);
+  }
+
+  private void createRGBColors() {
+    colorMatcher.addColorMatch(new Color(0, 255, 255));
+    colorMatcher.addColorMatch(new Color(0, 255, 0));
+    colorMatcher.addColorMatch(new Color(255, 0, 0));
+    colorMatcher.addColorMatch(new Color(255, 255, 0));
   }
 
   public enum Colors {
