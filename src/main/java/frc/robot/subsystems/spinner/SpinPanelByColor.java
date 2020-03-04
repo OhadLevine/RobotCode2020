@@ -5,11 +5,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.utils.FMSColor;
 
 /**
- * Add your docs here.
+ * This class runs the spin panel by by color when the fms sends a color.
  */
 public class SpinPanelByColor extends ConditionalCommand {
 
     public SpinPanelByColor() {
-        super(new SpinPanelByColorWithoutCondition(), new InstantCommand(), () -> FMSColor.getFMSColor() != null);
+        super(new SpinPanelByColorWithoutCondition(), new InstantCommand(), () -> FMSColor.didFMSSendColor());
     }
 }
