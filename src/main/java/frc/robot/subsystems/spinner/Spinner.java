@@ -86,6 +86,7 @@ public class Spinner extends OverridableSubsystem {
         return null;
       }
     } else {
+      DriverStationLogger.logToDS("Did not get any fms data");
       return null;
     }
   }
