@@ -17,6 +17,13 @@ public class SpinPanelByColor extends CommandBase {
    * Spins the Control Panel to a specified color for stage three.
    */
   public SpinPanelByColor() {
+    this(false);
+  }
+
+    /**
+   * Spins the Control Panel to a specified color for stage three.
+   */
+  public SpinPanelByColor(boolean isTuning) {
     addRequirements(spinner);
   }
 

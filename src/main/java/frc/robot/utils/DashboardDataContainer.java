@@ -26,6 +26,8 @@ import frc.robot.subsystems.mixer.SpinMixer;
 import frc.robot.subsystems.mixer.SpinMixerByTime;
 import frc.robot.subsystems.shooter.CheesySetShooterVelocity;
 import frc.robot.subsystems.shooter.SetShooterVelocity;
+import frc.robot.subsystems.spinner.SpinPanelByColor;
+import frc.robot.subsystems.spinner.SpinPanelByRotation;
 import frc.robot.vision.CalibrateVisionDistance;
 import frc.robot.vision.FollowTarget;
 import frc.robot.vision.Target;
@@ -105,7 +107,12 @@ public class DashboardDataContainer {
         putData("Drivetrain/Play song", new StartEndCommand(drivetrain::playSong, drivetrain::stopSong, drivetrain));
 
         // Spinner
-        
+        putNumber("Red", spinner.getColor().red);
+        putNumber("Green", spinner.getColor().green);
+        putNumber("Blue", spinner.getColor().blue);
+        putDefaultNumber("Spinner/Amount of spins", 3);
+        putData("Spinner/Spin Panel By Rotation", new SpinPanelByRotation(getNumber("Spinner/Amount of spins", 0.0)));
+        putData("Spinner/Spin Panel By Color", new SpinPanelByColor());
 
         // Command groups data
         putData("CommandGroup/Collect Cell", new CollectCell());
