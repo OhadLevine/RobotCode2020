@@ -25,28 +25,30 @@ public class SpinPanelByRotation extends CommandBase {
   public SpinPanelByRotation(double amountOfSpins) {
     addRequirements(spinner);
     timesToSeeColor = amountOfSpins * 2;
-    seenColor = false;
   }
 
   @Override
   public void initialize() {
+    seenColor = false;  
     startingColor = spinner.getColor();
   }
 
   @Override
   public void execute() {
-    if (spinner.isOnColor(startingColor) && seenColor) {
+    if (spinner.isOnColor(startingColor) && seenColor) 
       timesOnColor++;
-      seenColor = false;
-    } else {
-      seenColor = !spinner.isOnColor(startingColor);
-    }
-
-    if ((timesToSeeColor - timesOnColor) == 1) {
+    seenColor = !spinner.isOnColor(startingColor);
+    
+    if ((timesToSeeColor - timesOnColor) == 1) 
       spinner.move(SpinnerConstants.kCloseToTargetSpeed);
-    } else {
+    else 
       spinner.move(SpinnerConstants.kDefaultSpeed);
-    }
+    
+  }
+  
+  @Override
+  public boolean isFinished() {
+    return timesOnColor >= timesToSeeColor;
   }
 
   @Override
@@ -54,8 +56,4 @@ public class SpinPanelByRotation extends CommandBase {
     spinner.stopMove();
   }
 
-  @Override
-  public boolean isFinished() {
-    return timesOnColor >= timesToSeeColor;
-  }
 }
