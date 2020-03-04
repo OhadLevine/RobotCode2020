@@ -104,6 +104,9 @@ public class DashboardDataContainer {
         putData("Drivetrain/Load Rasputin", new InstantCommand(() -> drivetrain.loadSong(Song.Rasputin), drivetrain));
         putData("Drivetrain/Play song", new StartEndCommand(drivetrain::playSong, drivetrain::stopSong, drivetrain));
 
+        // Spinner
+        
+
         // Command groups data
         putData("CommandGroup/Collect Cell", new CollectCell());
         putData("CommandGroup/Mix and Load", new ParallelCommandGroup(

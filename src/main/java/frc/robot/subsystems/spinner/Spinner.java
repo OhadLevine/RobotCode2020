@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.constants.RobotMap;
 import frc.robot.subsystems.OverridableSubsystem;
 import frc.robot.utils.DriverStationLogger;
+import io.github.oblarg.oblog.annotations.Log;
 import frc.robot.constants.RobotConstants.SpinnerConstants;
 
 public class Spinner extends OverridableSubsystem {
@@ -26,7 +27,6 @@ public class Spinner extends OverridableSubsystem {
     talonSRX.setNeutralMode(NeutralMode.Coast);
     talonSRX.setInverted(SpinnerConstants.kIsInverted);
     talonSRX.configOpenloopRamp(SpinnerConstants.kRampRate);
-    talonSRX.configClosedloopRamp(SpinnerConstants.kRampRate);
 
     colorSensor = new ColorSensorV3(RobotMap.kI2cPort);
     colorMatcher = new ColorMatch();
@@ -43,6 +43,7 @@ public class Spinner extends OverridableSubsystem {
    * @return an enum of the color, including unknown if the minimum threshold is
    *         not met.
    */
+  @Log(name = "Spinner/Color")
   public Color getColor() {
     return colorSensor.getColor();
   }
@@ -57,6 +58,7 @@ public class Spinner extends OverridableSubsystem {
     return matchResult.color == comparedColor ? true : false;
   }
 
+  @Log(name = "Spinner/Is On Color")
   public boolean isOnColor(Color desiredColor) {
     return compareColors(colorSensor.getColor(), desiredColor);
   }
@@ -64,10 +66,12 @@ public class Spinner extends OverridableSubsystem {
   /**
    * @return Proximity measurement value, ranging from 0 - far, to 2047 - close.
    */
+  @Log(name = "Spinner/Proximity")
   public int getProximity() {
     return colorSensor.getProximity();
   }
 
+  @Log(name = "Spinner/FMS Color")
   public Color getFMSColor() {
     String gameData;
     gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -92,6 +96,7 @@ public class Spinner extends OverridableSubsystem {
   }
 
   /** @return True when the desired color is within two of the current color */
+  @Log(name = "Spinner/Spin Direction")
   public int calculateSpinDirection(Color currentColor, Color desiredColor) {
     int currentColorIndex = 0;
     int desiredColorIndex = 0;
