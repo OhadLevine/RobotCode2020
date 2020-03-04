@@ -47,10 +47,18 @@ public class Spinner extends OverridableSubsystem {
     return colorSensor.getColor();
   }
 
-  // TODO: write compare color function
+  /**
+   * Compare two colors
+   * 
+   * @return are the two colors equal.
+   */
+  public boolean compareColors(Color color, Color comparedColor) {
+    ColorMatchResult matchResult = colorMatcher.matchClosestColor(color);
+    return matchResult.color == comparedColor ? true : false;
+  }
+
   public boolean isOnColor(Color desiredColor) {
-    ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
-    return match.color == desiredColor ? true : false;
+    return compareColors(colorSensor.getColor(), desiredColor);
   }
 
   /**

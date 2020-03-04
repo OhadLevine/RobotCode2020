@@ -30,18 +30,14 @@ public class SpinPanelByColor extends CommandBase {
 
     startingColor = spinner.getColor();
     spinDirection = spinner.calculateSpinDirection(startingColor, setpoint);
-
-    if (startingColor == setpoint)
-      startedOnSetpoint = true;
-    else
-      startedOnSetpoint = false;
+    startedOnSetpoint = spinner.compareColors(startingColor, setpoint);
   }
 
   @Override
   public void execute() {
     spinner.move(SpinnerConstants.kCloseToTargetSpeed * spinDirection);
 
-    if (!spinner.isOnColor(setpoint))
+    if (!spinner.isOnColor(startingColor))
       startedOnSetpoint = false;
   }
 

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.spinner.spinneropener;
+package frc.robot.subsystems.spinneropener;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
