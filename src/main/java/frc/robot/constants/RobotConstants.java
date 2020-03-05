@@ -1,6 +1,7 @@
 package frc.robot.constants;
 
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.utils.PIDSettings;
 
 /**
@@ -110,6 +111,10 @@ public class RobotConstants {
         public static final double kRampRate = 0.25;
         public static final double kDefaultSpeed = 0.6;
         public final static double kCloseToTargetSpeed = 0.25;
+        public static final Color kRed = new Color(255, 0, 0);
+        public static final Color kGreen = new Color(0, 255, 0);
+        public static final Color kBlue = new Color(0, 255, 255);
+        public static final Color kYellow = new Color(255, 255, 0);
     }
 
     public static class MotionProfilingConstants {

@@ -33,7 +33,7 @@ public class Spinner extends OverridableSubsystem {
     colorSensor = new ColorSensorV3(RobotMap.kI2cPort);
     colorMatcher = new ColorMatch();
 
-    createColors(true);
+    createColors();
   }
 
   @Override
@@ -56,7 +56,7 @@ public class Spinner extends OverridableSubsystem {
    */
   public boolean compareColors(Color color, Color comparedColor) {
     ColorMatchResult matchResult = colorMatcher.matchClosestColor(color);
-    return matchResult.color == comparedColor ? true : false;
+    return matchResult.color == comparedColor;
   }
 
   @Log(name = "Spinner/Is On Color")
@@ -72,10 +72,10 @@ public class Spinner extends OverridableSubsystem {
     return colorSensor.getProximity();
   }
 
-  /** @return True when the desired color is within two of the current color */
+  /** @return the number to multiply motor output by for positive or negative */
   @Log(name = "Spinner/Spin Direction")
   public int calculateSpinDirection(Color currentColor, Color desiredColor) {
-    Color[] colors = {kBlue, kYellow, kGreen, kRed, kBlue};
+    Color[] colors = { kBlue, kYellow, kGreen, kRed, kBlue };
     int currentColorIndex = 0;
     int desiredColorIndex = 0;
     for (int i = 0; i < colors.length; i++) {
@@ -96,22 +96,10 @@ public class Spinner extends OverridableSubsystem {
    * @param DefaultOrRGB Creates the default colors if true, if not creates RGB
    *                     Colors
    */
-  private void createColors(boolean DefaultOrRGB) {
-    if (DefaultOrRGB) {
-      kRed = Color.kFirstRed;
-      kGreen = Color.kGreen;
-      kBlue = Color.kFirstBlue;
-      kYellow = Color.kYellow;
-    } else {
-      kRed = new Color(255, 0, 0);
-      kGreen = new Color(0, 255, 0);
-      kBlue = new Color(0, 255, 255);
-      kYellow = new Color(255, 255, 0);
-    }
-
-    colorMatcher.addColorMatch(kRed);
-    colorMatcher.addColorMatch(kGreen);
-    colorMatcher.addColorMatch(kBlue);
-    colorMatcher.addColorMatch(kYellow);
+  private void createColors() {
+    colorMatcher.addColorMatch(SpinnerConstants.kBlue);
+    colorMatcher.addColorMatch(SpinnerConstants.kGreen);
+    colorMatcher.addColorMatch(SpinnerConstants.kBlue);
+    colorMatcher.addColorMatch(SpinnerConstants.kYellow);
   }
 }

@@ -39,7 +39,7 @@ public class SpinPanelByRotation extends CommandBase {
       timesOnColor++;
     seenColor = !spinner.isOnColor(startingColor);
     
-    if ((timesToSeeColor - timesOnColor) == 1) 
+    if ((timesToSeeColor - timesOnColor) <= 1) 
       spinner.move(SpinnerConstants.kCloseToTargetSpeed);
     else 
       spinner.move(SpinnerConstants.kDefaultSpeed);

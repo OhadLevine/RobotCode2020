@@ -2,6 +2,7 @@ package frc.robot.utils;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.constants.RobotConstants.SpinnerConstants;
 
 /**
  * This class gets a string of the desired control panel color and converts it
@@ -19,13 +20,13 @@ public final class FMSColor {
         if (gameData.length() > 0) {
             switch (gameData.charAt(0)) {
             case 'B':
-                return Color.kFirstBlue;
+                return SpinnerConstants.kBlue;
             case 'G':
-                return Color.kGreen;
+                return SpinnerConstants.kGreen;
             case 'R':
-                return Color.kFirstRed;
+                return SpinnerConstants.kRed;
             case 'Y':
-                return Color.kYellow;
+                return SpinnerConstants.kRed;
             default:
                 DriverStationLogger.logErrorToDS("FMS COLOR DATA IS CORRUPT");
                 return null;
@@ -36,8 +37,7 @@ public final class FMSColor {
         }
     }
 
-    public static boolean didFMSSendColor(){
-        if (DriverStation.getInstance().getGameSpecificMessage().length() > 0) return false;
-        else return true;
+    public static boolean didFMSSendColor() {
+        return DriverStation.getInstance().getGameSpecificMessage().length() > 0;
     }
 }
