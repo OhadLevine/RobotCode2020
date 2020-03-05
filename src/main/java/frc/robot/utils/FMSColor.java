@@ -3,6 +3,7 @@ package frc.robot.utils;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.constants.RobotConstants.SpinnerConstants;
+import io.github.oblarg.oblog.annotations.Log;
 
 /**
  * This class gets a string of the desired control panel color and converts it
@@ -37,6 +38,7 @@ public final class FMSColor {
         }
     }
 
+    @Log(name = "FMS/Did FMS Send Color")
     public static boolean didFMSSendColor() {
         return DriverStation.getInstance().getGameSpecificMessage().length() > 0;
     }

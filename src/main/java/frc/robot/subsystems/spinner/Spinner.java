@@ -55,8 +55,9 @@ public class Spinner extends OverridableSubsystem {
    * @return are the two colors equal.
    */
   public boolean compareColors(Color color, Color comparedColor) {
-    ColorMatchResult matchResult = colorMatcher.matchClosestColor(color);
-    return matchResult.color == comparedColor;
+    ColorMatchResult match = colorMatcher.matchClosestColor(comparedColor);
+    return match.color == comparedColor;
+    //return color == comparedColor;
   }
 
   @Log(name = "Spinner/Is On Color")

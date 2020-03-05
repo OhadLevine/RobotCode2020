@@ -107,12 +107,12 @@ public class DashboardDataContainer {
         putData("Drivetrain/Play song", new StartEndCommand(drivetrain::playSong, drivetrain::stopSong, drivetrain));
 
         // Spinner
-        putNumber("Current Red Value", spinner.getColor().red);
-        putNumber("Current Green Value", spinner.getColor().green);
-        putNumber("Current Blue Value", spinner.getColor().blue);
-        putDefaultNumber("Spinner/Amount of spins", 3.5);
-        putData("Spinner/Spin Panel By Rotation", new SpinPanelByRotation(getNumber("Spinner/Amount of spins", 0.0)));
-        putData("Spinner/Spin Panel By Color", new SpinPanelByColor());
+        putNumber("Current Red Value", spinner.getColor().red * 255);
+        putNumber("Current Green Value", spinner.getColor().green * 255);
+        putNumber("Current Blue Value", spinner.getColor().blue * 255);
+        //putDefaultNumber("Spinner/Amount of spins", 3.5);
+        //putData("Spinner/Spin Panel By Rotation", new SpinPanelByRotation(getNumber("Spinner/Amount of spins", 0.0)));
+        //putData("Spinner/Spin Panel By Color", new SpinPanelByColor());
 
         // Command groups data
         putData("CommandGroup/Collect Cell", new CollectCell());

@@ -10,6 +10,7 @@ import frc.robot.commands.command_groups.CollectCell;
 import frc.robot.commands.command_groups.CollectFromFeeder;
 import frc.robot.commands.command_groups.ShortCollectCell;
 import frc.robot.constants.RobotConstants.IntakeConstants;
+import frc.robot.constants.RobotConstants.SpinnerConstants;
 import frc.robot.motion_profiling.AutoPath;
 import frc.robot.motion_profiling.CalibrateFeedforward;
 import frc.robot.motion_profiling.FollowPath;
@@ -62,9 +63,9 @@ public class RobotTest {
     @Test
     public void commandsTest() {
         Command[] commands = new Command[]{
-            new SpinPanelByColor(),
-            new SpinPanelByColorWithoutCondition(),
-            new SpinPanelByRotation(),
+            //new SpinPanelByColorWithoutCondition(() -> SpinnerConstants.kBlue),
+            //new SpinPanelByColor(),
+            //new SpinPanelByRotation(),
             new SetLoaderSpeed(),
             new SpinMixer(),
             new SetIntakeSpeed(IntakeConstants.kDefaultIntakePower),

@@ -10,6 +10,6 @@ import frc.robot.utils.FMSColor;
 public class SpinPanelByColor extends ConditionalCommand {
 
     public SpinPanelByColor() {
-        super(new SpinPanelByColorWithoutCondition(), new InstantCommand(), () -> FMSColor.didFMSSendColor());
+        super(new SpinPanelByColorWithoutCondition(() -> FMSColor.getFMSColor()), new InstantCommand(), () -> FMSColor.didFMSSendColor());
     }
 }

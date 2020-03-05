@@ -7,23 +7,27 @@ import frc.robot.utils.FMSColor;
 
 import static frc.robot.Robot.spinner;
 
+import java.util.function.Supplier;
+
 public class SpinPanelByColorWithoutCondition extends CommandBase {
-  private Color setpoint;
+  private Supplier<Color> setpoint;
   private Color startingColor;
   private int spinDirection;
 
   /**
    * Spins the Control Panel to a specified color for stage three.
    */
-  public SpinPanelByColorWithoutCondition() {
+  public SpinPanelByColorWithoutCondition(Supplier<Color> setpoint) {
     addRequirements(spinner);
+    this.setpoint = setpoint;
   }
 
   @Override
   public void initialize() {
-    setpoint = FMSColor.getFMSColor();
     startingColor = spinner.getColor();
-    spinDirection = spinner.calculateSpinDirection(startingColor, setpoint);
+    spinDirection = spinner.calculateSpinDirection(
+      /** startingColor */ SpinnerConstants.kGreen,
+      /** setpoint.get()) */ SpinnerConstants.kYellow);
   }
 
   @Override
@@ -33,12 +37,11 @@ public class SpinPanelByColorWithoutCondition extends CommandBase {
 
   @Override
   public boolean isFinished() {
-    return spinner.isOnColor(setpoint);
+    return spinner.isOnColor(setpoint.get());
   }
 
   @Override
   public void end(boolean interrupted) {
     spinner.stopMove();
   }
-
 }
