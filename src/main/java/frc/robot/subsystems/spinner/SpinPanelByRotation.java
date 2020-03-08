@@ -53,7 +53,7 @@ public class SpinPanelByRotation extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    spinner.stopMove();
+    spinner.stopMoving();
   }
 
 }
