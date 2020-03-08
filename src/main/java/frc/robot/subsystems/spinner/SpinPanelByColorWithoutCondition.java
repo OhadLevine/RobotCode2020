@@ -3,7 +3,6 @@ package frc.robot.subsystems.spinner;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.RobotConstants.SpinnerConstants;
-import frc.robot.utils.FMSColor;
 
 import static frc.robot.Robot.spinner;
 
@@ -25,9 +24,7 @@ public class SpinPanelByColorWithoutCondition extends CommandBase {
   @Override
   public void initialize() {
     startingColor = spinner.getColor();
-    spinDirection = spinner.calculateSpinDirection(
-      /** startingColor */ SpinnerConstants.kGreen,
-      /** setpoint.get()) */ SpinnerConstants.kYellow);
+    spinDirection = spinner.calculateSpinDirection(startingColor, setpoint.get());
   }
 
   @Override
