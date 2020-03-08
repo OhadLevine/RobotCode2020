@@ -109,14 +109,14 @@ public class RobotConstants {
     public static class SpinnerConstants {
         public static final boolean kIsInverted = false;
         public static final double kRampRate = 0.25;
-        public static final double kDefaultSpeed = 0.6;
-        public static final double kCloseToTargetSpeed = 0.25;
+        public static final double kDefaultSpeed = 0.8;
+        public static final double kCloseToTargetSpeed = 0.3;
+        public static final double kMinimumProximity = 1000;
+        public static final double kColorMatcherConfidenceThreshold = 0.9;
         public static final Color kRed = new Color(0.530, 0.340, 0.128);
         public static final Color kGreen = new Color(0.162, 0.587, 0.249);
         public static final Color kBlue = new Color(0.122, 0.428, 0.448);
         public static final Color kYellow = new Color(0.317, 0.564, 0.116);
-        public static final double kMinimumProximity = 1000;
-        public static final double kColorMatcherConfidenceThreshold = 0.9;
     }
 
     public static class MotionProfilingConstants {
