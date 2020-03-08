@@ -54,10 +54,9 @@ public class Spinner extends OverridableSubsystem {
    * 
    * @return are the two colors equal.
    */
-  public boolean compareColors(Color color, Color comparedColor) {
-    ColorMatchResult match = colorMatcher.matchClosestColor(comparedColor);
-    return match.color == comparedColor;
-    //return color == comparedColor;
+  public boolean compareColors(Color color, Color colorToCompare) {
+    ColorMatchResult match = colorMatcher.matchClosestColor(color);
+    return match.color == colorToCompare;
   }
 
   @Log(name = "Spinner/Is On Color")
@@ -93,10 +92,6 @@ public class Spinner extends OverridableSubsystem {
       return -1;
   }
 
-  /**
-   * @param DefaultOrRGB Creates the default colors if true, if not creates RGB
-   *                     Colors
-   */
   private void createColors() {
     colorMatcher.addColorMatch(SpinnerConstants.kBlue);
     colorMatcher.addColorMatch(SpinnerConstants.kGreen);

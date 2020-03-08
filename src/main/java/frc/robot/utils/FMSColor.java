@@ -27,7 +27,7 @@ public final class FMSColor {
             case 'R':
                 return SpinnerConstants.kRed;
             case 'Y':
-                return SpinnerConstants.kRed;
+                return SpinnerConstants.kYellow;
             default:
                 DriverStationLogger.logErrorToDS("FMS COLOR DATA IS CORRUPT");
                 return null;
@@ -40,6 +40,6 @@ public final class FMSColor {
 
     @Log(name = "FMS/Did FMS Send Color")
     public static boolean didFMSSendColor() {
-        return DriverStation.getInstance().getGameSpecificMessage().length() > 0;
+        return getFMSColor() != null;
     }
 }
