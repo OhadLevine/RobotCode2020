@@ -50,8 +50,12 @@ public class Spinner extends OverridableSubsystem {
   }
 
   /**
-   * Compare two colors
+   * Compare two colors.
    * 
+   * @param color          the color that isn't set, put this as the color that
+   *                       should be checked with the set color
+   * @param colorToCompare the color that is set, this should be a pre-existing
+   *                       color.
    * @return are the two colors equal.
    */
   public boolean compareColors(Color color, Color colorToCompare) {
@@ -78,24 +82,37 @@ public class Spinner extends OverridableSubsystem {
     Color[] colors = { kBlue, kYellow, kGreen, kRed, kBlue };
     int currentColorIndex = 0;
     int desiredColorIndex = 0;
-    for (int i = 0; i < colors.length; i++) {
-      if (compareColors(colors[i], currentColor))
+    for (int i = 0; i < colors.length - 1; i++) {
+      if (compareColors(currentColor, colors[i]))
         currentColorIndex = i;
-      if (compareColors(colors[i], desiredColor))
+      if (compareColors(desiredColor, colors[i]))
         desiredColorIndex = i;
     }
-
-    // TODO: find when should turn right
     if (compareColors(colors[currentColorIndex + 1], colors[desiredColorIndex]))
       return 1;
     else
       return -1;
   }
 
+  /** Changes an accepted color to a string */
+  public String ColorToString(Color color) {
+    if (compareColors(color, kBlue)) {
+      return "Blue";
+    } else if (compareColors(color, kRed)) {
+      return "Red";
+    } else if (compareColors(color, kGreen)) {
+      return "Green";
+    } else if (compareColors(color, kYellow)) {
+      return "Yellow";
+    } else {
+      return "Unknown";
+    }
+  }
+
   private void createColors() {
     colorMatcher.addColorMatch(SpinnerConstants.kBlue);
     colorMatcher.addColorMatch(SpinnerConstants.kGreen);
-    colorMatcher.addColorMatch(SpinnerConstants.kBlue);
+    colorMatcher.addColorMatch(SpinnerConstants.kRed);
     colorMatcher.addColorMatch(SpinnerConstants.kYellow);
   }
 }
