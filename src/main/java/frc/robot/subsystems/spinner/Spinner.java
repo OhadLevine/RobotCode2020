@@ -33,7 +33,6 @@ public class Spinner extends OverridableSubsystem {
     colorSensor = new ColorSensorV3(RobotMap.kI2cPort);
     colorMatcher = new ColorMatch();
     colorMatcher.setConfidenceThreshold(SpinnerConstants.kColorMatcherConfidenceThreshold);
-
     createColors();
   }
 

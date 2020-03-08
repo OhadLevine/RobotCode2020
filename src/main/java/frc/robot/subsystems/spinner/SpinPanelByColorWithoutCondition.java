@@ -3,10 +3,9 @@ package frc.robot.subsystems.spinner;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.RobotConstants.SpinnerConstants;
+import java.util.function.Supplier;
 
 import static frc.robot.Robot.spinner;
-
-import java.util.function.Supplier;
 
 public class SpinPanelByColorWithoutCondition extends CommandBase {
   private Supplier<Color> setpoint;
