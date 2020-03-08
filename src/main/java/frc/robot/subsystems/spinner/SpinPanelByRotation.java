@@ -24,6 +24,7 @@ public class SpinPanelByRotation extends CommandBase {
    */
   public SpinPanelByRotation(double amountOfSpins) {
     addRequirements(spinner);
+    timesOnColor = 0;
     timesToSeeColor = amountOfSpins * 2;
   }
 

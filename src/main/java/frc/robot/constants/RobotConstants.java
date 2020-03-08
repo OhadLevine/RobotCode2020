@@ -115,7 +115,8 @@ public class RobotConstants {
         public static final Color kGreen = new Color(0.162, 0.587, 0.249);
         public static final Color kBlue = new Color(0.122, 0.428, 0.448);
         public static final Color kYellow = new Color(0.317, 0.564, 0.116);
-        public static final double minimumProximity = 1000;
+        public static final double kMinimumProximity = 1000;
+        public static final double kColorMatcherConfidenceThreshold = 0.9;
     }
 
     public static class MotionProfilingConstants {

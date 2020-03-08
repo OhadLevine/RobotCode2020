@@ -17,7 +17,7 @@ public class SpinControlPanel extends SequentialCommandGroup {
    *                        it by color from the fms.
    */
   public SpinControlPanel(boolean rotationOrColor) {
-    super(new WaitUntilCommand(() -> spinner.getProximity() > SpinnerConstants.minimumProximity),
+    super(new WaitUntilCommand(() -> spinner.getProximity() > SpinnerConstants.kMinimumProximity),
         new ConditionalCommand(new SpinPanelByRotation(), new SpinPanelByColor(), () -> rotationOrColor));
   }
 }

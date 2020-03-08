@@ -32,6 +32,7 @@ public class Spinner extends OverridableSubsystem {
 
     colorSensor = new ColorSensorV3(RobotMap.kI2cPort);
     colorMatcher = new ColorMatch();
+    colorMatcher.setConfidenceThreshold(SpinnerConstants.kColorMatcherConfidenceThreshold);
 
     createColors();
   }
@@ -42,11 +43,11 @@ public class Spinner extends OverridableSubsystem {
   }
 
   /**
-   * @return an enum of the color, including unknown if the minimum threshold is
-   *         not met.
+   * @return an enum of the closest color.
    */
   public Color getColor() {
-    return colorSensor.getColor();
+    ColorMatchResult match = colorMatcher.matchClosestColor(colorSensor.getColor());
+    return match.color;
   }
 
   /**
